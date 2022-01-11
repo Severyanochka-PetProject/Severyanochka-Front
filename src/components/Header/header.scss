@@ -1,16 +1,17 @@
+@import "../../scss/variables";
+
 .header {
   height: 72px;
   width: 100%;
   background: #FFFFFF;
   box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.1);
-  //padding: 0 116px;
   box-sizing: border-box;
 
   &-wrapper {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: 1210px;
+    width: $wrapperWidth;
     margin: auto;
     height: 100%;
 

@@ -1,5 +1,12 @@
+@import "./variables";
+
 * {
   padding: 0;
   margin: 0;
   font-family: Rubik, sans-serif;
+}
+
+.main {
+  max-width: $wrapperWidth;
+  margin: 0 auto;
 }

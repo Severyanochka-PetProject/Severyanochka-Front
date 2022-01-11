@@ -1,0 +1,62 @@
+.article {
+  width: 376px;
+  min-height: 420px;
+  box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  background: #FFFFFF;
+  overflow: hidden;
+  box-sizing: border-box;
+  position: relative;
+
+  &__wrapper {
+    padding: 10px;
+
+    small {
+      color: #8F8F8F;
+      font-size: 0.75rem;
+      margin: 0 0 10px 0;
+      display: block;
+    }
+  }
+
+  &__title {
+    color: #414141;
+    line-height: 150%;
+    font-family: "Rubik-SemiBold", sans-serif;
+    margin-bottom: 10px;
+  }
+
+  &__text {
+    color: #414141;
+    font-size: 1rem;
+    line-height: 150%;
+  }
+
+  &__btn {
+    width: 150px;
+    height: 40px;
+    background: #E5FFDE;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    cursor: pointer;
+    transition: .3s all;
+
+    p {
+      color: #70C05B;
+      font-size: 1rem;
+    }
+
+    &:hover {
+      background: #70C05B;
+      p {
+        color: #FFFFFF;
+      }
+      transition: .3s all;
+    }
+  }
+}
