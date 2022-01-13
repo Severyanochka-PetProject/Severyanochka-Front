@@ -1,17 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
 
 import './app.scss';
 import HomePage from "../../pages/HomePage/HomePage";
+import ModalWrapper from "../../hoc/ModalWrapper/ModalWrapper";
 
 function App() {
+    const [modalOpen, toggleModal] = useState(true)
+
   return (
     <div className="app">
-      <Routes>
-        <Route path="/" element={
-          <HomePage/>
-        }/>
-      </Routes>
+        <ModalWrapper active={modalOpen} toggleModal={toggleModal} />
+        <Routes>
+            <Route path="/" element={
+                <HomePage/>
+            }/>
+        </Routes>
     </div>
   );
 }
