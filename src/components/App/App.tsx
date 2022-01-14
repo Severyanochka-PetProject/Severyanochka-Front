@@ -5,12 +5,11 @@ import './app.scss';
 import HomePage from "../../pages/HomePage/HomePage";
 import ModalWrapper from "../../hoc/ModalWrapper/ModalWrapper";
 
-function App() {
-    const [modalOpen, toggleModal] = useState(true)
 
+function App() {
   return (
     <div className="app">
-        <ModalWrapper active={modalOpen} toggleModal={toggleModal} />
+        <ModalWrapper />
         <Routes>
             <Route path="/" element={
                 <HomePage/>

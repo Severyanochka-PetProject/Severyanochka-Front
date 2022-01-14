@@ -1,18 +1,16 @@
-import React, {FC} from 'react';
+import React, { FC } from 'react';
+import { useSelector } from "react-redux";
 
 import './modalWrapper.scss';
 import AuthPopup from "../../components/ModalsPopup/AuthPopup/AuthPopup";
+import { initialState } from "../../types/modals";
 
-interface IModalWrapper {
-    active: Boolean,
-    toggleModal: (value: boolean) => void,
-}
-
-const ModalWrapper: FC<IModalWrapper> = ({ active, toggleModal }) => {
+const ModalWrapper: FC = () => {
+    const isOpen = useSelector((state: initialState) => state.modalArea.isOpen)
 
     return (
-        <div className={`modal-wrapper ${active ? 'modal_active' : ''}`}>
-            <AuthPopup closeModal={(value: boolean) => toggleModal(value)} />
+        <div className={`modal-wrapper ${isOpen ? 'modal_active' : ''}`}>
+            <AuthPopup />
         </div>
     );
 };

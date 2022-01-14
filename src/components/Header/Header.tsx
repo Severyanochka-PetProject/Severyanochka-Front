@@ -1,10 +1,25 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
 import './header.scss';
+import { IAction } from "../../types/modals";
 
 function Header () {
+    const dispatch = useDispatch();
     const [isAuth, toggleAuth] = useState(false);
+
+    const openAuthPopup = () => {
+        const action: IAction = {
+            type: 'SWITCH_AUTH_MODAL',
+            payload: {
+                isOpen: true,
+                popup: true
+            }
+        };
+
+        dispatch(action);
+    }
 
     return (
         <header className="header">
@@ -67,7 +82,7 @@ function Header () {
                         </div>
                     </div>
                 ) : (
-                    <div className="header-wrapper__signIn">
+                    <div className="header-wrapper__signIn" onClick={openAuthPopup}>
                         <button>
                             Войти
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
