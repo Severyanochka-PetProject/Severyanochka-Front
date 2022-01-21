@@ -5,9 +5,13 @@ import { useDispatch } from "react-redux";
 import './header.scss';
 import { IAction } from "../../types/modals";
 
+import CatalogList from "../CatalogList/CatalogList";
+
 function Header () {
     const dispatch = useDispatch();
     const [isAuth, toggleAuth] = useState(false);
+
+    const [isOpenCatalogList, toggleCatalogList] = useState(false)
 
     const openAuthPopup = () => {
         const action: IAction = {
@@ -30,7 +34,7 @@ function Header () {
                         </Link>
                     </div>
                 <div className="header-wrapper__filter">
-                        <div className="filter-options">
+                        <div className="filter-options" onClick={() => toggleCatalogList(!isOpenCatalogList)}>
                             <img src="/images/header/burger-filter.svg" alt=""/>
                             <p>Каталог</p>
                         </div>
@@ -94,6 +98,7 @@ function Header () {
                     </div>
                 )}
                 </div>
+            <CatalogList isOpen={isOpenCatalogList} />
         </header>
     )
 }

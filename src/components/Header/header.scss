@@ -6,6 +6,7 @@
   background: #FFFFFF;
   box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.1);
   box-sizing: border-box;
+  position: relative;
 
   &-wrapper {
     display: flex;
@@ -14,6 +15,7 @@
     width: $wrapperWidth;
     margin: auto;
     height: 100%;
+    z-index: 2;
 
     &__logo {}
 
@@ -92,9 +94,19 @@
           flex-direction: column;
           align-items: center;
           justify-content: space-between;
+          transition: .1s all;
 
           &:not(:last-child) {
             margin-right: 24px;
+          }
+
+          &:hover {
+            transition: .1s all;
+            color: #FF6633;
+
+            svg path {
+              fill: #FF6633;
+            }
           }
         }
       }
