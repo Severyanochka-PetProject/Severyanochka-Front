@@ -12,5 +12,55 @@
   &__wrapper {
     width: $wrapperWidth;
     height: 45px;
+    display: flex;
+    align-items: center;
+  }
+
+  &__left {
+    margin-right: 0;
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+  }
+
+  &__links {
+    display: flex;
+    margin: 0 0 0 40px;
+
+    a {
+      text-decoration: none;
+      color: #414141;
+      font-size: 0.75rem;
+      display: block;
+
+      &:not(:last-child) {
+        margin-right: 40px;
+      }
+    }
+  }
+
+  &__social {
+
+    a {
+      &:not(:last-child) {
+        margin-right: 16px;
+      }
+    }
+  }
+
+  &__phone {
+    margin-left: 40px;
+
+    a {
+      display: flex;
+      align-items: center;
+      color: #414141;
+      text-decoration: none;
+      font-family: "Rubik-Medium", sans-serif;
+
+      svg {
+        margin-right: 8px;
+      }
+    }
   }
 }
