@@ -8,7 +8,7 @@ function Footer () {
         <footer className="footer">
             <div className="footer__wrapper">
                 <div className="footer__logo">
-                    <Link to="#">
+                    <Link to="/">
                         <img src="/images/footer/logo.svg" alt=""/>
                     </Link>
                 </div>

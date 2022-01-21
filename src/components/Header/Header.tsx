@@ -34,9 +34,9 @@ function Header () {
                         </Link>
                     </div>
                 <div className="header-wrapper__filter">
-                        <div className="filter-options" onClick={() => toggleCatalogList(!isOpenCatalogList)}>
-                            <img src="/images/header/burger-filter.svg" alt=""/>
-                            <p>Каталог</p>
+                        <div className="filter-options">
+                            <img onClick={() => toggleCatalogList(!isOpenCatalogList)} src="/images/header/burger-filter.svg" alt=""/>
+                            <Link to="/categories">Каталог</Link>
                         </div>
                         <div className="filter-input">
                             <input type="text" placeholder="Найти товар" />
