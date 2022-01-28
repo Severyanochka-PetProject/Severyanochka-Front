@@ -3,15 +3,15 @@ import { useDispatch } from "react-redux";
 
 import './authPopup.scss';
 import phoneMask from "../../../plugins/phoneMask.js";
-import { IAction } from "../../../types/modals";
+import {modalAction, modalActionTypes} from "../../../types/modals";
 
 
 const AuthPopup: FC = () => {
     const dispatch = useDispatch();
 
     const closeModal = () => {
-        const action: IAction = {
-            type: 'SWITCH_AUTH_MODAL',
+        const action: modalAction = {
+            type: modalActionTypes.SWITCH_AUTH_MODAL,
             payload: {
                 isOpen: false,
                 popup: false

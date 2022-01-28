@@ -3,10 +3,10 @@ import { useSelector } from "react-redux";
 
 import './modalWrapper.scss';
 import AuthPopup from "../../components/ModalsPopup/AuthPopup/AuthPopup";
-import { initialState } from "../../types/modals";
+import {RootState} from "../../store/reducers";
 
 const ModalWrapper: FC = () => {
-    const isOpen = useSelector((state: initialState) => state.modalArea.isOpen)
+    const isOpen = useSelector((state: RootState) => state.modal.modalArea.isOpen)
 
     return (
         <div className={`modal-wrapper ${isOpen ? 'modal_active' : ''}`}>

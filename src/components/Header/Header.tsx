@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
 import './header.scss';
-import { IAction } from "../../types/modals";
+import {modalAction, modalActionTypes} from "../../types/modals";
 
 import CatalogList from "../CatalogList/CatalogList";
 
@@ -14,8 +14,8 @@ function Header () {
     const [isOpenCatalogList, toggleCatalogList] = useState(false)
 
     const openAuthPopup = () => {
-        const action: IAction = {
-            type: 'SWITCH_AUTH_MODAL',
+        const action: modalAction = {
+            type: modalActionTypes.SWITCH_AUTH_MODAL,
             payload: {
                 isOpen: true,
                 popup: true

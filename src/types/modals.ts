@@ -1,4 +1,8 @@
-export interface IAction {
+export enum modalActionTypes {
+    SWITCH_AUTH_MODAL = "SWITCH_AUTH_MODAL",
+}
+
+export interface modalAction {
     type: string,
     payload: {
         isOpen: boolean,
