@@ -88,16 +88,6 @@ const AuthPopup: FC = () => {
                                 <button onClick={signIn}>Подтвердить</button>
                             </div>
                         </div>
-                        {/*{*/}
-                        {/*    authStage === 1 ?*/}
-                        {/*        <>*/}
-                        {/*            */}
-                        {/*        </>*/}
-                        {/*        :*/}
-                        {/*        <>*/}
-                        {/*            */}
-                        {/*        </>*/}
-                        {/*}*/}
                     </div>
                 <div className="content-bottom">
                     <div className="content-bottom__btn">
