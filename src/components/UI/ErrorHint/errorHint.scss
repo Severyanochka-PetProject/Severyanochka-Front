@@ -1,0 +1,27 @@
+.error-hint {
+  background: #D80000;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  padding: 8px 10px;
+  z-index: 1;
+  width: max-content;
+  max-width: 260px;
+
+  svg {
+    margin-right: 16px;
+  }
+
+  &__text {
+    color: #F2F2F2;
+    font-size: 0.875rem;
+    line-height: 24px;
+  }
+
+  img {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}

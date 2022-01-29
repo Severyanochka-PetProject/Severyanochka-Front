@@ -24,20 +24,42 @@
 
   &__content {
     width: 260px;
-    margin: 72px auto 40px 72px;
+    margin: 72px auto 40px auto;
+    box-sizing: border-box;
 
     .content-header {
       text-align: center;
-      color: #414141;
-      font-size: 1.5rem;
+
+      h1 {
+        color: #414141;
+        font-size: 1.5rem;
+      }
     }
 
     .content-main {
       margin-top: 35px;
 
       .auth-input {
+        position: relative;
 
-        p {
+        .auth-hint {
+          z-index: 1;
+          position: absolute;
+          bottom: 100%;
+          left: 50%;
+          transform: translateX(-50%);
+          opacity: 0;
+          user-select: none;
+          transition: .3s;
+
+          &_visible {
+            opacity: 1;
+            transition: .3s;
+            user-select: inherit;
+          }
+        }
+
+        &__title {
           color: #8F8F8F;
           font-size: 1.125rem;
           margin-bottom: 8px;
@@ -55,6 +77,25 @@
           outline: none;
           width: 100%;
         }
+
+        &__block {
+          position: relative;
+
+          &.password-input {
+
+            input {
+              padding-right: 40px;
+            }
+          }
+
+          svg {
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            right: 14px;
+          }
+        }
       }
 
       &__btn {
@@ -63,12 +104,33 @@
         button {
           width: 100%;
           height: 68px;
-          background: #FCD5BA;
           border-radius: 4px;
           border: none;
           cursor: pointer;
           font-size: 1.5rem;
-          color: #FF6633;
+          background: #FF6633;
+          color: #FFFFFF;
+          transition: .3s all;
+
+          &:hover {
+            transition: .3s all;
+            box-shadow: 4px 8px 16px rgba(255, 102, 51, 0.2);
+          }
+
+          &:disabled {
+            transition: .3s all;
+            color: #FF6633;
+            background: #FCD5BA;
+
+            &:hover {
+              box-shadow: inherit;
+            }
+          }
+
+          &:active {
+            transition: .3s all;
+            box-shadow: inset 0 2px 0 rgba(0, 0, 0, 0.2);
+          }
         }
       }
     }
@@ -78,6 +140,7 @@
       align-items: center;
       justify-content: space-between;
       margin-top: 32px;
+      height: 34px;
 
       &__btn, &__link {
         cursor: pointer;
@@ -91,10 +154,11 @@
         border-radius: 4px;
         border: 1px solid #70C05B;
         width: 120px;
-        height: 32px;
+        height: 100%;
         display: flex;
         align-items: center;
         justify-content: center;
+        box-sizing: border-box;
 
         p {
           color: #70C05B;
@@ -102,6 +166,12 @@
       }
 
       &__link {
+        display: flex;
+        align-items: center;
+
+        svg {
+          margin-right: 8px;
+        }
 
         p {
           color: #606060;
