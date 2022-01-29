@@ -6,11 +6,14 @@ import AuthPopup from "../../components/ModalsPopup/AuthPopup/AuthPopup";
 import {RootState} from "../../store/reducers";
 
 const ModalWrapper: FC = () => {
-    const isOpen = useSelector((state: RootState) => state.modal.modalArea.isOpen)
+    const isOpen = useSelector((state: RootState) => state.modal.modalArea.isOpen);
+    const openAuth = useSelector((state: RootState) => state.modal.modalArea.modals.authPopup);
 
     return (
         <div className={`modal-wrapper ${isOpen ? 'modal_active' : ''}`}>
-            <AuthPopup />
+            {openAuth &&
+                <AuthPopup />
+            }
         </div>
     );
 };

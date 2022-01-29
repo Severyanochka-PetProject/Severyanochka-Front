@@ -5,7 +5,7 @@ function getInputNumbersValue (element: any): string {
 function phoneMask (element: string) {
     let phoneInput: HTMLInputElement | null = document.querySelector(element);
 
-    phoneInput?.addEventListener("input", (event: Event) => {
+    phoneInput!.addEventListener("input", (event: Event) => {
         let inputNumbersValue = getInputNumbersValue(phoneInput);
         let formattedInputValue = "";
         let cursorPosition = phoneInput?.selectionStart;

@@ -1,4 +1,4 @@
-import React, {FC, useEffect} from 'react';
+import React, {ChangeEvent, FC, FormEvent, useEffect, useState} from 'react';
 import { useDispatch } from "react-redux";
 
 import './authPopup.scss';
@@ -7,6 +7,10 @@ import {modalAction, modalActionTypes} from "../../../types/modals";
 
 
 const AuthPopup: FC = () => {
+    const [authStage, toggleStage] = useState(1);
+    const [phone_number, setPhoneNumber] = useState('');
+    const [password, setPassword] = useState('');
+
     const dispatch = useDispatch();
 
     const closeModal = () => {
@@ -21,9 +25,33 @@ const AuthPopup: FC = () => {
         dispatch(action);
     }
 
+    const checkPhone = () => {
+        if (!phone_number.length) {
+            return
+        }
+
+        toggleStage(2);
+    }
+
+    const signIn = () => {
+        console.log(phone_number);
+        console.log(password)
+        closeModal();
+    }
+
     useEffect(() => {
-        phoneMask('input[data-tel-input]');
+        phoneMask('#phone-input');
     })
+
+    const inputPhoneNumber = (event: FormEvent) => {
+        const target = event.target as HTMLInputElement
+        setPhoneNumber(target.value)
+    }
+
+    const inputPassword = (event: FormEvent) => {
+        const target = event.target as HTMLInputElement
+        setPassword(target.value)
+    }
 
     return (
         <div className="popup auth-popup">
@@ -37,15 +65,40 @@ const AuthPopup: FC = () => {
                 <div className="content-header">
                     <h1>Вход</h1>
                 </div>
-                <div className="content-main">
-                    <div className="auth-input">
-                        <p>Телефон</p>
-                        <input data-tel-input type="tel"/>
+                    <div className="content-main">
+                        <div style={{ display: authStage === 1 ? "block" : "none" }}>
+                            <div className="auth-input">
+                                <p>Телефон</p>
+                                <input
+                                    id="phone-input"
+                                    type="input" value={phone_number}
+                                    autoComplete="off"
+                                    onInput={inputPhoneNumber} />
+                            </div>
+                            <div className="content-main__btn">
+                                <button onClick={checkPhone}>Вход</button>
+                            </div>
+                        </div>
+                        <div style={{ display: authStage === 2 ? "block" : "none" }}>
+                            <div className="auth-input">
+                                <p>Пароль</p>
+                                <input type="password" maxLength={16} value={password} onInput={inputPassword}/>
+                            </div>
+                            <div className="content-main__btn">
+                                <button onClick={signIn}>Подтвердить</button>
+                            </div>
+                        </div>
+                        {/*{*/}
+                        {/*    authStage === 1 ?*/}
+                        {/*        <>*/}
+                        {/*            */}
+                        {/*        </>*/}
+                        {/*        :*/}
+                        {/*        <>*/}
+                        {/*            */}
+                        {/*        </>*/}
+                        {/*}*/}
                     </div>
-                    <div className="content-main__btn">
-                        <button>Вход</button>
-                    </div>
-                </div>
                 <div className="content-bottom">
                     <div className="content-bottom__btn">
                         <p>Регистрация</p>
