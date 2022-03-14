@@ -1,7 +1,7 @@
 import {IUserAction, userActionTypes, userInitialState} from "../../types/user";
 
 const defaultState: userInitialState = {
-    refresh_token: '',
+    refresh_token: localStorage.getItem('access') || '',
     user: {}
 }
 

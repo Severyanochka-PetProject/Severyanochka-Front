@@ -69,8 +69,10 @@ const AuthPopup: FC = () => {
             phone_number,
             password
         })
-            .then(({ data }) => {
+            .then(async ({ data }) => {
                 console.log(data);
+                await getProfileData();
+                
                 closeModal();
             })
             .catch(({ response }) => {
@@ -79,8 +81,18 @@ const AuthPopup: FC = () => {
                     status: true,
                     message: data.error
                 });
-                console.log(data)
             })
+    }
+
+    const getProfileData = async () => {
+        api.get('/users/me')
+        .then(({ data }) => {
+            console.log(data)
+        })
+        .catch(({ response }) => {
+            const data = response.data;
+            console.log(data)
+        })
     }
 
     const inputPhoneNumber = (event: FormEvent) => {
