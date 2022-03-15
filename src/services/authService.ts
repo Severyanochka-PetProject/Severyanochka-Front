@@ -17,7 +17,9 @@ class AuthService {
         return await api.get('/users/me')
     }
 
-    static async refresh () {}
+    static async refresh () : Promise<AxiosResponse> {
+        return await api.get('/auth/refresh')
+    }
 }
 
 export default AuthService;

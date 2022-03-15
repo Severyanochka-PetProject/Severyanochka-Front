@@ -1,14 +1,15 @@
 import React, {FC, FormEvent, useEffect, useMemo, useState} from 'react';
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 import {modalAction, modalActionTypes} from "../../../types/modals";
 
 import './authPopup.scss';
 import phoneMask from "../../../plugins/phoneMask.js";
 
 import ErrorHint from "../../UI/ErrorHint/ErrorHint";
+
 import {userAction, userActionTypes} from "../../../types/user";
 import {IUser} from "../../../models/user-model";
-import {RootState} from "../../../store/reducers";
+
 import AuthService from "../../../services/authService";
 
 const AuthPopup: FC = () => {
@@ -86,10 +87,12 @@ const AuthPopup: FC = () => {
         }
 
         try {
-            await AuthService.login({
+            const {data} = await AuthService.login({
                 phone_number,
                 password
             })
+
+            localStorage.setItem('access', data)
 
             const response = await AuthService.me()
 
