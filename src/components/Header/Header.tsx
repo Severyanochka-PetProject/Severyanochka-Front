@@ -7,13 +7,11 @@ import {modalAction, modalActionTypes} from "../../types/modals";
 
 import CatalogList from "../CatalogList/CatalogList";
 import {RootState} from "../../store/reducers";
+import {userInitialState} from "../../types/user";
 
 const Header: FC = () => {
     const dispatch = useDispatch();
-    const [isAuth, toggleAuth] = useState(false);
-    const user = useSelector((state: RootState) => state.user)
-
-    console.log(user)
+    const user = useSelector<RootState, userInitialState>((state) => state.user)
 
     const [isOpenCatalogList, toggleCatalogList] = useState(false)
 
@@ -31,13 +29,13 @@ const Header: FC = () => {
 
     const renderProfileBlock = () => {
         return <>
-            {isAuth ? (
+            {user.isAuth ? (
                 <div className="header-wrapper__profile">
                     <div className="profile-avatar">
-                        <img src="/images/header/avatar.png" alt="аватарка"/>
+                        <img src={user.user.avatar_url ? user.user.avatar_url : "/images/header/avatar.png"} alt="аватарка"/>
                     </div>
                     <div className="profile-username">
-                        <p>Алексей</p>
+                        <p>{ user.user.first_name }</p>
                     </div>
                     <div className="profile-arrow">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none"

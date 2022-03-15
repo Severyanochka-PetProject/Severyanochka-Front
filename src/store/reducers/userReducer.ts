@@ -1,11 +1,18 @@
-import {IUserAction, userActionTypes, userInitialState} from "../../types/user";
+import {userAction, userActionTypes, userInitialState} from "../../types/user";
 
 const defaultState: userInitialState = {
-    refresh_token: localStorage.getItem('access') || '',
-    user: {}
+    refresh_token: '',
+    user: {
+        id_user: null,
+        first_name: '',
+        last_name: '',
+        phone_number: '',
+        avatar_url: ''
+    },
+    isAuth: false,
 }
 
-export const userReducer = (state = defaultState, action: IUserAction) => {
+export const UserReducer = (state = defaultState, action: userAction): userInitialState => {
     switch (action.type) {
         case userActionTypes.SET_USER_DATA:
             return {
@@ -16,6 +23,11 @@ export const userReducer = (state = defaultState, action: IUserAction) => {
             return {
                 ...state,
                 refresh_token: action.payload
+            }
+        case userActionTypes.SET_AUTH_FLAG:
+            return {
+                ...state,
+                isAuth: action.payload
             }
         default:
             return state
