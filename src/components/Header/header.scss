@@ -116,6 +116,8 @@
     &__signIn, &__profile {
       height: 40px;
       margin-left: 40px;
+      min-width: 200px;
+      max-width: 200px;
     }
 
     &__signIn {
@@ -132,6 +134,8 @@
         justify-content: center;
         position: relative;
         cursor: pointer;
+        margin-left: auto;
+        margin-right: 0;
 
         svg {
           position: absolute;
@@ -146,12 +150,23 @@
       display: flex;
       align-items: center;
       cursor: pointer;
+      height: 100%;
+      position: relative;
+      transition: .4s all;
+
+      padding: 0 16px;
+
+      &_shadow {
+        box-shadow: 4px 8px 16px rgba(0, 0, 0, 0.1);
+        border-radius: 4px 4px 0 0;
+        transition: .4s all;
+      }
 
       .profile {
 
         &-avatar {
           width: 40px;
-          height: 100%;
+          //height: 100%;
           border-radius: 50%;
           overflow: hidden;
 
@@ -173,7 +188,52 @@
         }
 
         &-arrow {
-          margin-left: 18px;
+          margin-right: 0;
+          margin-left: auto;
+
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          transition: .4s all;
+
+          &_rotate {
+            transition: .4s all;
+            transform: rotate(180deg);
+          }
+        }
+
+        &-drop-list {
+          position: absolute;
+          background-color: #FFFFFF;
+          top: 100%;
+          left: 0;
+          right: 0;
+
+          opacity: 0;
+          pointer-events: none;
+          transition: .4s all;
+
+          &_open {
+            opacity: 1;
+            pointer-events: inherit;
+            transition: .4s all;
+
+            box-shadow: 4px 16px 16px rgba(0, 0, 0, 0.1);
+            border-radius: 0 0 4px 4px;
+          }
+
+          ul {
+            list-style: none;
+
+            li {
+              cursor: pointer;
+              color: #232323;
+              font-size: 1rem;
+              font-family: 'Cera Round Pro', sans-serif;
+              padding: 5px 16px;
+              line-height: 32px;
+            }
+          }
         }
       }
     }

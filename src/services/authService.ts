@@ -7,6 +7,7 @@ interface ILoginPayload  {
 }
 
 class AuthService {
+
     static async login (payload : ILoginPayload ): Promise<AxiosResponse> {
         const { password, phone_number } = payload
 
@@ -19,6 +20,11 @@ class AuthService {
 
     static async refresh () : Promise<AxiosResponse> {
         return await api.get('/auth/refresh')
+    }
+
+    // TODO: Сделать на беке
+    static async logout () : Promise<AxiosResponse> {
+        return await api.post('/auth/logout')
     }
 }
 
