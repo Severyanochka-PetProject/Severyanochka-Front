@@ -94,10 +94,7 @@ const AuthPopup: FC = () => {
 
             localStorage.setItem('access', data)
 
-            const response = await AuthService.me()
-
-            setUserData(response.data)
-            setAuthFlag(true)
+            await setUser();
 
             closeModal();
         } catch (error: any) {
@@ -107,6 +104,13 @@ const AuthPopup: FC = () => {
                 message: data.error
             });
         }
+    }
+
+    const setUser = async () => {
+        const response = await AuthService.me()
+
+        setUserData(response.data)
+        setAuthFlag(true)
     }
 
     const inputPhoneNumber = (event: FormEvent) => {
