@@ -8,6 +8,7 @@ import {modalAction, modalActionTypes} from "../../types/modals";
 import CatalogList from "../CatalogList/CatalogList";
 import {RootState} from "../../store/reducers";
 import {userAction, userActionTypes, userInitialState} from "../../types/user";
+import AuthService from "../../services/authService";
 
 const Header: FC = () => {
     const dispatch = useDispatch();
@@ -37,10 +38,14 @@ const Header: FC = () => {
         dispatch(action)
     }
 
-    const exit = () => {
-        localStorage.removeItem('access')
+    const exit = async () => {
+        const { data } = await AuthService.logout();
 
-        setAuthFlag(false)
+        if (data.status) {
+            setAuthFlag(false)
+        } else {
+            console.log('Не удалось выйти из ЛЧ')
+        }
     }
 
     const renderProfileBlock = () => {

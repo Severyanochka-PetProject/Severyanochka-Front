@@ -22,8 +22,9 @@ class AuthService {
         return await api.get('/auth/refresh')
     }
 
-    // TODO: Сделать на беке
     static async logout () : Promise<AxiosResponse> {
+        localStorage.removeItem('access');
+
         return await api.post('/auth/logout')
     }
 }
