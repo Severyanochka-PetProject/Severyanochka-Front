@@ -72,5 +72,6 @@
     "@storybook/testing-library": "0.0.9",
     "chromatic": "^6.5.2",
     "webpack": "^5.70.0"
-  }
+  },
+  "proxy": "http://5.63.155.57:5500"
 }
