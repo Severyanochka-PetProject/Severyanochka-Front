@@ -1,6 +1,6 @@
 import axios, {AxiosRequestConfig} from 'axios';
 
-const baseUrl = process.env.NODE_ENV === "development" ? "http://localhost:5500/" : "http://5.63.155.57:5500"
+const baseUrl = process.env.NODE_ENV === "development" ? "http://localhost:5500/" : "http://tankistpro-food.ru:5500/"
 
 const api = axios.create({
     baseURL: baseUrl,
