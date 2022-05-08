@@ -6,6 +6,7 @@ import './authPopup.scss';
 import phoneMask from "../../../plugins/phoneMask.js";
 
 import ErrorHint from "../../UI/ErrorHint/ErrorHint";
+import CustomButton from "../../UI/CustomButton/CustomButton";
 
 import {userAction, userActionTypes} from "../../../types/user";
 import {IUser} from "../../../models/user-model";
@@ -123,6 +124,18 @@ const AuthPopup: FC = () => {
         setPassword(target.value);
     }
 
+    const openRegistrationPopup = () => {
+        const action: modalAction = {
+            type: modalActionTypes.SWITCH_REG_MODAL,
+            payload: {
+                isOpen: true,
+                popup: true
+            }
+        };
+
+        dispatch(action);
+    }
+
     return (
         <div className="popup auth-popup">
             <div className="popup__close" onClick={closeModal}>
@@ -155,7 +168,7 @@ const AuthPopup: FC = () => {
                             </div>
                         </div>
                         <div className="content-main__btn">
-                            <button disabled={!isValidPhoneNumber} onClick={checkPhone}>Вход</button>
+                            <CustomButton name={'Вход'} disabled={!isValidPhoneNumber} onClick={checkPhone} />
                         </div>
                     </div>
                     <div style={{display: authStage === 2 ? "block" : "none"}}>
@@ -197,13 +210,13 @@ const AuthPopup: FC = () => {
                             </div>
                         </div>
                         <div className="content-main__btn">
-                            <button disabled={!isValidPassword} onClick={signIn}>Подтвердить</button>
+                            <CustomButton name={'Подтвердить'} disabled={!isValidPassword} onClick={signIn} />
                         </div>
                     </div>
                 </div>
                 <div className="content-bottom">
                     {authStage === 1 ?
-                        <div className="content-bottom__btn">
+                        <div className="content-bottom__btn" onClick={openRegistrationPopup}>
                             <p>Регистрация</p>
                         </div>
                         :

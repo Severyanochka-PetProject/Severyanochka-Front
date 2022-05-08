@@ -1,5 +1,6 @@
 export enum modalActionTypes {
     SWITCH_AUTH_MODAL = "SWITCH_AUTH_MODAL",
+    SWITCH_REG_MODAL = "SWITCH_REG_MODAL"
 }
 
 export interface modalAction {
