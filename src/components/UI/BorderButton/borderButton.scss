@@ -1,0 +1,25 @@
+.border-button {
+  border-radius: 4px;
+  border: 1px solid #70C05B;
+  width: 120px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  transition: .3s all;
+  cursor: pointer;
+
+  p {
+    color: #70C05B;
+  }
+
+  &:hover  {
+    background: #70C05B;
+    transition: .3s all;
+
+    p {
+      color: #FFFFFF;
+    }
+  }
+}

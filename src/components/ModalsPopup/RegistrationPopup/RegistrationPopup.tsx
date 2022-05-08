@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import React, {FC, useEffect, useState} from 'react';
 import {modalAction, modalActionTypes} from "../../../types/modals";
 import {useDispatch} from "react-redux";
 
@@ -6,10 +6,22 @@ import './registrationPopup.scss';
 
 import InputField from "../../UI/InputField/InputField";
 import CustomButton from "../../UI/CustomButton/CustomButton";
+import BorderButton from "../../UI/BorderButton/BorderButton";
+
+import phoneMask from "../../../plugins/phoneMask.js";
 
 const RegistrationPopup : FC = () => {
+    const [phone_number, setPhoneNumber] = useState('');
+    const [first_name, setFirstName] = useState('');
+    const [last_name, setLastName] = useState('');
+    const [password, setPassword] = useState('');
+    const [repeat_password, setRepeatPassword] = useState('');
 
     const dispatch = useDispatch();
+
+    useEffect(() => {
+        phoneMask('#phone')
+    })
 
     const closeModal = () => {
         const action: modalAction = {
@@ -19,6 +31,18 @@ const RegistrationPopup : FC = () => {
                 popup: false
             }
         };
+
+        dispatch(action);
+    }
+
+    const openAuthPopup = () => {
+        const action: modalAction = {
+            type: modalActionTypes.SWITCH_AUTH_MODAL,
+            payload: {
+                isOpen: true,
+                popup: true
+            }
+        }
 
         dispatch(action);
     }
@@ -45,11 +69,11 @@ const RegistrationPopup : FC = () => {
                     </div>
                     <div className="section-form">
                         <div className="section-form__column section-form_column_one">
-                            <InputField title={'Телефон'} />
-                            <InputField title={'Фамилия'} autoComplete={'off'} />
-                            <InputField title={'Имя'} autoComplete={'off'} />
-                            <InputField title={'Пароль'} type={'password'} autoComplete={'off'} />
-                            <InputField title={'Повторите пароль'} type={'password'} autoComplete={'off'} />
+                            <InputField title={'Телефон'} id={'phone'} onInput={(value) => setPhoneNumber(value)} />
+                            <InputField title={'Фамилия'} autoComplete={'off'} onInput={(value) => setLastName(value)} />
+                            <InputField title={'Имя'} autoComplete={'off'} onInput={(value) => setFirstName(value)} />
+                            <InputField title={'Пароль'} type={'password'} autoComplete={'off'} onInput={(value) => setPassword(value)} />
+                            <InputField title={'Повторите пароль'} type={'password'} autoComplete={'off'} onInput={(value) => setRepeatPassword(value)} />
                         </div>
                     </div>
                 </div>
@@ -59,16 +83,17 @@ const RegistrationPopup : FC = () => {
                     </div>
                     <div className="section-form section-form_column_two">
                         <div className="section-form__column">
-                            <InputField title={'Номер карты'} type={'number'} autoComplete={'off'} />
-                            <InputField title={'E-mail'} type={'email'} autoComplete={'off'} />
+                            <InputField title={'Номер карты'} type={'number'} autoComplete={'off'} onInput={(value) => {}} />
+                            <InputField title={'E-mail'} type={'email'} autoComplete={'off'} onInput={(value) => {}} />
                         </div>
                         <div className="section-form__column">
-                            <InputField title={'Дата рождения'} autoComplete={'off'} />
+                            <InputField title={'Дата рождения'} autoComplete={'off'} onInput={(value) => {}} />
                         </div>
                     </div>
                 </div>
                 <div className="reg-popup__footer">
-                   <CustomButton name={'Продолжить'} disabled={true} />
+                    <CustomButton name={'Продолжить'} disabled={true} />
+                    <BorderButton text={'Вход'} onClick={openAuthPopup} />
                 </div>
             </div>
         </div>

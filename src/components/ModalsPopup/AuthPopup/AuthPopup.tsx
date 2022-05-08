@@ -12,6 +12,7 @@ import {userAction, userActionTypes} from "../../../types/user";
 import {IUser} from "../../../models/user-model";
 
 import AuthService from "../../../services/authService";
+import BorderButton from "../../UI/BorderButton/BorderButton";
 
 const AuthPopup: FC = () => {
     const [authStage, toggleStage] = useState(1);
@@ -216,9 +217,7 @@ const AuthPopup: FC = () => {
                 </div>
                 <div className="content-bottom">
                     {authStage === 1 ?
-                        <div className="content-bottom__btn" onClick={openRegistrationPopup}>
-                            <p>Регистрация</p>
-                        </div>
+                        <BorderButton text={'Регистрация'} onClick={openRegistrationPopup} />
                         :
                         <div className="content-bottom__link" onClick={() => {
                             toggleStage(1);
