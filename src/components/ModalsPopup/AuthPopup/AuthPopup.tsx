@@ -238,9 +238,9 @@ const AuthPopup: FC = () => {
                             <p>Вернуться</p>
                         </div>
                     }
-                    <div className="content-bottom__link">
-                        <p>Забыли пароль?</p>
-                    </div>
+                    {/*<div className="content-bottom__link">*/}
+                    {/*    <p>Забыли пароль?</p>*/}
+                    {/*</div>*/}
                 </div>
             </div>
         </div>
