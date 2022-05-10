@@ -10,6 +10,7 @@ import BorderButton from "../../UI/BorderButton/BorderButton";
 import ErrorHint from "../../UI/ErrorHint/ErrorHint";
 
 import phoneMask from "../../../plugins/phoneMask.js";
+import ModalService from "../../../services/modalService";
 
 const RegistrationPopup : FC = () => {
     const [phone_number, setPhoneNumber] = useState('');
@@ -56,7 +57,7 @@ const RegistrationPopup : FC = () => {
         const action: modalAction = {
             type: modalActionTypes.SWITCH_AUTH_MODAL,
             payload: {
-                isOpen: true,
+            isOpen: true,
                 popup: true
             }
         }
