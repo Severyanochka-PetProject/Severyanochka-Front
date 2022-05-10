@@ -1,4 +1,4 @@
-import React, {FC, useEffect, useState} from 'react';
+import React, {FC, useEffect, useMemo, useRef, useState} from 'react';
 import {modalAction, modalActionTypes} from "../../../types/modals";
 import {useDispatch} from "react-redux";
 
@@ -7,6 +7,7 @@ import './registrationPopup.scss';
 import InputField from "../../UI/InputField/InputField";
 import CustomButton from "../../UI/CustomButton/CustomButton";
 import BorderButton from "../../UI/BorderButton/BorderButton";
+import ErrorHint from "../../UI/ErrorHint/ErrorHint";
 
 import phoneMask from "../../../plugins/phoneMask.js";
 
@@ -22,6 +23,22 @@ const RegistrationPopup : FC = () => {
     useEffect(() => {
         phoneMask('#phone')
     })
+
+    const isValidPassword = useMemo(() => {
+        return password.length >= 6 && password.length <= 16;
+    }, [password]);
+
+    const isValidPhoneNumber = useMemo(() => {
+        return phone_number.length === 18 || phone_number.length === 17;
+    }, [phone_number]);
+
+    const isPasswordMatch = useMemo(() => {
+        return repeat_password === password && repeat_password.length;
+    }, [password, repeat_password])
+
+    const isFormValid = useMemo(() => {
+        return isValidPassword && first_name.length && last_name.length && isValidPhoneNumber && isPasswordMatch
+    }, [isValidPassword, first_name.length, last_name.length, isValidPhoneNumber, isPasswordMatch]);
 
     const closeModal = () => {
         const action: modalAction = {
@@ -69,11 +86,38 @@ const RegistrationPopup : FC = () => {
                     </div>
                     <div className="section-form">
                         <div className="section-form__column section-form_column_one">
-                            <InputField title={'Телефон'} id={'phone'} onInput={(value) => setPhoneNumber(value)} />
-                            <InputField title={'Фамилия'} autoComplete={'off'} onInput={(value) => setLastName(value)} />
-                            <InputField title={'Имя'} autoComplete={'off'} onInput={(value) => setFirstName(value)} />
-                            <InputField title={'Пароль'} type={'password'} autoComplete={'off'} onInput={(value) => setPassword(value)} />
-                            <InputField title={'Повторите пароль'} type={'password'} autoComplete={'off'} onInput={(value) => setRepeatPassword(value)} />
+                            <InputField
+                                title={'Телефон'}
+                                id={'phone'}
+                                onInput={(value) => setPhoneNumber(value)}
+                                autocomplete="off"
+                            />
+                            <InputField
+                                title={'Фамилия'}
+                                onInput={(value) => setLastName(value)}
+                                autocomplete="off"
+                            />
+                            <InputField
+                                title={'Имя'}
+                                onInput={(value) => setFirstName(value)}
+                                autocomplete="off"
+                            />
+                            <InputField
+                                title={'Пароль'}
+                                type={'password'}
+                                autoComplete={'off'}
+                                onInput={(value) => setPassword(value)}
+                                showError={false}
+                                errorText={'Пароль должен иметь от 6 до 16 символов!'}
+                            />
+                            <InputField
+                                title={'Повторите пароль'}
+                                type={'password'}
+                                autoComplete={'off'}
+                                onInput={(value) => setRepeatPassword(value)}
+                                showError={!isPasswordMatch && !!repeat_password.length}
+                                errorText={'Пароли не совпадают!'}
+                            />
                         </div>
                     </div>
                 </div>
@@ -84,7 +128,7 @@ const RegistrationPopup : FC = () => {
                     <div className="section-form section-form_column_two">
                         <div className="section-form__column">
                             <InputField title={'Номер карты'} type={'number'} autoComplete={'off'} onInput={(value) => {}} />
-                            <InputField title={'E-mail'} type={'email'} autoComplete={'off'} onInput={(value) => {}} />
+                            <InputField title={'E-mail'} type={'email'} onInput={(value) => {}} autocomplete="off" />
                         </div>
                         <div className="section-form__column">
                             <InputField title={'Дата рождения'} autoComplete={'off'} onInput={(value) => {}} />
@@ -92,7 +136,7 @@ const RegistrationPopup : FC = () => {
                     </div>
                 </div>
                 <div className="reg-popup__footer">
-                    <CustomButton name={'Продолжить'} disabled={true} />
+                    <CustomButton name={'Зарегистрироваться'} disabled={!isFormValid} />
                     <BorderButton text={'Вход'} onClick={openAuthPopup} />
                 </div>
             </div>

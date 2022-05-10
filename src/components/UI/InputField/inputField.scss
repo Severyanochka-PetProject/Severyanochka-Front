@@ -1,9 +1,22 @@
 .input-field {
+  position: relative;
 
   &__title {
     color: #8F8F8F;
     font-size: 1rem;
     line-height: 150%;
+  }
+
+  &__area {
+    position: relative;
+
+    svg {
+      cursor: pointer;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      right: 14px;
+    }
   }
 
   input {
@@ -24,5 +37,12 @@
       box-shadow: 4px 8px 16px rgba(112, 192, 91, 0.2);
       transition: .3s all;
     }
+  }
+
+  .error-hint {
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
   }
 }
