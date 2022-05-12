@@ -7,10 +7,10 @@ import './registrationPopup.scss';
 import InputField from "../../UI/InputField/InputField";
 import CustomButton from "../../UI/CustomButton/CustomButton";
 import BorderButton from "../../UI/BorderButton/BorderButton";
-import ErrorHint from "../../UI/ErrorHint/ErrorHint";
 
 import phoneMask from "../../../plugins/phoneMask.js";
-import ModalService from "../../../services/modalService";
+
+import RegistrationService from "../../../services/registrationService";
 
 const RegistrationPopup : FC = () => {
     const [phone_number, setPhoneNumber] = useState('');
@@ -63,6 +63,26 @@ const RegistrationPopup : FC = () => {
         }
 
         dispatch(action);
+    }
+
+    const registration = async () => {
+        try {
+            const { data } = await RegistrationService.registration({
+                first_name,
+                last_name,
+                phone_number,
+                password,
+                avatar_url: ""
+            });
+
+            if (data.status) {
+                openAuthPopup();
+            }
+        } catch (error: any) {
+            const data = error.response.data;
+
+            console.log(data);
+        }
     }
 
     return (
@@ -137,7 +157,7 @@ const RegistrationPopup : FC = () => {
                     </div>
                 </div>
                 <div className="reg-popup__footer">
-                    <CustomButton name={'Зарегистрироваться'} disabled={!isFormValid} />
+                    <CustomButton name={'Зарегистрироваться'} disabled={!isFormValid} onClick={registration} />
                     <BorderButton text={'Вход'} onClick={openAuthPopup} />
                 </div>
             </div>
