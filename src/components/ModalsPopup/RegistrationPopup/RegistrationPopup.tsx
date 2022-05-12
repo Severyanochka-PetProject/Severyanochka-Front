@@ -11,6 +11,7 @@ import BorderButton from "../../UI/BorderButton/BorderButton";
 import phoneMask from "../../../plugins/phoneMask.js";
 
 import RegistrationService from "../../../services/registrationService";
+import Notify from "../../UI/ToastNotification/ToastNotification";
 
 const RegistrationPopup : FC = () => {
     const [phone_number, setPhoneNumber] = useState('');
@@ -76,12 +77,20 @@ const RegistrationPopup : FC = () => {
             });
 
             if (data.status) {
+                Notify({
+                    text: data.msg,
+                    notificationType: "success"
+                })
+
                 openAuthPopup();
             }
         } catch (error: any) {
             const data = error.response.data;
 
-            console.log(data);
+            Notify({
+                text: data.error,
+                notificationType: "error"
+            })
         }
     }
 

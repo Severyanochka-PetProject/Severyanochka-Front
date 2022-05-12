@@ -14,7 +14,6 @@ import {IUser} from "../../../models/user-model";
 
 import AuthService from "../../../services/authService";
 import BorderButton from "../../UI/BorderButton/BorderButton";
-import ModalService from "../../../services/modalService";
 
 const AuthPopup: FC = () => {
     const [authStage, toggleStage] = useState(1);
