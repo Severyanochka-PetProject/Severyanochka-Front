@@ -13,8 +13,6 @@ import AuthService from "../../services/authService";
 import {IUser} from "../../models/user-model";
 import {userAction, userActionTypes} from "../../types/user";
 
-import RegistrationService from "../../services/registrationService";
-
 function App() {
     const dispatch = useDispatch();
     const location = useLocation();
@@ -54,12 +52,13 @@ function App() {
         const { access_token, email, user_id } : any = queryString.parse(location.hash);
 
         if (access_token && user_id) {
-            RegistrationService.registrationVk({
+            AuthService.loginVk({
                 access_token,
                 email,
                 user_id
             }).then(() => {})
-        }}, [location.hash])
+        }
+    }, [location.hash])
 
   return (
     <div className="app">

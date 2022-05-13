@@ -6,12 +6,22 @@ interface ILoginPayload  {
     password: string
 }
 
+interface IRegistrationVkPayload {
+    access_token: string,
+    email: string | null,
+    user_id: number,
+}
+
 class AuthService {
 
     static async login (payload : ILoginPayload ): Promise<AxiosResponse> {
         const { password, phone_number } = payload
 
         return await api.post('/auth/login', {phone_number, password})
+    }
+
+    static async loginVk(payload: IRegistrationVkPayload) : Promise<AxiosResponse>{
+        return await api.post('/auth/login-vk', payload);
     }
 
     static async me () : Promise<AxiosResponse> {
