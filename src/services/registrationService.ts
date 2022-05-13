@@ -9,9 +9,20 @@ interface IRegistrationPayload {
     avatar_url?: string
 }
 
+interface IRegistrationVkPayload {
+    access_token: string,
+    email: string | null,
+    user_id: number,
+}
+
+
 class RegistrationService {
     static async registration(payload: IRegistrationPayload): Promise<AxiosResponse> {
         return await api.post('/auth/registration', payload);
+    }
+
+    static async registrationVk(payload: IRegistrationVkPayload) : Promise<AxiosResponse>{
+        return await api.post('/auth/oauth/vk', payload);
     }
 }
 
