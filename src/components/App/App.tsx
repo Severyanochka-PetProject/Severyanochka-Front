@@ -1,5 +1,5 @@
 import React, {useEffect } from 'react';
-import {Routes, Route, useLocation} from 'react-router-dom';
+import {Routes, Route, useLocation, useNavigate} from 'react-router-dom';
 import {useDispatch} from "react-redux";
 import queryString from "query-string";
 
@@ -12,10 +12,12 @@ import ModalWrapper from "../../hoc/ModalWrapper/ModalWrapper";
 import AuthService from "../../services/authService";
 import {IUser} from "../../models/user-model";
 import {userAction, userActionTypes} from "../../types/user";
+import {modalAction, modalActionTypes} from "../../types/modals";
 
 function App() {
     const dispatch = useDispatch();
     const location = useLocation();
+    const navigation = useNavigate();
 
     const setUserData = (userPayload: IUser) => {
         const action: userAction = {
@@ -55,10 +57,37 @@ function App() {
             AuthService.loginVk({
                 access_token,
                 email,
-                user_id
-            }).then(() => {})
+                vk_user_id: user_id,
+            }).then(async (response) => {
+                const { data } = response;
+
+                navigation('/');
+
+                localStorage.setItem('access', data);
+
+                const res = await AuthService.me()
+
+                setUserData(res.data)
+                setAuthFlag(true)
+            })
+                .catch((error) => {
+                    // const { data } = error.response;
+                    openSetPhoneLoginPopup();
+                })
         }
     }, [location.hash])
+
+    const openSetPhoneLoginPopup = () => {
+        const action: modalAction = {
+            type: modalActionTypes.SWITCH_SET_PHONE_LOGIN_VK_MODAL,
+            payload: {
+                isOpen: true,
+                popup: true
+            }
+        };
+
+        dispatch(action);
+    }
 
   return (
     <div className="app">

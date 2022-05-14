@@ -9,7 +9,8 @@ interface ILoginPayload  {
 interface IRegistrationVkPayload {
     access_token: string,
     email: string | null,
-    user_id: number,
+    vk_user_id: number,
+    phone_number?: string
 }
 
 class AuthService {

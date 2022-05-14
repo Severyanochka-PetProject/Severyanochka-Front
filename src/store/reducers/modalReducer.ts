@@ -6,6 +6,7 @@ const defaultState: initialState = {
         modals: {
             authPopup: false,
             regPopup: false,
+            setPhoneOnLoginVkPopup: false
         }
     }
 }
@@ -29,6 +30,16 @@ export const ModalReducer = (state = defaultState, action: modalAction) => {
                     isOpen: action.payload.isOpen,
                     modals: {
                         regPopup: action.payload.popup
+                    }
+                }
+            }
+        case modalActionTypes.SWITCH_SET_PHONE_LOGIN_VK_MODAL:
+            return {
+                ...state,
+                modalArea: {
+                    isOpen: action.payload.isOpen,
+                    modals: {
+                        setPhoneOnLoginVkPopup: action.payload.popup
                     }
                 }
             }
