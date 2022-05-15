@@ -37,7 +37,7 @@ function App() {
         dispatch(action)
     }
 
-  useEffect(() => {
+    useEffect(() => {
       (async function fetchUserData () {
           const response = await AuthService.refresh();
 

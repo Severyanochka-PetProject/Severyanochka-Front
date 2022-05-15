@@ -1,17 +1,9 @@
 import api from "../api/axios";
 import {AxiosResponse} from "axios";
-import axios from "axios";
 
 interface ILoginPayload  {
     phone_number: string,
     password: string
-}
-
-interface IRegistrationVkPayload {
-    access_token: string,
-    email: string | null,
-    vk_user_id: number,
-    phone_number?: string
 }
 
 class AuthService {

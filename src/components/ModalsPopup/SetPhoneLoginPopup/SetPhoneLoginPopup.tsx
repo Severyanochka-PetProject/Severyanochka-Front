@@ -1,6 +1,5 @@
 import React, {FC, useEffect, useMemo, useState} from 'react';
-import {modalAction, modalActionTypes} from "../../../types/modals";
-import {useDispatch} from "react-redux";
+import {modalActionTypes} from "../../../types/modals";
 import {useLocation, useNavigate} from "react-router-dom";
 
 import queryString from "query-string";
@@ -16,13 +15,15 @@ import AuthService from "../../../services/authService";
 
 import Notify from "../../UI/ToastNotification/ToastNotification";
 
+import useCloseModal from "../../../hooks/useCloseModal.";
+
 const SetPhoneLoginPopup: FC = () => {
     const [phone_number, setPhoneNumber] = useState('');
 
     const location = useLocation();
     const navigation = useNavigate();
 
-    const dispatch = useDispatch();
+    const closeModal = useCloseModal();
 
     useEffect(() => {
         phoneMask('#phone-input');
@@ -32,28 +33,15 @@ const SetPhoneLoginPopup: FC = () => {
         return phone_number.length === 18 || phone_number.length === 17;
     }, [phone_number]);
 
-    const closeModal = () => {
-        const action: modalAction = {
-            type: modalActionTypes.SWITCH_SET_PHONE_LOGIN_VK_MODAL,
-            payload: {
-                isOpen: false,
-                popup: false
-            }
-        };
-
-        dispatch(action);
-    }
-
     const login = async () => {
         const { access_token, email, user_id } : any = queryString.parse(location.hash);
 
         if (access_token && user_id) {
             await AuthService.loginVk(access_token, user_id, email, phone_number)
                 .then((response) => {
-                    // const { data} = response
                     navigation('/');
 
-                    closeModal();
+                    closeModal(modalActionTypes.SWITCH_SET_PHONE_LOGIN_VK_MODAL);
                 })
                 .catch((error) => {
                     const {data} = error.response;
@@ -70,7 +58,7 @@ const SetPhoneLoginPopup: FC = () => {
 
     return (
         <div className="popup">
-            <div className="popup__close" onClick={closeModal}>
+            <div className="popup__close" onClick={() => closeModal(modalActionTypes.SWITCH_SET_PHONE_LOGIN_VK_MODAL)}>
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path fillRule="evenodd" clipRule="evenodd"
                           d="M18.3536 5.64645C18.5488 5.84171 18.5488 6.15829 18.3536 6.35355L6.35355 18.3536C6.15829 18.5488 5.84171 18.5488 5.64645 18.3536C5.45118 18.1583 5.45118 17.8417 5.64645 17.6464L17.6464 5.64645C17.8417 5.45118 18.1583 5.45118 18.3536 5.64645Z"
@@ -90,6 +78,7 @@ const SetPhoneLoginPopup: FC = () => {
                         title='Номер телефона'
                         id="phone-input"
                         onInput={(value) => setPhoneNumber(value)}
+                        onKeyDown={(e: any) => e.key === 'Enter' ? (isValidPhoneNumber ? login() : null) : null}
                     />
                 </div>
                 <div className="set-phone-popup__bottom">

@@ -11,7 +11,10 @@ import BorderButton from "../../UI/BorderButton/BorderButton";
 import phoneMask from "../../../plugins/phoneMask.js";
 
 import RegistrationService from "../../../services/registrationService";
+
 import Notify from "../../UI/ToastNotification/ToastNotification";
+
+import useCloseModal from "../../../hooks/useCloseModal.";
 
 const RegistrationPopup : FC = () => {
     const [phone_number, setPhoneNumber] = useState('');
@@ -21,6 +24,7 @@ const RegistrationPopup : FC = () => {
     const [repeat_password, setRepeatPassword] = useState('');
 
     const dispatch = useDispatch();
+    const closeModal = useCloseModal();
 
     useEffect(() => {
         phoneMask('#phone')
@@ -41,18 +45,6 @@ const RegistrationPopup : FC = () => {
     const isFormValid = useMemo(() => {
         return isValidPassword && first_name.length && last_name.length && isValidPhoneNumber && isPasswordMatch
     }, [isValidPassword, first_name.length, last_name.length, isValidPhoneNumber, isPasswordMatch]);
-
-    const closeModal = () => {
-        const action: modalAction = {
-            type: modalActionTypes.SWITCH_REG_MODAL,
-            payload: {
-                isOpen: false,
-                popup: false
-            }
-        };
-
-        dispatch(action);
-    }
 
     const openAuthPopup = () => {
         const action: modalAction = {
@@ -96,7 +88,7 @@ const RegistrationPopup : FC = () => {
 
     return (
         <div className="popup reg-popup">
-            <div className="popup__close" onClick={closeModal}>
+            <div className="popup__close" onClick={() => closeModal(modalActionTypes.SWITCH_REG_MODAL)}>
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path fillRule="evenodd" clipRule="evenodd"
                           d="M18.3536 5.64645C18.5488 5.84171 18.5488 6.15829 18.3536 6.35355L6.35355 18.3536C6.15829 18.5488 5.84171 18.5488 5.64645 18.3536C5.45118 18.1583 5.45118 17.8417 5.64645 17.6464L17.6464 5.64645C17.8417 5.45118 18.1583 5.45118 18.3536 5.64645Z"
