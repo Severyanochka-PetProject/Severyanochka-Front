@@ -54,11 +54,7 @@ function App() {
         const { access_token, email, user_id } : any = queryString.parse(location.hash);
 
         if (access_token && user_id) {
-            AuthService.loginVk({
-                access_token,
-                email,
-                vk_user_id: user_id,
-            }).then(async (response) => {
+            AuthService.loginVk(access_token, user_id, email).then(async (response) => {
                 const { data } = response;
 
                 navigation('/');

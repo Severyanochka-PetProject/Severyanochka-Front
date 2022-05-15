@@ -22,12 +22,19 @@ class AuthService {
         return await api.post('/auth/login', {phone_number, password})
     }
 
-    static async loginVk(payload: IRegistrationVkPayload) : Promise<AxiosResponse>{
-        let userVk = await this.getUserFromVk(payload.vk_user_id, payload.access_token);
+    static async loginVk(access_token: string, vk_user_id: number, email: string, phone_number?: string) : Promise<AxiosResponse>{
+        let userVk = await this.getUserFromVk(vk_user_id, access_token);
 
-        console.log(userVk);
+        userVk = {
+            email,
+            phone_number,
+            vk_user_id,
+            first_name: userVk.first_name,
+            last_name: userVk.last_name,
+            avatar_url: userVk.photo_400
+        }
 
-        return await api.post('/auth/login-vk', payload);
+        return await api.post('/auth/login-vk', userVk);
     }
 
     static async me () : Promise<AxiosResponse> {

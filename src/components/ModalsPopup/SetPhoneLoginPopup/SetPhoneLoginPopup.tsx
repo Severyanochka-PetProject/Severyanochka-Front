@@ -48,12 +48,7 @@ const SetPhoneLoginPopup: FC = () => {
         const { access_token, email, user_id } : any = queryString.parse(location.hash);
 
         if (access_token && user_id) {
-            await AuthService.loginVk({
-                access_token,
-                email,
-                vk_user_id: user_id,
-                phone_number
-            })
+            await AuthService.loginVk(access_token, user_id, email, phone_number)
                 .then((response) => {
                     // const { data} = response
                     navigation('/');
