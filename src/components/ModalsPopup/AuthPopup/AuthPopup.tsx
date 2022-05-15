@@ -182,7 +182,7 @@ const AuthPopup: FC = () => {
                     </div>
                 </div>
                 <div className="content-socials">
-                    <a className="content-socials__link" href={`https://oauth.vk.com/authorize?client_id=8167012&redirect_uri=${OAuthVKRedirect}&display=page&scope=email&&response_type=token`}>
+                    <a className="content-socials__link" href={`https://oauth.vk.com/authorize?client_id=8166083&redirect_uri=${OAuthVKRedirect}&display=page&scope=email&&response_type=token`}>
                         <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path fillRule="evenodd" clipRule="evenodd" d="M3.09295 3.09295C4.76837e-07 6.1859 0 11.1639 0 21.12V22.88C0 32.8361 4.76837e-07 37.8141 3.09295 40.907C6.1859 44 11.1639 44 21.12 44H22.88C32.8361 44 37.8141 44 40.907 40.907C44 37.8141 44 32.8361 44 22.88V21.12C44 11.1639 44 6.1859 40.907 3.09295C37.8141 0 32.8361 0 22.88 0H21.12C11.1639 0 6.1859 0 3.09295 3.09295ZM7.39999 13.4C7.63791 24.8306 13.3478 31.7 23.3585 31.7H23.9259V25.1603C27.6044 25.5267 30.386 28.2195 31.5023 31.7H36.7C35.2725 26.4976 31.5206 23.6216 29.1781 22.5225C31.5206 21.1669 34.8148 17.8697 35.6017 13.4H30.8799C29.8551 17.027 26.8175 20.3243 23.9259 20.6357V13.4H19.2041V26.0763C16.2759 25.3435 12.5792 21.7898 12.4145 13.4H7.39999Z" fill="#2688EB"/>
                         </svg>

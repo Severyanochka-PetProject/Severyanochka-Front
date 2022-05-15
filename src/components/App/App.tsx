@@ -70,8 +70,7 @@ function App() {
                 setUserData(res.data)
                 setAuthFlag(true)
             })
-                .catch((error) => {
-                    // const { data } = error.response;
+                .catch(() => {
                     openSetPhoneLoginPopup();
                 })
         }

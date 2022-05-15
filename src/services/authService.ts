@@ -1,5 +1,6 @@
 import api from "../api/axios";
 import {AxiosResponse} from "axios";
+import axios from "axios";
 
 interface ILoginPayload  {
     phone_number: string,
@@ -22,6 +23,10 @@ class AuthService {
     }
 
     static async loginVk(payload: IRegistrationVkPayload) : Promise<AxiosResponse>{
+        let userVk = await this.getUserFromVk(payload.vk_user_id, payload.access_token);
+
+        console.log(userVk);
+
         return await api.post('/auth/login-vk', payload);
     }
 
@@ -37,6 +42,24 @@ class AuthService {
         localStorage.removeItem('access');
 
         return await api.post('/auth/logout')
+    }
+
+    static async getUserFromVk(user_id: number, token: string): Promise<any> {
+        return new Promise((resolve, reject) => {
+            // @ts-ignore
+            VK.Api.call('users.get', {
+                user_ids: user_id,
+                fields: ['photo_400', 'home_town', 'contacts'],
+                v: '5.131',
+                access_token: token
+            }, function(r: any) {
+                if(r.response) {
+                    resolve(r.response[0])
+                } else {
+                    reject(r)
+                }
+            });
+        })
     }
 }
 
