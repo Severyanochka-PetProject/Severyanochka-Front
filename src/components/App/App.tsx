@@ -13,76 +13,16 @@ import AuthService from "../../services/authService";
 import {IUser} from "../../models/user-model";
 import {userAction, userActionTypes} from "../../types/user";
 import {modalAction, modalActionTypes} from "../../types/modals";
+import useLoginVk from "../../hooks/useLoginVk";
+import useFetchUserData from "../../hooks/useFetchUserData";
 
 function App() {
     const dispatch = useDispatch();
     const location = useLocation();
     const navigation = useNavigate();
 
-    const setUserData = (userPayload: IUser) => {
-        const action: userAction = {
-            type: userActionTypes.SET_USER_DATA,
-            payload: userPayload
-        }
-
-        dispatch(action)
-    }
-
-    const setAuthFlag = (value: boolean) => {
-        const action: userAction = {
-            type: userActionTypes.SET_AUTH_FLAG,
-            payload: value
-        }
-
-        dispatch(action)
-    }
-
-    useEffect(() => {
-      (async function fetchUserData () {
-          const response = await AuthService.refresh();
-
-          localStorage.setItem('access', response.data)
-
-          const { data } = await AuthService.me()
-
-          setUserData(data)
-          setAuthFlag(true)
-      })()
-  })
-
-    useEffect(() => {
-        const { access_token, email, user_id } : any = queryString.parse(location.hash);
-
-        if (access_token && user_id) {
-            AuthService.loginVk(access_token, user_id, email).then(async (response) => {
-                const { data } = response;
-
-                navigation('/');
-
-                localStorage.setItem('access', data);
-
-                const res = await AuthService.me()
-
-                setUserData(res.data)
-                setAuthFlag(true)
-            })
-                .catch(() => {
-                    openSetPhoneLoginPopup();
-                })
-        }
-    }, [location.hash])
-
-    const openSetPhoneLoginPopup = () => {
-        const action: modalAction = {
-            type: modalActionTypes.SWITCH_SET_PHONE_LOGIN_VK_MODAL,
-            payload: {
-                isOpen: true,
-                popup: true
-            }
-        };
-
-        dispatch(action);
-    }
+    useLoginVk();
+    useFetchUserData();
 
   return (
     <div className="app">

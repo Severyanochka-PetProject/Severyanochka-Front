@@ -33,6 +33,7 @@ const SetPhoneLoginPopup: FC = () => {
         return phone_number.length === 18 || phone_number.length === 17;
     }, [phone_number]);
 
+    // FIXME: поправить хук useLoginVK, чтобы вынести эту часть кода
     const login = async () => {
         const { access_token, email, user_id } : any = queryString.parse(location.hash);
 
