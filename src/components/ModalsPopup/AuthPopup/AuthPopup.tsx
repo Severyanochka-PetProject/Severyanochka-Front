@@ -23,7 +23,7 @@ const AuthPopup: FC = () => {
     const [phone_number, setPhoneNumber] = useState('');
     const [password, setPassword] = useState('');
 
-    const OAuthVKRedirect = process.env.NODE_ENV === "development" ? "http://localhost:3000/" : "http://tankistpro-food.ru"
+    const OAuthVKRedirect = process.env.NODE_ENV === "development" ? "http://localhost:3000/" : "https://tankistpro-food.ru"
 
     const [errors, setErrors] = useState({
         status: false,
