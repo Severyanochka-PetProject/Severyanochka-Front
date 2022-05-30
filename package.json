@@ -75,5 +75,5 @@
     "chromatic": "^6.5.2",
     "webpack": "^5.70.0"
   },
-  "proxy": "http://tankistpro-food.ru:5500/api/v1/"
+  "proxy": "http://tankistpro-food.ru:5500"
 }
