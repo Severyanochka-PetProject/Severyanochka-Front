@@ -11,7 +11,7 @@ class AuthService {
     static async login (payload : ILoginPayload ): Promise<AxiosResponse> {
         const { password, phone_number } = payload
 
-        return await api.post('/auth/login', {phone_number, password})
+        return await api.post('/api/v1/auth/login', {phone_number, password})
     }
 
     static async loginVk(access_token: string, vk_user_id: number, email: string, phone_number?: string) : Promise<AxiosResponse>{
@@ -26,21 +26,21 @@ class AuthService {
             avatar_url: userVk.photo_400
         }
 
-        return await api.post('/auth/login-vk', userVk);
+        return await api.post('/api/v1/auth/login-vk', userVk);
     }
 
     static async me () : Promise<AxiosResponse> {
-        return await api.get('/users/me')
+        return await api.get('/api/v1/users/me')
     }
 
     static async refresh () : Promise<AxiosResponse> {
-        return await api.get('/auth/refresh')
+        return await api.get('/api/v1/auth/refresh')
     }
 
     static async logout () : Promise<AxiosResponse> {
         localStorage.removeItem('access');
 
-        return await api.post('/auth/logout')
+        return await api.post('/api/v1/auth/logout')
     }
 
     static async getUserFromVk(user_id: number, token: string): Promise<any> {
