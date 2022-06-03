@@ -1,10 +1,10 @@
 import axios, {AxiosRequestConfig} from 'axios';
 
-const baseUrl = process.env.NODE_ENV === "development" ? "http://localhost:5500/api/v1/" : "http://tankistpro-food.ru:5500/api/v1/"
+const baseUrl = process.env.NODE_ENV === "development" ? "http://localhost:5500/api/v1/" : "https://tankistpro-food.ru:5500/api/v1/"
 
 const api = axios.create({
-    baseURL: baseUrl,
     withCredentials: true,
+    proxy: false,
 });
 
 api.interceptors.request.use((config: AxiosRequestConfig) => {
