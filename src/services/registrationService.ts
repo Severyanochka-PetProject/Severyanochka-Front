@@ -11,7 +11,7 @@ interface IRegistrationPayload {
 
 class RegistrationService {
     static async registration(payload: IRegistrationPayload): Promise<AxiosResponse> {
-        return await api.post('/auth/registration', payload);
+        return await api.post('/api/v1/auth/registration', payload);
     }
 }
 
