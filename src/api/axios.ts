@@ -1,11 +1,19 @@
 import axios, {AxiosRequestConfig} from 'axios';
 
-const baseUrl = process.env.NODE_ENV === "development" ? "http://localhost:5500/api/v1/" : "https://tankistpro-food.ru:5500/api/v1/"
+// const baseUrl = process.env.NODE_ENV !== "development" ? "https://tankistpro-food.ru" : "";
 
-const api = axios.create({
+const createOptionsDevelopment = {
     withCredentials: true,
-    proxy: false,
-});
+}
+
+const createOptionsProduction = {
+    baseURL: "https://tankistpro-food.ru",
+    withCredentials: true,
+}
+
+const createOptions = process.env.NODE_ENV !== "development" ? createOptionsProduction : createOptionsDevelopment;
+
+const api = axios.create(createOptions);
 
 api.interceptors.request.use((config: AxiosRequestConfig) => {
     config.headers!.Authorization = localStorage.getItem('access') || '';
