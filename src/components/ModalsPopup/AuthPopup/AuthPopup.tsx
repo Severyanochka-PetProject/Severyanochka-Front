@@ -95,6 +95,7 @@ const AuthPopup: FC = () => {
 
             closeModal(modalActionTypes.SWITCH_AUTH_MODAL, false, false)
         } catch (error: any) {
+            console.log(error);
             const data = error.response.data;
             setErrors({
                 status: true,
