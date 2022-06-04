@@ -8,7 +8,7 @@ export default function useFetchUserData() {
     useEffect(() => {
         (async function fetchUserData () {
             const response = await AuthService.refresh();
-
+            console.log(response);
             localStorage.setItem('access', response.data)
 
             const { data } = await AuthService.me()
