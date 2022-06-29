@@ -13,7 +13,10 @@ const createOptionsProduction = {
 
 const createOptions = process.env.NODE_ENV !== "development" ? createOptionsProduction : createOptionsDevelopment;
 
-const api = axios.create(createOptions);
+const api = axios.create({
+	baseURL: "https://tankistpro-food.ru/",
+	withCredentials: true
+});
 
 api.interceptors.request.use((config: AxiosRequestConfig) => {
     config.headers!.Authorization = localStorage.getItem("access") || "";
