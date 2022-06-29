@@ -1,20 +1,20 @@
 import api from "../api/axios";
 import {AxiosResponse} from "axios";
+import { AuthServiceInterface } from "../interfaces/AuthService.interface";
 
 interface ILoginPayload  {
     phone_number: string,
     password: string
 }
 
-class AuthService {
-
-    static async login (payload : ILoginPayload ): Promise<AxiosResponse> {
+class AuthService implements AuthServiceInterface {
+    async login (payload : ILoginPayload ): Promise<AxiosResponse> {
         const { password, phone_number } = payload
 
         return await api.post('/api/v1/auth/login', {phone_number, password})
     }
 
-    static async loginVk(access_token: string, vk_user_id: number, email: string, phone_number?: string) : Promise<AxiosResponse>{
+    async loginVk(access_token: string, vk_user_id: number, email: string, phone_number?: string) : Promise<AxiosResponse>{
         let userVk = await this.getUserFromVk(vk_user_id, access_token);
 
         userVk = {
@@ -29,21 +29,21 @@ class AuthService {
         return await api.post('/api/v1/auth/login-vk', userVk);
     }
 
-    static async me () : Promise<AxiosResponse> {
+    async me () : Promise<AxiosResponse> {
         return await api.get('/api/v1/users/me')
     }
 
-    static async refresh () : Promise<AxiosResponse> {
+    async refresh () : Promise<AxiosResponse> {
         return await api.get('/api/v1/auth/refresh')
     }
 
-    static async logout () : Promise<AxiosResponse> {
+    async logout () : Promise<AxiosResponse> {
         localStorage.removeItem('access');
 
         return await api.post('/api/v1/auth/logout')
     }
 
-    static async getUserFromVk(user_id: number, token: string): Promise<any> {
+    async getUserFromVk(user_id: number, token: string): Promise<any> {
         return new Promise((resolve, reject) => {
             // @ts-ignore
             VK.Api.call('users.get', {
@@ -62,4 +62,4 @@ class AuthService {
     }
 }
 
-export default AuthService;
+export default new AuthService();
