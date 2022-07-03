@@ -29,7 +29,7 @@ export interface AuthServiceInterface {
     refresh(): Promise<AxiosResponse>;
     
     /**
-     * Получение пользователя VK
+     * Получение данных пользователя из VK
      */
     getUserFromVk(user_id: number, token: string): Promise<AxiosResponse>;
 }
