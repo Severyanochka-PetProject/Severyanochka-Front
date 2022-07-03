@@ -11,12 +11,10 @@ import CustomButton from "../../UI/CustomButton/CustomButton";
 import InputField from "../../UI/InputField/InputField";
 import BorderButton from "../../UI/BorderButton/BorderButton";
 
-import {userAction, userActionTypes} from "../../../types/user";
-import {IUser} from "../../../models/user-model";
-
 import AuthService from "../../../services/authService";
 
 import useCloseModal from "../../../hooks/useCloseModal.";
+import useSetAuthorizationData from '../../../hooks/useSetAuthorizationData';
 
 const AuthPopup: FC = () => {
     const [authStage, toggleStage] = useState(1);
@@ -24,7 +22,9 @@ const AuthPopup: FC = () => {
     const [password, setPassword] = useState('');
 
     const OAuthVKRedirect = process.env.NODE_ENV === "development" ? "http://localhost:3000/" : "https://tankistpro-food.ru"
-
+    
+    const setAuthData = useSetAuthorizationData();
+    
     const [errors, setErrors] = useState({
         status: false,
         message: ''
@@ -44,24 +44,6 @@ const AuthPopup: FC = () => {
     useEffect(() => {
         phoneMask('#phone-input');
     })
-
-    const setUserData = (userPayload: IUser) => {
-        const action: userAction = {
-            type: userActionTypes.SET_USER_DATA,
-            payload: userPayload
-        }
-
-        dispatch(action)
-    }
-
-    const setAuthFlag = (value: boolean) => {
-        const action: userAction = {
-            type: userActionTypes.SET_AUTH_FLAG,
-            payload: value
-        }
-
-        dispatch(action)
-    }
 
     const checkPhone = () => {
         if (!isValidPhoneNumber) {
@@ -91,7 +73,9 @@ const AuthPopup: FC = () => {
 
             localStorage.setItem('access', data)
 
-            await setUser();
+            // await setUser();
+            const response = await AuthService.me()
+            setAuthData(response.data, true);
 
             closeModal(modalActionTypes.SWITCH_AUTH_MODAL, false, false)
         } catch (error: any) {
@@ -102,13 +86,6 @@ const AuthPopup: FC = () => {
                 message: data.error
             });
         }
-    }
-
-    const setUser = async () => {
-        const response = await AuthService.me()
-
-        setUserData(response.data)
-        setAuthFlag(true)
     }
 
     const openRegistrationPopup = () => {
