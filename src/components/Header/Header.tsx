@@ -80,7 +80,7 @@ const Header: FC = () => {
             ) : (
                 <div className="header-wrapper__signIn" onClick={openAuthPopup}>
                     <button>
-                        Войти
+                        <span>Войти</span>
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path fillRule="evenodd" clipRule="evenodd"
                                   d="M13.5 2C13.5 1.72386 13.7239 1.5 14 1.5H19C20.3807 1.5 21.5 2.61929 21.5 4V20C21.5 21.3807 20.3807 22.5 19 22.5H14C13.7239 22.5 13.5 22.2761 13.5 22C13.5 21.7239 13.7239 21.5 14 21.5H19C19.8284 21.5 20.5 20.8284 20.5 20V4C20.5 3.17157 19.8284 2.5 19 2.5H14C13.7239 2.5 13.5 2.27614 13.5 2Z"
@@ -103,7 +103,9 @@ const Header: FC = () => {
             <div className="header-wrapper">
                 <div className="header-wrapper__logo">
                         <Link to="/">
-                            <img src="/images/header/logo.svg" alt=""/>
+                            <img src={ window.innerWidth >= 1040 
+                                ? "/images/header/logo.svg" 
+                                : "/images/header/logo-adapting.svg" } alt=""/>
                         </Link>
                     </div>
                 <div className="header-wrapper__filter">
