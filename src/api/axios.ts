@@ -1,7 +1,5 @@
 import axios, {AxiosRequestConfig} from 'axios';
 
-// const baseUrl = process.env.NODE_ENV !== "development" ? "https://tankistpro-food.ru" : "";
-
 const createOptionsDevelopment = {
     withCredentials: true,
 }

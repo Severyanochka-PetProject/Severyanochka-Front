@@ -2,10 +2,12 @@ import {combineReducers} from "redux";
 
 import {ModalReducer} from "./modalReducer";
 import {UserReducer} from "./userReducer";
+import {CategoryReducer} from "./categoryReducer";
 
 export const rootReducer = combineReducers({
     modal: ModalReducer,
-    user: UserReducer
+    user: UserReducer,
+    category: CategoryReducer
 })
 
 

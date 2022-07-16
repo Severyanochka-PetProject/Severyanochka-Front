@@ -1,19 +1,35 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import {Link} from "react-router-dom";
 
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
 
 import './categoriesPage.scss';
-import {Link} from "react-router-dom";
+
+import { Category } from '../../domain/Category.domain';
+import { categoryInitialState } from '../../types/category';
+import { RootState } from '../../store/reducers';
+import { useSelector } from 'react-redux';
 
 const CategoriesPage = () => {
+    const categories = useSelector<RootState, Category[]>(state => state.category.categories)
+
     return (
         <div className="page categories-page">
             <Header/>
             <main className="main">
                 <h1>Каталог</h1>
                 <div className="categories-wrapper">
-                    <Link to="#" className="categories-item categories-item_large-start">
+                    {categories.map((x: any, index) => (
+                        <Link to="#" className="categories-item" key={ index }>
+                            <div className="categories-item__text">
+                                <p>{ x.name }</p>
+                            </div>
+                            <img src={x.img_hash} alt=""/>
+                        </Link>
+                    ))
+                    }
+                    {/* <Link to="#" className="categories-item categories-item_large-start">
                         <div className="categories-item__text">
                             <p>Молоко, сыр, яйцо</p>
                         </div>
@@ -90,7 +106,7 @@ const CategoriesPage = () => {
                         <div className="categories-item__text">
                             <p>Непродовольственные товары</p>
                         </div>
-                    </Link>
+                    </Link> */}
                 </div>
             </main>
             <Footer />
