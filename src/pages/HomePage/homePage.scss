@@ -1,3 +1,4 @@
+@import "../../scss/variables.scss";
 
 .page_home {
   position: relative;
@@ -7,7 +8,7 @@
   }
 }
 
-@media screen and (max-width: 1040px) { 
+@media screen and (max-width: $w-1040) { 
   .page_home .main {
     margin-top: 40px;
   }

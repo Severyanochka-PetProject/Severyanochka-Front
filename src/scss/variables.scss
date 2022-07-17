@@ -2,7 +2,13 @@ $wrapperWidth: 1210px;
 
 $adaptingMainPadding: 10px;
 
-@media screen and (max-width: 1260px) {
+// AdaptingPoints
+$w-1260: 1260px;
+$w-1040: 1040px;
+$w-750: 750px;
+$w-595: 595px;
+
+@media screen and (max-width: $w-1260) {
     $wrapperWidth: 1000px;
 
     .header-wrapper, .main, .catalog-list__wrapper, .footer .footer__wrapper {
@@ -10,7 +16,7 @@ $adaptingMainPadding: 10px;
     }
  }
 
- @media screen and (max-width: 1040px) {
+ @media screen and (max-width: $w-1040) {
     $wrapperWidth: 728px;
 
     .header-wrapper, .main, .catalog-list__wrapper, .footer .footer__wrapper {
@@ -18,7 +24,7 @@ $adaptingMainPadding: 10px;
     }
  }
 
- @media screen and (max-width: 750px) {
+ @media screen and (max-width: $w-750) {
     $wrapperWidth: 565px;
 
     .header-wrapper, .main, .catalog-list__wrapper, .footer .footer__wrapper {
@@ -26,7 +32,7 @@ $adaptingMainPadding: 10px;
     }
  }
 
- @media screen and (max-width: 595px) { 
+ @media screen and (max-width: $w-595) { 
     $wrapperWidth: initial;
 
     .header-wrapper, .main, .catalog-list__wrapper, .footer .footer__wrapper {

@@ -66,7 +66,7 @@
   }
 }
 
-@media screen and (max-width: 1260px) { 
+@media screen and (max-width: $w-1260) { 
   .footer__wrapper {
     width: $wrapperWidth;
   }
@@ -92,7 +92,7 @@
   } 
 }
 
-@media screen and (max-width: 1040px) { 
+@media screen and (max-width: $w-1040) { 
   .footer__wrapper {
     width: $wrapperWidth;
   }
@@ -113,7 +113,7 @@
   }
 }
 
-@media screen and (max-width: 750px) { 
+@media screen and (max-width: $w-750) { 
   .footer {
     height: 196px;
   }

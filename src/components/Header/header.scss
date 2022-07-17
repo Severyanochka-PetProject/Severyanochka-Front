@@ -242,7 +242,7 @@
 }
 
 
-@media screen and (max-width: 1260px) {
+@media screen and (max-width: $w-1260) {
   .header-wrapper {
     width: $wrapperWidth;
     column-gap: 20px; 
@@ -271,7 +271,7 @@
 }
 
 
-@media screen and (max-width: 1040px) {
+@media screen and (max-width: $w-1040) {
   .header-wrapper {
     column-gap: 30px; 
   }
@@ -301,12 +301,12 @@
   }
 }
 
-@media screen and (max-width: 750px) { 
+@media screen and (max-width: $w-750) { 
   .header-wrapper__controllers, .header-wrapper__signIn, .header-wrapper__filter .filter-options {
     display: none;
   }
 }
 
-@media screen and (max-width: 595px) { 
+@media screen and (max-width: $w-595) { 
 
 }
