@@ -1,4 +1,4 @@
-import {modalAction, modalActionTypes} from "../types/modals";
+import {modalAction, modalActionTypes} from "../store/types/modals";
 import {useDispatch} from "react-redux";
 
 export default function useCloseModal() {

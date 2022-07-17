@@ -60,3 +60,31 @@
     }
   }
 }
+
+@media screen and (max-width: 590px) {
+  .article {
+    width: 336px;
+    min-height: 300px;
+  }
+
+  .article__image {
+    height:96px;
+    overflow: hidden;
+
+    img {
+      width: 100%;
+    }
+  }
+
+  .article__title {
+    font-size: 1rem;
+  }
+  
+  .article__text {
+    font-size: 0.75rem;
+  }
+
+  .article__wrapper small {
+    font-size:0.5rem;
+  }
+}

@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import {useDispatch} from "react-redux";
 
 import CategoriesService from '../services/categoriesService';
-import { categoryAction, categoryActionTypes } from "../types/category";
+import { categoryAction, categoryActionTypes } from "../store/types/category";
 
 export default function useFetchCategories() {
     const dispath = useDispatch();

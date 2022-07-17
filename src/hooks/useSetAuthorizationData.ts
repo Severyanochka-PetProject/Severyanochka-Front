@@ -1,5 +1,5 @@
 import {IUser} from "../models/user-model";
-import {userAction, userActionTypes} from "../types/user";
+import {userAction, userActionTypes} from "../store/types/user";
 import {useDispatch} from "react-redux";
 
 export default function useSetAuthorizationData() {

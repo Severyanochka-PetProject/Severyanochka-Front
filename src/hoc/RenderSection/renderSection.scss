@@ -42,3 +42,42 @@
     row-gap: 30px;
   }
 }
+
+@media screen and (max-width: 1040px) {
+  #news-section {
+
+    .section__content {
+      justify-content: center;
+    }
+  }
+
+  .section {
+    &:not(:first-child) {
+      margin-top: 80px;
+    }
+  }
+}
+
+@media screen and (max-width: 590px) {
+  .section__header {
+    margin-bottom: 16px;
+  }
+
+  .section__header h2 {
+    font-size: 1.5rem;
+  }
+
+  .section__header a {
+    font-size: 1rem;
+  }
+
+  .section__content {
+    column-gap: 16px;
+    row-gap:16px;
+  }
+
+  .product-section .section__content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+}

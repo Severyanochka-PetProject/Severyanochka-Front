@@ -1,4 +1,4 @@
-import { IUser } from "../models/user-model";
+import { IUser } from "../../models/user-model";
 
 export enum userActionTypes {
     SET_REFRESH_TOKEN = "SET_REFRESH_TOKEN",

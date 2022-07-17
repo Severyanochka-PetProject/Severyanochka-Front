@@ -7,7 +7,7 @@ import Footer from "../../components/Footer/Footer";
 import './categoriesPage.scss';
 
 import { Category } from '../../domain/Category.domain';
-import { categoryInitialState } from '../../types/category';
+import { categoryInitialState } from '../../store/types/category';
 import { RootState } from '../../store/reducers';
 import { useSelector } from 'react-redux';
 

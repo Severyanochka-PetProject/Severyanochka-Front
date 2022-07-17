@@ -14,6 +14,7 @@
   &__content {
     max-width: 260px;
     width: 100%;
+    min-width: 174px;
 
     p, small {
       color: #414141;
@@ -33,5 +34,20 @@
 
   &__image {
 
+  }
+}
+
+@media screen and (max-width: 590px) {
+  .offer {
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .offer__content {
+    z-index: 1;
+  }
+
+  .offer__content p {
+    font-size: 1.25rem;
   }
 }

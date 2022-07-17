@@ -3,11 +3,11 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 import './header.scss';
-import {modalAction, modalActionTypes} from "../../types/modals";
+import {modalAction, modalActionTypes} from "../../store/types/modals";
 
 import CatalogList from "../CatalogList/CatalogList";
 import {RootState} from "../../store/reducers";
-import {userAction, userActionTypes, userInitialState} from "../../types/user";
+import {userAction, userActionTypes, userInitialState} from "../../store/types/user";
 import AuthService from "../../services/authService";
 
 const Header: FC = () => {

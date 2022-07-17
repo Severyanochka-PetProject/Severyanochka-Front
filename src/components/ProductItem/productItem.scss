@@ -126,3 +126,25 @@
     }
   }
 }
+
+
+@media screen and (max-width: 590px) {
+  .product {
+    width: inherit;
+  }
+  .product__image img {
+    object-fit: contain;
+  }
+
+  .product__content .content-price {
+    height: 25px;
+  }
+
+  .product__content .content-price p {
+    font-size:  0.875rem;
+  }
+
+  .product__content .content-info p {
+    font-size:  0.75rem;
+  }
+}

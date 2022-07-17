@@ -19,17 +19,17 @@ function HomePage () {
             <Header />
             <Banner />
             <main className="main">
-                <RenderSection sectionTitle="Акции" sectionLink="#" sectionLinkText="Все акции">
+                <RenderSection sectionTitle="Акции" sectionLink="#" sectionClass="product-section" sectionLinkText="Все акции">
                     {[1, 2, 3, 4].map((key, index) => (
                             <ProductItem key={ index } />
                     ))}
                 </RenderSection>
-                <RenderSection sectionTitle="Новинки" sectionLink="#" sectionLinkText="Все новинки">
+                <RenderSection sectionTitle="Новинки" sectionLink="#" sectionClass="product-section" sectionLinkText="Все новинки">
                     {[1, 2, 3, 4].map((key, index) => (
                         <ProductItem key={ index } />
                     ))}
                 </RenderSection>
-                <RenderSection sectionTitle="Покупали раньше" sectionLink="#" sectionLinkText="Все покупки">
+                <RenderSection sectionTitle="Покупали раньше" sectionLink="#" sectionClass="product-section" sectionLinkText="Все покупки">
                     {[1, 2, 3, 4].map((key, index) => (
                         <ProductItem key={ index } />
                     ))}
@@ -42,7 +42,7 @@ function HomePage () {
                 <RenderSection sectionTitle="Наши магазины" >
                     <LocationMap />
                 </RenderSection>
-                <RenderSection sectionTitle="Статьи" sectionLink="#" sectionLinkText="Все статьи">
+                <RenderSection sectionId="news-section" sectionTitle="Статьи" sectionLink="#" sectionLinkText="Все статьи">
                     {[1, 2, 3].map(( index) => (
                         <NewsArticleItem key={ index } />
                     ))}

@@ -1,4 +1,4 @@
-import {initialState, modalAction, modalActionTypes} from "../../types/modals";
+import {initialState, modalAction, modalActionTypes} from "../types/modals";
 
 const defaultState: initialState = {
     modalArea: {

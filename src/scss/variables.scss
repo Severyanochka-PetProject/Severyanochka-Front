@@ -5,7 +5,7 @@ $adaptingMainPadding: 10px;
 @media screen and (max-width: 1260px) {
     $wrapperWidth: 1000px;
 
-    .header-wrapper, .main, .catalog-list__wrapper {
+    .header-wrapper, .main, .catalog-list__wrapper, .footer .footer__wrapper {
         width: $wrapperWidth;
     }
  }
@@ -13,7 +13,7 @@ $adaptingMainPadding: 10px;
  @media screen and (max-width: 1040px) {
     $wrapperWidth: 728px;
 
-    .header-wrapper, .main, .catalog-list__wrapper {
+    .header-wrapper, .main, .catalog-list__wrapper, .footer .footer__wrapper {
         width: $wrapperWidth;
     }
  }
@@ -21,7 +21,7 @@ $adaptingMainPadding: 10px;
  @media screen and (max-width: 750px) {
     $wrapperWidth: 565px;
 
-    .header-wrapper, .main, .catalog-list__wrapper {
+    .header-wrapper, .main, .catalog-list__wrapper, .footer .footer__wrapper {
         width: $wrapperWidth;
     }
  }
@@ -29,7 +29,7 @@ $adaptingMainPadding: 10px;
  @media screen and (max-width: 595px) { 
     $wrapperWidth: initial;
 
-    .header-wrapper, .main, .catalog-list__wrapper {
+    .header-wrapper, .main, .catalog-list__wrapper, .footer .footer__wrapper {
         width: $wrapperWidth;
         padding: 0 $adaptingMainPadding 0 $adaptingMainPadding;
     }

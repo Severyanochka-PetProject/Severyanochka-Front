@@ -1,5 +1,5 @@
 import React, {FC, useEffect, useMemo, useState} from 'react';
-import {modalActionTypes} from "../../../types/modals";
+import {modalActionTypes} from "../../../store/types/modals";
 import {useLocation, useNavigate} from "react-router-dom";
 
 import queryString from "query-string";

@@ -9,9 +9,9 @@ const createOptionsProduction = {
     withCredentials: true,
 }
 
-const createOptions = process.env.NODE_ENV !== "development" ? createOptionsProduction : createOptionsDevelopment;
+// const createOptions = process.env.NODE_ENV !== "development" ? createOptionsProduction : createOptionsDevelopment;
 
-const api = axios.create(createOptions);
+const api = axios.create(createOptionsProduction);
 
 api.interceptors.request.use((config: AxiosRequestConfig) => {
     config.headers!.Authorization = localStorage.getItem("access") || "";

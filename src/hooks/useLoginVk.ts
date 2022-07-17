@@ -1,7 +1,7 @@
 import {useEffect} from "react";
 import queryString from "query-string";
 import AuthService from "../services/authService";
-import {modalAction, modalActionTypes} from "../types/modals";
+import {modalAction, modalActionTypes} from "../store/types/modals";
 import {useDispatch} from "react-redux";
 import {useLocation, useNavigate} from "react-router-dom";
 import useSetAuthorizationData from "./useSetAuthorizationData";

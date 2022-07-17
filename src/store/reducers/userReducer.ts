@@ -1,4 +1,4 @@
-import {userAction, userActionTypes, userInitialState} from "../../types/user";
+import {userAction, userActionTypes, userInitialState} from "../types/user";
 
 const defaultState: userInitialState = {
     refresh_token: '',

@@ -7,14 +7,16 @@ import './renderSection.scss';
 interface IRenderSection {
     children: ReactNode,
     sectionTitle: string,
-    sectionLink?: string | null
-    sectionLinkText?: string | null
+    sectionLink?: string | null,
+    sectionLinkText?: string | null,
+    sectionId?: string| null,
+    sectionClass?: string | null, 
 }
 
-const RenderSection: FC <IRenderSection> = ({ sectionLink, sectionTitle, children, sectionLinkText }) => {
+const RenderSection: FC <IRenderSection> = ({ sectionLink, sectionTitle, children, sectionLinkText, sectionId, sectionClass }) => {
 
     return (
-        <section className="section">
+        <section className={`section ${ sectionClass ? sectionClass : '' }`} id={sectionId ? sectionId : ''}>
             <div className="section__header">
                 <h2>{ sectionTitle }</h2>
                 { sectionLink &&

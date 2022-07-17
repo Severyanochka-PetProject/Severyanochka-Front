@@ -1,7 +1,7 @@
 import React, {FC, useEffect, useMemo, useState} from 'react';
 import {useDispatch} from "react-redux";
 
-import {modalAction, modalActionTypes} from "../../../types/modals";
+import {modalAction, modalActionTypes} from "../../../store/types/modals";
 
 import './authPopup.scss';
 import phoneMask from "../../../plugins/phoneMask.js";

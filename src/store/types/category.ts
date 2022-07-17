@@ -1,4 +1,4 @@
-import { Category } from "../domain/Category.domain";
+import { Category } from "../../domain/Category.domain";
 
 export enum categoryActionTypes {
     SET_CATEGORIES = "SET_CATEGORIES",

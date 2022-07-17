@@ -1,5 +1,5 @@
 import React, {FC, useEffect, useMemo, useRef, useState} from 'react';
-import {modalAction, modalActionTypes} from "../../../types/modals";
+import {modalAction, modalActionTypes} from "../../../store/types/modals";
 import {useDispatch} from "react-redux";
 
 import './registrationPopup.scss';
