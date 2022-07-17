@@ -1,0 +1,54 @@
+@import '../../scss/variables.scss';
+
+.mobile-bottom-menu {
+    height: $mobileBottomHeight;
+    width: 100%;
+    background-color: #FFFFFF;
+    position: fixed;
+    bottom: 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+
+    &__wrapper {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        column-gap: 35px;
+
+        .header-wrapper__controllers {
+            display: flex;
+            column-gap: 35px;
+        }
+
+        .header-wrapper__controllers .controller-item:not(:last-child) {
+            display: flex;
+            margin: 0;
+        }
+
+        .header-wrapper__signIn {
+            display: flex;
+        }
+    }
+
+    &__item {
+
+    }
+}
+
+@media screen and (max-width: $w-750) {
+    .mobile-bottom-menu {
+        display: flex;
+    }
+}
+
+@media screen and (max-width: $w-485) {
+    .mobile-bottom-menu__wrapper .header-wrapper__controllers, .mobile-bottom-menu__wrapper {
+        column-gap: 0;
+        width: 100%;
+    }
+
+    .mobile-bottom-menu__wrapper .header-wrapper__controllers {
+        justify-content: space-around;
+    }
+}

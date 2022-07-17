@@ -6,6 +6,7 @@ import './app.scss';
 import HomePage from "../../pages/HomePage/HomePage";
 import CategoriesPage from "../../pages/CategoriesPage/CategoriesPage";
 import ModalWrapper from "../../hoc/ModalWrapper/ModalWrapper";
+import MobileBottomMenu from "../MobileBottomMenu/MobileBottomMenu";
 
 import useLoginVk from "../../hooks/useLoginVk";
 import useFetchUserData from "../../hooks/useFetchUserData";
@@ -27,6 +28,7 @@ function App() {
                     <HomePage/>
                 }/>
             </Routes>
+            <MobileBottomMenu />
         </div>
     );
 }

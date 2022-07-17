@@ -1,7 +1,7 @@
 @import "../../scss/variables";
 
 .footer {
-  height: 126px;
+  height: $footerHeight;
   width: 100%;
   background: url("../../../public/images/footer/bg.svg"), #F9F4E2;
   display: flex;
@@ -115,7 +115,7 @@
 
 @media screen and (max-width: $w-750) { 
   .footer {
-    height: 196px;
+    height: $footerHeight;
   }
 
   .footer__wrapper {
