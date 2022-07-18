@@ -1,4 +1,4 @@
-import React, {FC, useState} from "react";
+import React, {FC, useEffect, useState} from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -17,6 +17,7 @@ const Header: FC = () => {
 
     const [isOpenCatalogList, toggleCatalogList] = useState(false)
     const [isOpenDropMenu, toggleDropMenu] = useState(false)
+    const [currentWidth, setCurrentWidth] = useState(0)
 
     const toggleModal = useModal();
 
@@ -33,6 +34,30 @@ const Header: FC = () => {
         } else {
             console.log('Не удалось выйти из личного кабинета')
         }
+    }
+
+    useEffect(() => {
+        setCurrentWidth(window.innerWidth);
+        
+        const resizeListener = () => {
+            console.log(window.innerWidth)
+            setCurrentWidth(window.innerWidth)
+          };
+
+        window.addEventListener('resize', resizeListener);
+
+        return () => {
+            console.log('lister удален')
+            window.removeEventListener('resize', resizeListener);
+        }
+    }, [])
+
+    const renderLogo = () => {
+     return <>
+        <img src={ currentWidth >= 1040 
+                                ? "/images/header/logo.svg" 
+                                : "/images/header/logo-adapting.svg" } alt=""/>
+     </>   
     }
 
     const renderProfileBlock = () => {
@@ -90,9 +115,7 @@ const Header: FC = () => {
             <div className="header-wrapper">
                 <div className="header-wrapper__logo">
                         <Link to="/">
-                            <img src={ window.innerWidth >= 1040 
-                                ? "/images/header/logo.svg" 
-                                : "/images/header/logo-adapting.svg" } alt=""/>
+                            { renderLogo() }
                         </Link>
                     </div>
                 <div className="header-wrapper__filter">

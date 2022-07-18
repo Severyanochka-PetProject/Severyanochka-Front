@@ -11,6 +11,8 @@ import MobileBottomMenu from "../MobileBottomMenu/MobileBottomMenu";
 import useLoginVk from "../../hooks/useLoginVk";
 import useFetchUserData from "../../hooks/useFetchUserData";
 import useFetchCategories from '../../hooks/useFetchCategories';
+import Header from '../Header/Header';
+import Footer from '../Footer/Footer';
 
 function App() {
     useLoginVk();
@@ -19,6 +21,7 @@ function App() {
 
     return (
         <div className="app">
+            <Header />
             <ModalWrapper />
             <Routes>
                 <Route path="/categories" element={
@@ -29,6 +32,7 @@ function App() {
                 }/>
             </Routes>
             <MobileBottomMenu />
+            <Footer />
         </div>
     );
 }

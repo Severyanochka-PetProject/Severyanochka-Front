@@ -16,7 +16,6 @@ const CategoriesPage = () => {
 
     return (
         <div className="page categories-page">
-            <Header/>
             <main className="main">
                 <h1>Каталог</h1>
                 <div className="categories-wrapper">
@@ -109,7 +108,6 @@ const CategoriesPage = () => {
                     </Link> */}
                 </div>
             </main>
-            <Footer />
         </div>
     );
 };

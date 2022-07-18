@@ -3,20 +3,17 @@ import { Link } from "react-router-dom";
 
 import './homePage.scss';
 
-import Header from "../../components/Header/Header";
 import Banner from "../../components/Banner/Banner";
 import ProductItem from "../../components/ProductItem/ProductItem";
 import SpecialOfferItem from "../../components/SpecialOfferItem/SpecialOfferItem";
 import LocationMap from "../../components/LocationMap/LocationMap";
 import NewsArticleItem from "../../components/NewsArticleItem/NewsArticleItem";
-import Footer from "../../components/Footer/Footer";
 
 import RenderSection from "../../hoc/RenderSection/RenderSection";
 
 function HomePage () {
     return (
         <div className="page page_home">
-            <Header />
             <Banner />
             <main className="main">
                 <RenderSection sectionTitle="Акции" sectionLink="#" sectionClass="product-section" sectionLinkText="Все акции">
@@ -48,7 +45,6 @@ function HomePage () {
                     ))}
                 </RenderSection>
             </main>
-            <Footer />
         </div>
     )
 }
