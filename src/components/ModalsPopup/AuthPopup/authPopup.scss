@@ -210,6 +210,7 @@
 @media screen and (max-width: $w-595) {
   .auth-popup {
     width: 330px;
+    min-height: 438px;
   }
 
   .auth-popup__content {
@@ -218,5 +219,13 @@
 
   .auth-popup__content .content-main, .auth-popup__content .content-socials, .auth-popup__content .content-bottom, .auth-popup__content .content-main__btn {
     margin-top: 25px;
+  }
+}
+
+
+@media screen and (max-height: 440px) {
+  .modal-wrapper.modal_active {
+    align-items: inherit;
+    overflow-y: scroll;
   }
 }
