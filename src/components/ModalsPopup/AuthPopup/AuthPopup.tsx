@@ -13,7 +13,7 @@ import BorderButton from "../../UI/BorderButton/BorderButton";
 
 import AuthService from "../../../services/authService";
 
-import useCloseModal from "../../../hooks/useCloseModal.";
+import useModal from "../../../hooks/useModal";
 import useSetAuthorizationData from '../../../hooks/useSetAuthorizationData';
 
 import { isValidPhoneNumber, isValidPassword } from '../../../validators/validator';
@@ -32,7 +32,7 @@ const AuthPopup: FC = () => {
         message: ''
     })
 
-    const closeModal = useCloseModal();
+    const closeModal = useModal();
     const dispatch = useDispatch();
 
     const isValidUserPhone= useMemo(() => isValidPhoneNumber(phone_number), [phone_number]);

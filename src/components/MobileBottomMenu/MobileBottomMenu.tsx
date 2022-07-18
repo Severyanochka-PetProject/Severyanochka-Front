@@ -1,8 +1,13 @@
-import React from 'react'
+import React, { FC } from 'react'
 
 import './mobileBottomMenu.scss';
 
-function MobileBottomMenu() {
+import useModal from "../../hooks/useModal";
+import { modalActionTypes } from '../../store/types/modals';
+
+const MobileBottomMenu : FC = () => {
+  const toggleModal = useModal();
+
   return (
     <div className="mobile-bottom-menu">
       <div className="mobile-bottom-menu__wrapper">
@@ -39,7 +44,7 @@ function MobileBottomMenu() {
                 <p>Корзина</p>
             </div>
             <div className="header-wrapper__signIn">
-              <button>
+              <button onClick={() => toggleModal(modalActionTypes.SWITCH_AUTH_MODAL, true, true)}>
                   <span>Войти</span>
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path fillRule="evenodd" clipRule="evenodd"

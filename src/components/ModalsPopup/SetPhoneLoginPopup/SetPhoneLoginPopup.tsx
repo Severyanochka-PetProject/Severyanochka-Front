@@ -15,7 +15,7 @@ import AuthService from "../../../services/authService";
 
 import Notify from "../../UI/ToastNotification/ToastNotification";
 
-import useCloseModal from "../../../hooks/useCloseModal.";
+import useModal from "../../../hooks/useModal";
 
 const SetPhoneLoginPopup: FC = () => {
     const [phone_number, setPhoneNumber] = useState('');
@@ -23,7 +23,7 @@ const SetPhoneLoginPopup: FC = () => {
     const location = useLocation();
     const navigation = useNavigate();
 
-    const closeModal = useCloseModal();
+    const closeModal = useModal();
 
     useEffect(() => {
         phoneMask('#phone-input');

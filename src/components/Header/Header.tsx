@@ -3,12 +3,13 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 import './header.scss';
-import {modalAction, modalActionTypes} from "../../store/types/modals";
+import { modalActionTypes } from "../../store/types/modals";
 
 import CatalogList from "../CatalogList/CatalogList";
 import {RootState} from "../../store/reducers";
 import {userAction, userActionTypes, userInitialState} from "../../store/types/user";
 import AuthService from "../../services/authService";
+import useModal from "../../hooks/useModal";
 
 const Header: FC = () => {
     const dispatch = useDispatch();
@@ -17,34 +18,20 @@ const Header: FC = () => {
     const [isOpenCatalogList, toggleCatalogList] = useState(false)
     const [isOpenDropMenu, toggleDropMenu] = useState(false)
 
-    const openAuthPopup = () => {
-        const action: modalAction = {
-            type: modalActionTypes.SWITCH_AUTH_MODAL,
-            payload: {
-                isOpen: true,
-                popup: true
-            }
-        };
-
-        dispatch(action);
-    }
-
-    const setAuthFlag = (value: boolean) => {
-        const action: userAction = {
-            type: userActionTypes.SET_AUTH_FLAG,
-            payload: value
-        }
-
-        dispatch(action)
-    }
+    const toggleModal = useModal();
 
     const exit = async () => {
         const { data } = await AuthService.logout();
 
         if (data.status) {
-            setAuthFlag(false)
+            const action: userAction = {
+                type: userActionTypes.SET_AUTH_FLAG,
+                payload: false
+            }
+    
+            dispatch(action)
         } else {
-            console.log('Не удалось выйти из ЛЧ')
+            console.log('Не удалось выйти из личного кабинета')
         }
     }
 
@@ -78,7 +65,7 @@ const Header: FC = () => {
                     </div>
                 </div>
             ) : (
-                <div className="header-wrapper__signIn" onClick={openAuthPopup}>
+                <div className="header-wrapper__signIn" onClick={() => toggleModal(modalActionTypes.SWITCH_AUTH_MODAL, true, true)}>
                     <button>
                         <span>Войти</span>
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

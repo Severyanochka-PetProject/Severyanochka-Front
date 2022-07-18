@@ -14,7 +14,7 @@ import RegistrationService from "../../../services/registrationService";
 
 import Notify from "../../UI/ToastNotification/ToastNotification";
 
-import useCloseModal from "../../../hooks/useCloseModal.";
+import useModal from "../../../hooks/useModal";
 
 const RegistrationPopup : FC = () => {
     const [phone_number, setPhoneNumber] = useState('');
@@ -24,7 +24,7 @@ const RegistrationPopup : FC = () => {
     const [repeat_password, setRepeatPassword] = useState('');
 
     const dispatch = useDispatch();
-    const closeModal = useCloseModal();
+    const closeModal = useModal();
 
     useEffect(() => {
         phoneMask('#phone')
