@@ -208,9 +208,9 @@
           position: absolute;
           background-color: #FFFFFF;
           top: 100%;
-          left: 0;
+          // left: 0;
           right: 0;
-
+          min-width: 232px;
           opacity: 0;
           pointer-events: none;
           transition: .4s all;
@@ -255,6 +255,10 @@
     .filter-input {
       flex: 1;
     }
+  }
+
+  .header-wrapper__profile .profile-username, .header-wrapper__profile .profile-arrow {
+    display: none;
   }
 
   .header-wrapper__signIn, .header-wrapper__profile {
@@ -303,7 +307,7 @@
 }
 
 @media screen and (max-width: $w-750) { 
-  .header-wrapper__controllers, .header-wrapper__signIn, .header-wrapper__filter .filter-options {
+  .header-wrapper__controllers, .header-wrapper__signIn, .header-wrapper__filter .filter-options, .header-wrapper__profile {
     display: none;
   }
 }

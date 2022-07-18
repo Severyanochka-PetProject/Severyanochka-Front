@@ -30,6 +30,11 @@
         .header-wrapper__signIn {
             display: flex;
         }
+
+        .header-wrapper__profile {
+            display: flex;
+            padding: 0;
+        }
     }
 
     &__item {

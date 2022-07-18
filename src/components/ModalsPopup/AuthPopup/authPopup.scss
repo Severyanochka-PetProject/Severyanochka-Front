@@ -1,3 +1,5 @@
+@import "../../../scss/variables.scss";
+
 .popup {
   position: relative;
   background: #FFFFFF;
@@ -201,5 +203,20 @@
         }
       }
     }
+  }
+}
+
+
+@media screen and (max-width: $w-595) {
+  .auth-popup {
+    width: 330px;
+  }
+
+  .auth-popup__content {
+    margin: 45px auto 40px auto;
+  }
+
+  .auth-popup__content .content-main, .auth-popup__content .content-socials, .auth-popup__content .content-bottom, .auth-popup__content .content-main__btn {
+    margin-top: 25px;
   }
 }

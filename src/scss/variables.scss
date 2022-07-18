@@ -32,7 +32,7 @@ $w-485: 485px;
 
  @media screen and (max-width: $w-750) {
     $wrapperWidth: 565px;
-    $footerHeight: 196px;
+    $footerHeight: 160px;
 
     .header-wrapper, .main, .catalog-list__wrapper, .footer .footer__wrapper {
         width: $wrapperWidth;
