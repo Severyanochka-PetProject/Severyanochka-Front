@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import {Routes, Route} from 'react-router-dom';
 
 import './app.scss';
@@ -6,7 +6,7 @@ import './app.scss';
 import HomePage from "../../pages/HomePage/HomePage";
 import CategoriesPage from "../../pages/CategoriesPage/CategoriesPage";
 import ModalWrapper from "../../hoc/ModalWrapper/ModalWrapper";
-import MobileBottomMenu from "../MobileBottomMenu/MobileBottomMenu";
+import MobileHeader from "../Header/MobileBottomMenu/MobileHeader";
 
 import useLoginVk from "../../hooks/useLoginVk";
 import useFetchUserData from "../../hooks/useFetchUserData";
@@ -31,7 +31,7 @@ function App() {
                     <HomePage/>
                 }/>
             </Routes>
-            <MobileBottomMenu />
+            <MobileHeader />
             <Footer />
         </div>
     );

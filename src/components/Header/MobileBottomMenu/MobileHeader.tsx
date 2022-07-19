@@ -1,52 +1,10 @@
 import React, { FC } from 'react'
 
-import './mobileBottomMenu.scss';
+import './mobileHeader.scss';
 
-import useModal from "../../hooks/useModal";
-import { modalActionTypes } from '../../store/types/modals';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../store/reducers';
-import { userInitialState } from '../../store/types/user';
+import HeaderProfileBlock from '../HeaderProfileBlock/HeaderProfileBlock';
 
 const MobileBottomMenu : FC = () => {
-  const toggleModal = useModal();
-
-  const user = useSelector<RootState, userInitialState>((state) => state.user)
-
-  // FIXME: Дублируется из Header.tsx (вынести в отдельный компонент)
-  const renderProfileBlock = () => {
-    return <>
-        {user.isAuth ? (
-            <div
-                className={`header-wrapper__profile`}
-            >
-                <div className="profile-avatar">
-                    <img src={user.user.avatar_url ? user.user.avatar_url : "/images/header/avatar.png"} alt="аватарка"/>
-                </div>
-                <div className="profile-username">
-                    <p>{ user.user.first_name }</p>
-                </div>
-            </div>
-        ) : (
-            <div className="header-wrapper__signIn" onClick={() => toggleModal(modalActionTypes.SWITCH_AUTH_MODAL, true, true)}>
-                <button onClick={() => toggleModal(modalActionTypes.SWITCH_AUTH_MODAL, true, true)}>
-                    <span>Войти</span>
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path fillRule="evenodd" clipRule="evenodd"
-                              d="M13.5 2C13.5 1.72386 13.7239 1.5 14 1.5H19C20.3807 1.5 21.5 2.61929 21.5 4V20C21.5 21.3807 20.3807 22.5 19 22.5H14C13.7239 22.5 13.5 22.2761 13.5 22C13.5 21.7239 13.7239 21.5 14 21.5H19C19.8284 21.5 20.5 20.8284 20.5 20V4C20.5 3.17157 19.8284 2.5 19 2.5H14C13.7239 2.5 13.5 2.27614 13.5 2Z"
-                              fill="white"/>
-                        <path fillRule="evenodd" clipRule="evenodd"
-                              d="M10.6464 7.64645C10.8417 7.45118 11.1583 7.45118 11.3536 7.64645L15.3536 11.6464C15.5488 11.8417 15.5488 12.1583 15.3536 12.3536L11.3536 16.3536C11.1583 16.5488 10.8417 16.5488 10.6464 16.3536C10.4512 16.1583 10.4512 15.8417 10.6464 15.6464L14.2929 12L10.6464 8.35355C10.4512 8.15829 10.4512 7.84171 10.6464 7.64645Z"
-                              fill="white"/>
-                        <path fillRule="evenodd" clipRule="evenodd"
-                              d="M2.5 12C2.5 11.7239 2.72386 11.5 3 11.5H15C15.2761 11.5 15.5 11.7239 15.5 12C15.5 12.2761 15.2761 12.5 15 12.5H3C2.72386 12.5 2.5 12.2761 2.5 12Z"
-                              fill="white"/>
-                    </svg>
-                </button>
-            </div>
-        )}
-    </>
-}
 
   return (
     <div className="mobile-bottom-menu">
@@ -54,9 +12,9 @@ const MobileBottomMenu : FC = () => {
           <div className="header-wrapper__controllers">
             <div className="controller-item">
                 <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path fill-rule="evenodd" clip-rule="evenodd" d="M3 12C3 11.7239 3.22386 11.5 3.5 11.5H21.5C21.7761 11.5 22 11.7239 22 12C22 12.2761 21.7761 12.5 21.5 12.5H3.5C3.22386 12.5 3 12.2761 3 12Z" fill="#414141"/>
-                  <path fill-rule="evenodd" clip-rule="evenodd" d="M3 6C3 5.72386 3.22386 5.5 3.5 5.5H21.5C21.7761 5.5 22 5.72386 22 6C22 6.27614 21.7761 6.5 21.5 6.5H3.5C3.22386 6.5 3 6.27614 3 6Z" fill="#414141"/>
-                  <path fill-rule="evenodd" clip-rule="evenodd" d="M3 18C3 17.7239 3.22386 17.5 3.5 17.5H21.5C21.7761 17.5 22 17.7239 22 18C22 18.2761 21.7761 18.5 21.5 18.5H3.5C3.22386 18.5 3 18.2761 3 18Z" fill="#414141"/>
+                  <path fillRule="evenodd" clipRule="evenodd" d="M3 12C3 11.7239 3.22386 11.5 3.5 11.5H21.5C21.7761 11.5 22 11.7239 22 12C22 12.2761 21.7761 12.5 21.5 12.5H3.5C3.22386 12.5 3 12.2761 3 12Z" fill="#414141"/>
+                  <path fillRule="evenodd" clipRule="evenodd" d="M3 6C3 5.72386 3.22386 5.5 3.5 5.5H21.5C21.7761 5.5 22 5.72386 22 6C22 6.27614 21.7761 6.5 21.5 6.5H3.5C3.22386 6.5 3 6.27614 3 6Z" fill="#414141"/>
+                  <path fillRule="evenodd" clipRule="evenodd" d="M3 18C3 17.7239 3.22386 17.5 3.5 17.5H21.5C21.7761 17.5 22 17.7239 22 18C22 18.2761 21.7761 18.5 21.5 18.5H3.5C3.22386 18.5 3 18.2761 3 18Z" fill="#414141"/>
                 </svg>
                 <p>Каталог</p>
             </div>
@@ -83,7 +41,7 @@ const MobileBottomMenu : FC = () => {
                 </svg>
                 <p>Корзина</p>
             </div>
-            { renderProfileBlock() }
+            <HeaderProfileBlock />
           </div>
       </div>
     </div>

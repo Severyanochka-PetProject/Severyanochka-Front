@@ -112,17 +112,17 @@ const RegistrationPopup : FC = () => {
                                 title={'Телефон'}
                                 id={'phone'}
                                 onInput={(value) => setPhoneNumber(value)}
-                                autocomplete="off"
+                                autoComplete="off"
                             />
                             <InputField
                                 title={'Фамилия'}
                                 onInput={(value) => setLastName(value)}
-                                autocomplete="off"
+                                autoComplete="off"
                             />
                             <InputField
                                 title={'Имя'}
                                 onInput={(value) => setFirstName(value)}
-                                autocomplete="off"
+                                autoComplete="off"
                             />
                             <InputField
                                 title={'Пароль'}
@@ -150,7 +150,7 @@ const RegistrationPopup : FC = () => {
                     <div className="section-form section-form_column_two">
                         <div className="section-form__column">
                             <InputField title={'Номер карты'} type={'number'} autoComplete={'off'} onInput={(value) => {}} />
-                            <InputField title={'E-mail'} type={'email'} onInput={(value) => {}} autocomplete="off" />
+                            <InputField title={'E-mail'} type={'email'} onInput={(value) => {}} autoComplete="off" />
                         </div>
                         <div className="section-form__column">
                             <InputField title={'Дата рождения'} autoComplete={'off'} onInput={(value) => {}} />
