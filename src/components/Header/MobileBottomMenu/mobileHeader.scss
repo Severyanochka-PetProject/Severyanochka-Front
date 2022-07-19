@@ -20,6 +20,7 @@
         .header-wrapper__controllers {
             display: flex;
             column-gap: 35px;
+            align-items: center;
         }
 
         .header-wrapper__controllers .controller-item:not(:last-child) {
@@ -34,6 +35,13 @@
         .header-wrapper__profile {
             display: flex;
             padding: 0;
+
+            .profile-drop-list_open {
+                top: inherit;
+                bottom: 112%;
+                border-radius: 4px 4px 0 0;
+                box-shadow: 4px -19px 16px rgba(0, 0, 0, 0.1);;
+            }
         }
     }
 
