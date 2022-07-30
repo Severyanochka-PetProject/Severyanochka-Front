@@ -1,10 +1,11 @@
 import {useEffect} from "react";
 import queryString from "query-string";
 import AuthService from "../services/authService";
-import {modalAction, modalActionTypes} from "../store/types/modals";
+// import {modalAction, modalActionTypes} from "../store/types/modals";
 import {useDispatch} from "react-redux";
 import {useLocation, useNavigate} from "react-router-dom";
 import useSetAuthorizationData from "./useSetAuthorizationData";
+import { SWITCH_SET_PHONE_LOGIN_VK_MODAL } from "../store/reducers/modalReducer";
 
 export default function useLoginVk () {
     const dispatch = useDispatch();
@@ -12,18 +13,6 @@ export default function useLoginVk () {
     const navigation = useNavigate();
 
     const setAuthData = useSetAuthorizationData();
-
-    const openSetPhoneLoginPopup = () => {
-        const action: modalAction = {
-            type: modalActionTypes.SWITCH_SET_PHONE_LOGIN_VK_MODAL,
-            payload: {
-                isOpen: true,
-                popup: true
-            }
-        };
-
-        dispatch(action);
-    }
 
     useEffect(() => {
         const { access_token, email, user_id } : any = queryString.parse(location.hash);
@@ -41,7 +30,7 @@ export default function useLoginVk () {
                 setAuthData(res.data, true)
             })
                 .catch(() => {
-                    openSetPhoneLoginPopup();
+                    dispatch(SWITCH_SET_PHONE_LOGIN_VK_MODAL({isOpen: true, popup: true}))
                 })
         }
     }, [location.hash])

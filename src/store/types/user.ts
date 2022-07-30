@@ -1,4 +1,4 @@
-import { IUser } from "../../models/user-model";
+import { User } from "../../domain/User.domain";
 
 export enum userActionTypes {
     SET_REFRESH_TOKEN = "SET_REFRESH_TOKEN",
@@ -8,7 +8,7 @@ export enum userActionTypes {
 
 interface setUserDataAction {
     type: userActionTypes.SET_USER_DATA,
-    payload: IUser
+    payload: User
 }
 
 interface setRefreshTokenAction {
@@ -25,6 +25,6 @@ export type userAction = setUserDataAction | setRefreshTokenAction | setAuthFlag
 
 export interface userInitialState {
     refresh_token: string,
-    user: IUser,
+    user: User,
     isAuth: boolean
 }

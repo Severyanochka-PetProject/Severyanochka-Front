@@ -5,14 +5,11 @@ export enum modalActionTypes {
 }
 
 export interface modalAction {
-    type: string,
-    payload: {
-        isOpen: boolean,
-        popup: boolean
-    }
+    isOpen: boolean,
+    popup: boolean
 }
 
-export interface initialState {
+export interface modalInitialState {
     modalArea: {
         isOpen: boolean,
         modals: {

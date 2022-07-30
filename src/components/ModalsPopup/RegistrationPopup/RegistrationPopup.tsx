@@ -15,6 +15,7 @@ import RegistrationService from "../../../services/registrationService";
 import Notify from "../../UI/ToastNotification/ToastNotification";
 
 import useModal from "../../../hooks/useModal";
+import { SWITCH_AUTH_MODAL, SWITCH_REG_MODAL } from '../../../store/reducers/modalReducer';
 
 const RegistrationPopup : FC = () => {
     const [phone_number, setPhoneNumber] = useState('');
@@ -46,17 +47,17 @@ const RegistrationPopup : FC = () => {
         return isValidPassword && first_name.length && last_name.length && isValidPhoneNumber && isPasswordMatch
     }, [isValidPassword, first_name.length, last_name.length, isValidPhoneNumber, isPasswordMatch]);
 
-    const openAuthPopup = () => {
-        const action: modalAction = {
-            type: modalActionTypes.SWITCH_AUTH_MODAL,
-            payload: {
-            isOpen: true,
-                popup: true
-            }
-        }
+    // const openAuthPopup = () => {
+    //     const action: modalAction = {
+    //         type: modalActionTypes.SWITCH_AUTH_MODAL,
+    //         payload: {
+    //         isOpen: true,
+    //             popup: true
+    //         }
+    //     }
 
-        dispatch(action);
-    }
+    //     dispatch(action);
+    // }
 
     const registration = async () => {
         try {
@@ -74,7 +75,7 @@ const RegistrationPopup : FC = () => {
                     notificationType: "success"
                 })
 
-                openAuthPopup();
+                dispatch(SWITCH_AUTH_MODAL({isOpen: true, popup: true}));
             }
         } catch (error: any) {
             const data = error.response.data;
@@ -88,7 +89,7 @@ const RegistrationPopup : FC = () => {
 
     return (
         <div className="popup reg-popup">
-            <div className="popup__close" onClick={() => closeModal(modalActionTypes.SWITCH_REG_MODAL)}>
+            <div className="popup__close" onClick={() => closeModal(SWITCH_REG_MODAL, false, false)}>
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path fillRule="evenodd" clipRule="evenodd"
                           d="M18.3536 5.64645C18.5488 5.84171 18.5488 6.15829 18.3536 6.35355L6.35355 18.3536C6.15829 18.5488 5.84171 18.5488 5.64645 18.3536C5.45118 18.1583 5.45118 17.8417 5.64645 17.6464L17.6464 5.64645C17.8417 5.45118 18.1583 5.45118 18.3536 5.64645Z"
@@ -159,7 +160,7 @@ const RegistrationPopup : FC = () => {
                 </div>
                 <div className="reg-popup__footer">
                     <CustomButton name={'Зарегистрироваться'} disabled={!isFormValid} onClick={registration} />
-                    <BorderButton text={'Вход'} onClick={openAuthPopup} />
+                    <BorderButton text={'Вход'} onClick={() => dispatch(SWITCH_AUTH_MODAL({isOpen: true, popup: true})) } />
                 </div>
             </div>
         </div>

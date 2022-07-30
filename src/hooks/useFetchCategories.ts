@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import {useDispatch} from "react-redux";
 
 import CategoriesService from '../services/categoriesService';
-import { categoryAction, categoryActionTypes } from "../store/types/category";
+import { SET_CATEGORIES } from "../store/reducers/categoryReducer";
 
 export default function useFetchCategories() {
     const dispath = useDispatch();
@@ -11,12 +11,7 @@ export default function useFetchCategories() {
         (async function fetchCategories () {
             const { data } = await CategoriesService.getCategories();
 
-            const action : categoryAction = {
-                type: categoryActionTypes.SET_CATEGORIES,
-                payload: data,
-            }
-
-            dispath(action);
+            dispath(SET_CATEGORIES(data))
         })()
     }, [])
 }

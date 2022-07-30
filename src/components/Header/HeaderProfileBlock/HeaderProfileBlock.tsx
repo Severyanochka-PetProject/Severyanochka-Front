@@ -1,14 +1,18 @@
 import React, { FC, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { RootState } from "../../../store/reducers";
-import { userAction, userActionTypes, userInitialState } from "../../../store/types/user";
+// import { RootState } from "../../../store/reducers";
+// import { userAction, userActionTypes, userInitialState } from "../../../store/types/user";
 
 import AuthService from "../../../services/authService";
 
 import "./headerProfileBlock.scss";
 import useModal from "../../../hooks/useModal";
 import { modalActionTypes } from "../../../store/types/modals";
+import { RootState } from "../../../store/index.js";
+import { SET_AUTH_FLAG } from "../../../store/reducers/userReducer";
+import { userInitialState } from "../../../store/types/user";
+import { SWITCH_AUTH_MODAL } from "../../../store/reducers/modalReducer";
 
 const HeaderProfileBlock : FC = () => {
   const user = useSelector<RootState, userInitialState>((state) => state.user);
@@ -23,12 +27,12 @@ const HeaderProfileBlock : FC = () => {
     const { data } = await AuthService.logout();
 
     if (data.status) {
-        const action: userAction = {
-            type: userActionTypes.SET_AUTH_FLAG,
-            payload: false
-        }
+        // const action: userAction = {
+        //     type: userActionTypes.SET_AUTH_FLAG,
+        //     payload: false
+        // }
 
-        dispatch(action)
+        dispatch(SET_AUTH_FLAG(false))
     } else {
         console.log('Не удалось выйти из личного кабинета')
     }
@@ -92,7 +96,7 @@ const HeaderProfileBlock : FC = () => {
         <div
           className="header-wrapper__signIn"
           onClick={() =>
-            toggleModal(modalActionTypes.SWITCH_AUTH_MODAL, true, true)
+            toggleModal(SWITCH_AUTH_MODAL, true, true )
           }
         >
           <button>

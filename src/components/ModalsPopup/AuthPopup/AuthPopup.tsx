@@ -1,7 +1,7 @@
 import React, {FC, useEffect, useMemo, useState} from 'react';
 import {useDispatch} from "react-redux";
 
-import {modalAction, modalActionTypes} from "../../../store/types/modals";
+import { modalActionTypes} from "../../../store/types/modals";
 
 import './authPopup.scss';
 import phoneMask from "../../../plugins/phoneMask.js";
@@ -17,6 +17,7 @@ import useModal from "../../../hooks/useModal";
 import useSetAuthorizationData from '../../../hooks/useSetAuthorizationData';
 
 import { isValidPhoneNumber, isValidPassword } from '../../../validators/validator';
+import { SWITCH_AUTH_MODAL, SWITCH_REG_MODAL } from '../../../store/reducers/modalReducer';
 
 const AuthPopup: FC = () => {
     const [authStage, toggleStage] = useState(1);
@@ -73,7 +74,7 @@ const AuthPopup: FC = () => {
             const response = await AuthService.me()
             setAuthData(response.data, true);
 
-            closeModal(modalActionTypes.SWITCH_AUTH_MODAL, false, false)
+            closeModal(SWITCH_AUTH_MODAL, false, false)
         } catch (error: any) {
             const data = error.response.data;
             setErrors({
@@ -84,20 +85,13 @@ const AuthPopup: FC = () => {
     }
 
     const openRegistrationPopup = () => {
-        const action: modalAction = {
-            type: modalActionTypes.SWITCH_REG_MODAL,
-            payload: {
-                isOpen: true,
-                popup: true
-            }
-        };
-
-        dispatch(action);
+        closeModal(SWITCH_AUTH_MODAL, false, false);
+        dispatch(SWITCH_REG_MODAL({isOpen: true, popup: true}))
     }
 
     return (
         <div className="popup auth-popup">
-            <div className="popup__close" onClick={() => closeModal(modalActionTypes.SWITCH_AUTH_MODAL, false, false)}>
+            <div className="popup__close" onClick={() => closeModal(SWITCH_AUTH_MODAL, false, false)}>
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path fillRule="evenodd" clipRule="evenodd"
                           d="M18.3536 5.64645C18.5488 5.84171 18.5488 6.15829 18.3536 6.35355L6.35355 18.3536C6.15829 18.5488 5.84171 18.5488 5.64645 18.3536C5.45118 18.1583 5.45118 17.8417 5.64645 17.6464L17.6464 5.64645C17.8417 5.45118 18.1583 5.45118 18.3536 5.64645Z"
@@ -169,7 +163,7 @@ const AuthPopup: FC = () => {
                 </div>
                 <div className="content-bottom">
                     {authStage === 1 ?
-                        <BorderButton text={'Регистрация'} onClick={openRegistrationPopup} />
+                    <BorderButton text={'Регистрация'} onClick={openRegistrationPopup} />
                         :
                         <div className="content-bottom__link" onClick={() => {
                             toggleStage(1);

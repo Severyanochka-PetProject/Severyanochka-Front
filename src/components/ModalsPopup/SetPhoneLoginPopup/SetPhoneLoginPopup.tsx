@@ -1,5 +1,4 @@
 import React, {FC, useEffect, useMemo, useState} from 'react';
-import {modalActionTypes} from "../../../store/types/modals";
 import {useLocation, useNavigate} from "react-router-dom";
 
 import queryString from "query-string";
@@ -16,6 +15,7 @@ import AuthService from "../../../services/authService";
 import Notify from "../../UI/ToastNotification/ToastNotification";
 
 import useModal from "../../../hooks/useModal";
+import { SWITCH_SET_PHONE_LOGIN_VK_MODAL } from '../../../store/reducers/modalReducer';
 
 const SetPhoneLoginPopup: FC = () => {
     const [phone_number, setPhoneNumber] = useState('');
@@ -42,7 +42,7 @@ const SetPhoneLoginPopup: FC = () => {
                 .then((response) => {
                     navigation('/');
 
-                    closeModal(modalActionTypes.SWITCH_SET_PHONE_LOGIN_VK_MODAL);
+                    closeModal(SWITCH_SET_PHONE_LOGIN_VK_MODAL, false, false);
                 })
                 .catch((error) => {
                     const {data} = error.response;
@@ -59,7 +59,7 @@ const SetPhoneLoginPopup: FC = () => {
 
     return (
         <div className="popup">
-            <div className="popup__close" onClick={() => closeModal(modalActionTypes.SWITCH_SET_PHONE_LOGIN_VK_MODAL)}>
+            <div className="popup__close" onClick={() => closeModal(SWITCH_SET_PHONE_LOGIN_VK_MODAL, false, false)}>
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path fillRule="evenodd" clipRule="evenodd"
                           d="M18.3536 5.64645C18.5488 5.84171 18.5488 6.15829 18.3536 6.35355L6.35355 18.3536C6.15829 18.5488 5.84171 18.5488 5.64645 18.3536C5.45118 18.1583 5.45118 17.8417 5.64645 17.6464L17.6464 5.64645C17.8417 5.45118 18.1583 5.45118 18.3536 5.64645Z"

@@ -1,18 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React, { FC } from 'react';
 import {Link} from "react-router-dom";
 
-import Header from "../../components/Header/Header";
-import Footer from "../../components/Footer/Footer";
+// import Header from "../../components/Header/Header";
+// import Footer from "../../components/Footer/Footer";
 
 import './categoriesPage.scss';
 
 import { Category } from '../../domain/Category.domain';
-import { categoryInitialState } from '../../store/types/category';
-import { RootState } from '../../store/reducers';
+// import { categoryInitialState } from '../../store/types/category';
+// import { RootState } from '../../store/reducers';
 import { useSelector } from 'react-redux';
+import { RootState } from '../../store/index.js';
 
-const CategoriesPage = () => {
-    const categories = useSelector<RootState, Category[]>(state => state.category.categories)
+const CategoriesPage : FC = () => {
+    const categories = useSelector<RootState, Category[]>(state => state.categories.categories)
 
     return (
         <div className="page categories-page">
