@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, {FC, useState} from 'react';
 import {Link} from "react-router-dom";
 
 import './categoriesPage.scss';
@@ -6,23 +6,25 @@ import './categoriesPage.scss';
 import { Category } from '../../domain/Category.domain';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store/index.js';
+import Loader from "../../components/UI/Loader/Loader";
 
 const CategoriesPage : FC = () => {
+    const isLoading = useSelector<RootState, boolean>(state => state.categories.isLoading);
     const categories = useSelector<RootState, Category[]>(state => state.categories.categories)
 
     return (
         <div className="page categories-page">
             <main className="main">
                 <h1>Каталог</h1>
-                <div className="categories-wrapper">
-                    {categories.map((x: any, index) => (
+                <div className={`categories-wrapper ${ isLoading ? 'categories-wrapper_loading' : ''}`}>
+                    {!isLoading ? categories.map((x: any, index) => (
                         <Link to="#" className="categories-item" key={ index }>
                             <div className="categories-item__text">
                                 <p>{ x.name }</p>
                             </div>
                             <img src={x.img_hash} alt=""/>
                         </Link>
-                    ))
+                    )) : <Loader />
                     }
                     {/* <Link to="#" className="categories-item categories-item_large-start">
                         <div className="categories-item__text">
