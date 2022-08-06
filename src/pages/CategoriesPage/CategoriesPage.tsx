@@ -1,14 +1,9 @@
 import React, { FC } from 'react';
 import {Link} from "react-router-dom";
 
-// import Header from "../../components/Header/Header";
-// import Footer from "../../components/Footer/Footer";
-
 import './categoriesPage.scss';
 
 import { Category } from '../../domain/Category.domain';
-// import { categoryInitialState } from '../../store/types/category';
-// import { RootState } from '../../store/reducers';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store/index.js';
 

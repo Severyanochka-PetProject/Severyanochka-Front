@@ -1,9 +1,6 @@
 import React, { FC, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-// import { RootState } from "../../../store/reducers";
-// import { userAction, userActionTypes, userInitialState } from "../../../store/types/user";
-
 import AuthService from "../../../services/authService";
 
 import "./headerProfileBlock.scss";
@@ -27,11 +24,6 @@ const HeaderProfileBlock : FC = () => {
     const { data } = await AuthService.logout();
 
     if (data.status) {
-        // const action: userAction = {
-        //     type: userActionTypes.SET_AUTH_FLAG,
-        //     payload: false
-        // }
-
         dispatch(SET_AUTH_FLAG(false))
     } else {
         console.log('Не удалось выйти из личного кабинета')

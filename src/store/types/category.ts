@@ -8,6 +8,7 @@ export enum categoryActionTypes {
 export interface categoryInitialState {
     categories: Category[];
     length: number;
+    isLoading: boolean;
 }
 
 interface setCategoryAction {

@@ -2,7 +2,7 @@ import {useEffect} from "react";
 import AuthService from "../services/authService";
 import useSetAuthorizationData from "./useSetAuthorizationData";
 
-export default function useFetchUserData() {
+export default function useRefresh() {
     const setAuthData = useSetAuthorizationData();
 
     useEffect(() => {
@@ -11,6 +11,7 @@ export default function useFetchUserData() {
             localStorage.setItem('access', response.data)
 
             const { data } = await AuthService.me()
+
             setAuthData(data, true);
         })()
     })

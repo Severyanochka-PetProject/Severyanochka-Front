@@ -1,7 +1,5 @@
 import React, {FC, useEffect, useMemo, useState} from 'react';
-import {useDispatch} from "react-redux";
-
-import { modalActionTypes} from "../../../store/types/modals";
+import { useDispatch } from "react-redux";
 
 import './authPopup.scss';
 import phoneMask from "../../../plugins/phoneMask.js";
@@ -11,27 +9,27 @@ import CustomButton from "../../UI/CustomButton/CustomButton";
 import InputField from "../../UI/InputField/InputField";
 import BorderButton from "../../UI/BorderButton/BorderButton";
 
-import AuthService from "../../../services/authService";
-
 import useModal from "../../../hooks/useModal";
-import useSetAuthorizationData from '../../../hooks/useSetAuthorizationData';
 
 import { isValidPhoneNumber, isValidPassword } from '../../../validators/validator';
 import { SWITCH_AUTH_MODAL, SWITCH_REG_MODAL } from '../../../store/reducers/modalReducer';
+import AuthService from "../../../services/authService";
+import {SET_AUTH_FLAG, SET_USER_DATA} from "../../../store/reducers/userReducer";
+
 
 const AuthPopup: FC = () => {
     const [authStage, toggleStage] = useState(1);
     const [phone_number, setPhoneNumber] = useState('');
     const [password, setPassword] = useState('');
 
-    const OAuthVKRedirect = process.env.NODE_ENV === "development" ? "http://localhost:3000/" : "https://tankistpro-food.ru"
-    
-    const setAuthData = useSetAuthorizationData();
-    
+    const [isLoading, setLoading] = useState(false);
+
     const [errors, setErrors] = useState({
         status: false,
         message: ''
     })
+
+    const OAuthVKRedirect = process.env.NODE_ENV === "development" ? "http://localhost:3000/" : "https://tankistpro-food.ru"
 
     const closeModal = useModal();
     const dispatch = useDispatch();
@@ -56,12 +54,12 @@ const AuthPopup: FC = () => {
             return
         }
 
-        if (errors.status) {
-            setErrors({
-                status: false,
-                message: '',
-            });
-        }
+        setErrors({
+            status: false,
+            message: ""
+        })
+
+        setLoading(true);
 
         try {
             const { data } = await AuthService.login({
@@ -72,15 +70,20 @@ const AuthPopup: FC = () => {
             localStorage.setItem('access', data)
 
             const response = await AuthService.me()
-            setAuthData(response.data, true);
 
-            closeModal(SWITCH_AUTH_MODAL, false, false)
+            dispatch(SET_USER_DATA(response.data));
+            dispatch(SET_AUTH_FLAG(true));
+
+            closeModal(SWITCH_AUTH_MODAL, false, false);
         } catch (error: any) {
-            const data = error.response.data;
+
             setErrors({
                 status: true,
-                message: data.error
-            });
+                message: error.response.data.error
+            })
+
+        } finally {
+            setLoading(false);
         }
     }
 
@@ -130,12 +133,12 @@ const AuthPopup: FC = () => {
                                 maxLength={16}
                                 title={'Пароль'}
                                 onInput={(value) => setPassword(value)}
-                                onKeyDown={(e: any) => e.key === 'Enter' ? signIn() : null}
+                                onKeyDown={(e: any) => e.key === 'Enter' ? signIn : null}
                                 type={'password'}
                             />
                         </div>
                         <div className="content-main__btn">
-                            <CustomButton name={'Подтвердить'} disabled={!isValidUserPassword} onClick={signIn} />
+                            <CustomButton name={!isLoading ? 'Подтвердить' : 'Подождите...'} disabled={!isValidUserPassword} onClick={signIn} />
                         </div>
                     </div>
                 </div>
@@ -169,8 +172,8 @@ const AuthPopup: FC = () => {
                             toggleStage(1);
                             setErrors({
                                 status: false,
-                                message: '',
-                            });
+                                message: ""
+                            })
                         }}>
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                                  xmlns="http://www.w3.org/2000/svg">
@@ -194,3 +197,4 @@ const AuthPopup: FC = () => {
 };
 
 export default AuthPopup;
+

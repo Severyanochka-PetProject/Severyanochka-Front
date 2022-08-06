@@ -4,7 +4,8 @@ import { categoryInitialState } from "../types/category";
 
 const initialState: categoryInitialState = {
     categories: [],
-    length: 0    
+    length: 0,
+    isLoading: false    
 }
 
 const categorySlice = createSlice({
@@ -14,25 +15,13 @@ const categorySlice = createSlice({
         SET_CATEGORIES: (state, action: PayloadAction<Category[]>) => {
             state.categories = action.payload;
             state.length = action.payload.length;
+        },
+        LOADING_DATA: (state, action: PayloadAction<boolean>) => {
+            state.isLoading = action.payload;
         }
     }
 })
 
-export const { SET_CATEGORIES } = categorySlice.actions;
+export const { SET_CATEGORIES, LOADING_DATA } = categorySlice.actions;
 
 export default categorySlice.reducer;
-
-// export const CategoryReducer = (state = defaultState, action: categoryAction): categoryInitialState => {
-//     switch (action.type) {
-//         case categoryActionTypes.GET_CATEGORIES:
-//             return state
-//         case categoryActionTypes.SET_CATEGORIES:
-//             return {
-//                 ...state,
-//                 categories: action.payload,
-//                 length: action.payload.length
-//             }
-//         default:
-//             return state
-//     }
-// }

@@ -21,10 +21,16 @@ interface setAuthFlagAction {
     payload: boolean
 }
 
+export interface userError {
+    status: boolean,
+    message: string
+}
+
 export type userAction = setUserDataAction | setRefreshTokenAction | setAuthFlagAction
 
 export interface userInitialState {
     refresh_token: string,
     user: User,
-    isAuth: boolean
+    isAuth: boolean,
+    errors: userError,
 }
