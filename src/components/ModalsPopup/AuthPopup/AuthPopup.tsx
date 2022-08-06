@@ -31,7 +31,7 @@ const AuthPopup: FC = () => {
 
     const OAuthVKRedirect = process.env.NODE_ENV === "development" ? "http://localhost:3000/" : "https://tankistpro-food.ru"
 
-    const closeModal = useModal();
+    const toggleModal = useModal();
     const dispatch = useDispatch();
 
     const isValidUserPhone= useMemo(() => isValidPhoneNumber(phone_number), [phone_number]);
@@ -74,7 +74,7 @@ const AuthPopup: FC = () => {
             dispatch(SET_USER_DATA(response.data));
             dispatch(SET_AUTH_FLAG(true));
 
-            closeModal(SWITCH_AUTH_MODAL, false, false);
+            toggleModal(SWITCH_AUTH_MODAL, false, false);
         } catch (error: any) {
 
             setErrors({
@@ -88,13 +88,13 @@ const AuthPopup: FC = () => {
     }
 
     const openRegistrationPopup = () => {
-        closeModal(SWITCH_AUTH_MODAL, false, false);
-        dispatch(SWITCH_REG_MODAL({isOpen: true, popup: true}))
+        toggleModal(SWITCH_AUTH_MODAL, false, false);
+        toggleModal(SWITCH_REG_MODAL, true, true )
     }
 
     return (
         <div className="popup auth-popup">
-            <div className="popup__close" onClick={() => closeModal(SWITCH_AUTH_MODAL, false, false)}>
+            <div className="popup__close" onClick={() => toggleModal(SWITCH_AUTH_MODAL, false, false)}>
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path fillRule="evenodd" clipRule="evenodd"
                           d="M18.3536 5.64645C18.5488 5.84171 18.5488 6.15829 18.3536 6.35355L6.35355 18.3536C6.15829 18.5488 5.84171 18.5488 5.64645 18.3536C5.45118 18.1583 5.45118 17.8417 5.64645 17.6464L17.6464 5.64645C17.8417 5.45118 18.1583 5.45118 18.3536 5.64645Z"
