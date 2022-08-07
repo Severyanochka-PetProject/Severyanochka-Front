@@ -83,7 +83,7 @@ const SetPhoneLoginPopup: FC = () => {
                     />
                 </div>
                 <div className="set-phone-popup__bottom">
-                    <CustomButton name="Войти" onClick={login} disabled={!isValidPhoneNumber} />
+                    <CustomButton onClick={login} disabled={!isValidPhoneNumber}>Войти</CustomButton>
                 </div>
             </div>
         </div>

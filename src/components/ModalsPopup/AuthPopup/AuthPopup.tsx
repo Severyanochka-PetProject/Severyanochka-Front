@@ -121,7 +121,7 @@ const AuthPopup: FC = () => {
                             />
                         </div>
                         <div className="content-main__btn">
-                            <CustomButton name={'Вход'} disabled={!isValidUserPhone} onClick={checkPhone} />
+                            <CustomButton disabled={!isValidUserPhone} onClick={checkPhone}>Вход</CustomButton>
                         </div>
                     </div>
                     <div style={{display: authStage === 2 ? "block" : "none"}}>
@@ -138,7 +138,9 @@ const AuthPopup: FC = () => {
                             />
                         </div>
                         <div className="content-main__btn">
-                            <CustomButton name={!isLoading ? 'Подтвердить' : 'Подождите...'} disabled={!isValidUserPassword} onClick={signIn} />
+                            <CustomButton disabled={!isValidUserPassword} onClick={signIn}>
+                                {!isLoading ? 'Подтвердить' : 'Подождите...'}
+                            </CustomButton>
                         </div>
                     </div>
                 </div>

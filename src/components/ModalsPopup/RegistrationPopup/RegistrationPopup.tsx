@@ -159,7 +159,7 @@ const RegistrationPopup : FC = () => {
                     </div>
                 </div>
                 <div className="reg-popup__footer">
-                    <CustomButton name={'Зарегистрироваться'} disabled={!isFormValid} onClick={registration} />
+                    <CustomButton disabled={!isFormValid} onClick={registration}>Зарегистрироваться</CustomButton>
                     <BorderButton text={'Вход'} onClick={() => dispatch(SWITCH_AUTH_MODAL({isOpen: true, popup: true})) } />
                 </div>
             </div>
