@@ -1,9 +1,9 @@
 import React from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
-import './notFound.scss'
+import './notFoundPage.scss'
 
-export default function NotFound() {
+export default function NotFoundPage() {
     const navigation = useNavigate();
 
   return (
