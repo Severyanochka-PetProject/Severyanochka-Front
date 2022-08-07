@@ -1,6 +1,8 @@
 import React, { FC } from 'react';
 import { useSelector } from "react-redux";
 
+import { CSSTransition } from 'react-transition-group';
+
 import './modalWrapper.scss';
 
 import AuthPopup from "../../components/ModalsPopup/AuthPopup/AuthPopup";
@@ -26,10 +28,18 @@ const ModalWrapper: FC = () => {
         currentPopup = <SetPhoneLoginPopup />
     }
 
+    const isActiveAnimation = () => {
+        return openAuth || openReg || openSetPhoneLogin
+    }
+
     return (
-        <div className={`modal-wrapper ${isOpen ? 'modal_active' : ''}`}>
-            { currentPopup }
-        </div>
+        <>
+        <CSSTransition in={isActiveAnimation()} timeout={700} classNames="alert" unmountOnExit>
+            <div className={`modal-wrapper ${isOpen ? 'modal_active' : ''}`}>
+                { currentPopup }
+            </div>
+        </CSSTransition>
+        </>
     );
 };
 

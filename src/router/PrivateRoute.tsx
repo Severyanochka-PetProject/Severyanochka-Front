@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import { useSelector } from "react-redux";
-import { Navigate, Route, useLocation, useNavigate } from "react-router-dom";
+import { Navigate, useLocation } from "react-router-dom";
 import useModal from "../hooks/useModal";
 import { RootState } from "../store/index.js";
 import { SWITCH_AUTH_MODAL } from "../store/reducers/modalReducer";
