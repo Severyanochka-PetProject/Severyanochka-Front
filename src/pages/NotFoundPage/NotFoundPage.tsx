@@ -13,7 +13,7 @@ export default function NotFoundPage() {
                 <img src="/images/NotFound.svg" alt="" />
             </div>
             <p className="notfound-page__text">Упс... Страница не найдена (Error: 404)</p>
-            <p onClick={() => navigation(-1) } className="notfound-page__text notfound-page__link">Вернуться на главную ❯</p>
+            <p onClick={() => navigation(-1) } className="notfound-page__text notfound-page__link">Назад ❯</p>
         </div>
     </div>
   )
