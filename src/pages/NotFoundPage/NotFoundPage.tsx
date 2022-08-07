@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import './notFoundPage.scss'
 
 export default function NotFoundPage() {
-    const navigation = useNavigate();
+  const navigation = useNavigate();
 
   return (
     <div className='page notfound-page'>
