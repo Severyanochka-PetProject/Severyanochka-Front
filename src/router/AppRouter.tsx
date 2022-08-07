@@ -11,9 +11,7 @@ export default function AppRouter() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/product" element={
-          <PrivateRoute>
             <ProductPage />
-          </PrivateRoute>
         } />
         <Route path="/categories" element={<CategoriesPage />} />
         <Route path="*" element={<NotFoundPage />} />

@@ -1,0 +1,50 @@
+.product-page-header {
+
+    &__title {
+        font-family: 'Rubik', sans-serif;
+        font-weight: 700;
+        font-size: 24px;
+        color: #414141;
+        line-height: 150%;
+        margin-bottom: 23px;
+    }
+
+    &__bottom {
+        display: flex;
+        align-items: center;
+        column-gap: 24px;
+
+        p {
+            color: #414141;
+            font-size: 0.75rem;
+        }
+
+        .product-rating {
+            display: flex;
+            align-items: center;
+
+            .content-rating {
+                display: flex;
+                column-gap: 5px;
+            }
+
+            p {
+                font-size: 0.875rem;
+                margin-left: 8px;
+                text-decoration: underline;
+                cursor: pointer;
+            }
+        }
+
+        .product-controller {
+            display: flex;
+            align-items: center;
+            column-gap: 8px;
+            cursor: pointer;
+
+            p {
+                color: #606060;
+            }
+        }
+    }
+}
