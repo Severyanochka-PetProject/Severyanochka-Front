@@ -7,12 +7,12 @@ interface IBorderButton {
     [key: string]: unknown
 }
 
-const BorderButton: FC<IBorderButton> = ({text, ...props}) => {
+const BorderButton: FC<IBorderButton> = React.memo(({text, ...props}) => {
     return (
         <div className="border-button" {...props}>
             <p>{ text }</p>
         </div>
     );
-};
+});
 
 export default BorderButton;

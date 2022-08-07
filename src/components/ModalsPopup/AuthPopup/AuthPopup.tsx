@@ -1,4 +1,4 @@
-import React, {FC, useEffect, useMemo, useState} from 'react';
+import React, {FC, useCallback, useEffect, useMemo, useState} from 'react';
 import { useDispatch } from "react-redux";
 
 import './authPopup.scss';
@@ -41,15 +41,15 @@ const AuthPopup: FC = () => {
         phoneMask('#phone-input');
     })
 
-    const checkPhone = () => {
+    const checkPhone = useCallback(() => {
         if (!isValidUserPhone) {
             return
         }
 
         toggleStage(2);
-    }
+    }, [isValidUserPhone])
 
-    const signIn = async () => {
+    const signIn = useCallback(async () => {
         if (!isValidUserPassword || !isValidUserPhone) {
             return
         }
@@ -85,12 +85,12 @@ const AuthPopup: FC = () => {
         } finally {
             setLoading(false);
         }
-    }
+    }, [dispatch, isValidUserPassword, isValidUserPhone, password, phone_number, toggleModal])
 
-    const openRegistrationPopup = () => {
+    const openRegistrationPopup = useCallback(() => {
         toggleModal(SWITCH_AUTH_MODAL, false, false);
         toggleModal(SWITCH_REG_MODAL, true, true )
-    }
+    }, [])
 
     return (
         <div className="popup auth-popup">
