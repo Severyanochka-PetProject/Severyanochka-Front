@@ -15,6 +15,7 @@ import useRefresh from "../../hooks/useRefresh";
 
 import { useDispatch } from 'react-redux';
 import { fetchCategories } from '../../store/actions/category.action';
+import NotFound from '../../pages/NotFound/NotFound';
 
 function App() {
     useLoginVk();
@@ -36,6 +37,9 @@ function App() {
                 }/>
                 <Route path="/" element={
                     <HomePage/>
+                }/>
+                <Route path="*" element={
+                    <NotFound />
                 }/>
             </Routes>
             <MobileHeader />

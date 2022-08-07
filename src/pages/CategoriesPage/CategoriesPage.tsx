@@ -11,14 +11,18 @@ import Loader from "../../components/UI/Loader/Loader";
 const CategoriesPage : FC = () => {
     const isLoading = useSelector<RootState, boolean>(state => state.categories.isLoading);
     const categories = useSelector<RootState, Category[]>(state => state.categories.categories)
+    
+    const linkHref = (slagName: string): string => {
+        return `/${slagName}`;
+    }
 
     return (
         <div className="page categories-page">
             <main className="main">
                 <h1>Каталог</h1>
                 <div className={`categories-wrapper ${ isLoading ? 'categories-wrapper_loading' : ''}`}>
-                    {!isLoading ? categories.map((x: any, index) => (
-                        <Link to="#" className="categories-item" key={ index }>
+                    {!isLoading ? categories.map((x: Category, index) => (
+                        <Link to={linkHref(x.slag)} className="categories-item" key={ index }>
                             <div className="categories-item__text">
                                 <p>{ x.name }</p>
                             </div>

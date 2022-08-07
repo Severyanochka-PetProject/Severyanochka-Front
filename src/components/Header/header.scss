@@ -97,12 +97,14 @@
           justify-content: space-between;
           transition: .1s all;
           outline: none;
+          text-decoration: none;
+          color: #000;
 
           &:not(:last-child) {
             margin-right: 24px;
           }
 
-          &:hover {
+          &_active, &:hover {
             transition: .1s all;
             color: #FF6633;
 
