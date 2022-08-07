@@ -1,10 +1,10 @@
 import React from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
-import './notFound.scss'
+import './notFoundPage.scss'
 
-export default function NotFound() {
-    const navigation = useNavigate();
+export default function NotFoundPage() {
+  const navigation = useNavigate();
 
   return (
     <div className='page notfound-page'>
@@ -13,7 +13,7 @@ export default function NotFound() {
                 <img src="/images/NotFound.svg" alt="" />
             </div>
             <p className="notfound-page__text">Упс... Страница не найдена (Error: 404)</p>
-            <p onClick={() => navigation(-1) } className="notfound-page__text notfound-page__link">Вернуться на главную ❯</p>
+            <p onClick={() => navigation(-1) } className="notfound-page__text notfound-page__link">Назад ❯</p>
         </div>
     </div>
   )
