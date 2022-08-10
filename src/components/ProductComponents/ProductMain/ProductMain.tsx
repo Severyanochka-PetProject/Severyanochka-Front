@@ -10,7 +10,7 @@ export default function ProductMain() {
         <div className="product-page-main__banner">
             <p className="banner-text">-50%</p>
             <div className="banner-image">
-                <img src="/images/productimages/batter.png" alt="" />
+                <img src="/images/productImages/batter.png" alt="" />
             </div>
         </div>
         <div className="product-page-main__info">
