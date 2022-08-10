@@ -1,3 +1,5 @@
+@import "../../../scss/variables.scss";
+
 .product-page-reviews {
 
     &__wrapper {
@@ -154,5 +156,26 @@
                 text-align: justify;
             }
         }
+    }
+}
+
+@media screen and (max-width: 950px) {
+    .product-page-reviews__wrapper .reviews-chat {
+        margin-left: 32px;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .product-page-reviews__wrapper .reviews-chat {
+        margin-left: 0;
+    }
+
+    .product-page-reviews__wrapper {
+        flex-direction: column;
+        row-gap: 16px;
+    }
+
+    .reviews-chat__review .review-text p {
+        text-align: inherit;
     }
 }

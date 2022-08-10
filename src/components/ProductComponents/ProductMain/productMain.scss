@@ -1,3 +1,5 @@
+@import "../../../scss/variables.scss";
+
 .product-page-main {
     display: flex;
     column-gap: 40px;
@@ -5,7 +7,7 @@
     &__banner {
         background: #FFFFFF;
         width: 504px;
-        height: 496px;
+        max-height: 496px;
         position: relative;
 
         .banner-text {
@@ -111,6 +113,49 @@
                     background: #F3F2F1;
                 }
             }
+        }
+    }
+}
+
+@media screen and (max-width: $w-750) {
+    .product-page-main__info .info-price__value {
+        font-size: 1.125rem;
+    }
+
+    .product-page-main__info .info-price__value_bold {
+        font-size: 1.5rem;
+    }
+}
+
+@media screen and (max-width: 600px) { 
+    .product-page-main {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .product-page-main__info {
+        max-width: inherit;
+    }
+
+    .product-page-main__banner {
+        width: 100%;
+        overflow: hidden;
+    }
+
+    .product-page-main__banner .banner-image {
+        width: auto;
+        display: flex;
+        justify-content: center;
+    }
+}
+
+@media screen and (max-width: $w-485) {
+    .product-page-main__info .info-button button {
+        height: 40px;
+        font-size: 1rem;
+
+        svg {
+            width: 24px;
         }
     }
 }
