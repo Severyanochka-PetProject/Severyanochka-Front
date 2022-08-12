@@ -10,6 +10,7 @@ import LocationMap from "../../components/LocationMap/LocationMap";
 import NewsArticleItem from "../../components/NewsArticleItem/NewsArticleItem";
 
 import RenderSection from "../../hoc/RenderSection/RenderSection";
+import ProductLoader from "../../components/LoaderComponents/ProductLoader/ProductLoader";
 
 function HomePage () {
     return (
@@ -18,7 +19,8 @@ function HomePage () {
             <main className="main">
                 <RenderSection sectionTitle="Акции" sectionLink="#" sectionClass="product-section" sectionLinkText="Все акции">
                     {[1, 2, 3, 4].map((key, index) => (
-                            <ProductItem key={ index } />
+                        // <ProductItem key={ index } />
+                        <ProductLoader key={index}/>
                     ))}
                 </RenderSection>
                 <RenderSection sectionTitle="Новинки" sectionLink="#" sectionClass="product-section" sectionLinkText="Все новинки">

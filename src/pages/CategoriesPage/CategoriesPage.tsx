@@ -6,7 +6,7 @@ import './categoriesPage.scss';
 import { Category } from '../../domain/Category.domain';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store/index.js';
-import Loader from "../../components/UI/Loader/Loader";
+import Loader from "../../components/LoaderComponents/Loader/Loader";
 
 const CategoriesPage : FC = () => {
     const isLoading = useSelector<RootState, boolean>(state => state.categories.isLoading);

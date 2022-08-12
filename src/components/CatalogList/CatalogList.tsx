@@ -7,7 +7,7 @@ import './catalogList..scss';
 import {RootState} from "../../store/index.js";
 import {Category} from "../../domain/Category.domain";
 
-import Loader from "../UI/Loader/Loader";
+import Loader from "../LoaderComponents/Loader/Loader";
 
 interface ICatalogList {
     isOpen: boolean
