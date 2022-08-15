@@ -15,7 +15,7 @@ import AuthService from "../../../services/authService";
 import Notify from "../../UI/ToastNotification/ToastNotification";
 
 import useModal from "../../../hooks/useModal";
-import { SWITCH_SET_PHONE_LOGIN_VK_MODAL } from '../../../store/reducers/modalReducer';
+import { SWITCH_SET_PHONE_LOGIN_VK_MODAL } from '../../../store/reducers/modalSlice';
 
 const SetPhoneLoginPopup: FC = () => {
     const [phone_number, setPhoneNumber] = useState('');

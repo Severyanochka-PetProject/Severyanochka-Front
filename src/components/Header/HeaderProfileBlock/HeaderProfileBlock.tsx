@@ -7,9 +7,9 @@ import "./headerProfileBlock.scss";
 import useModal from "../../../hooks/useModal";
 import { modalActionTypes } from "../../../store/types/modals";
 import { RootState } from "../../../store/index.js";
-import { SET_AUTH_FLAG } from "../../../store/reducers/userReducer";
+import { SET_AUTH_FLAG } from "../../../store/reducers/userSlice";
 import { userInitialState } from "../../../store/types/user";
-import { SWITCH_AUTH_MODAL } from "../../../store/reducers/modalReducer";
+import { SWITCH_AUTH_MODAL } from "../../../store/reducers/modalSlice";
 
 const HeaderProfileBlock : FC = () => {
   const user = useSelector<RootState, userInitialState>((state) => state.user);

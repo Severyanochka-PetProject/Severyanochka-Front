@@ -12,9 +12,9 @@ import BorderButton from "../../UI/BorderButton/BorderButton";
 import useModal from "../../../hooks/useModal";
 
 import { isValidPhoneNumber, isValidPassword } from '../../../validators/validator';
-import { SWITCH_AUTH_MODAL, SWITCH_REG_MODAL } from '../../../store/reducers/modalReducer';
+import { SWITCH_AUTH_MODAL, SWITCH_REG_MODAL } from '../../../store/reducers/modalSlice';
 import AuthService from "../../../services/authService";
-import {SET_AUTH_FLAG, SET_USER_DATA} from "../../../store/reducers/userReducer";
+import {SET_AUTH_FLAG, SET_USER_DATA} from "../../../store/reducers/userSlice";
 
 
 const AuthPopup: FC = () => {

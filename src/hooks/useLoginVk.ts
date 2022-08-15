@@ -4,7 +4,7 @@ import AuthService from "../services/authService";
 import {useDispatch} from "react-redux";
 import {useLocation, useNavigate} from "react-router-dom";
 import useSetAuthorizationData from "./useSetAuthorizationData";
-import { SWITCH_SET_PHONE_LOGIN_VK_MODAL } from "../store/reducers/modalReducer";
+import { SWITCH_SET_PHONE_LOGIN_VK_MODAL } from "../store/reducers/modalSlice";
 
 export default function useLoginVk () {
     const dispatch = useDispatch();

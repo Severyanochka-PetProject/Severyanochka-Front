@@ -11,26 +11,38 @@ import NewsArticleItem from "../../components/NewsArticleItem/NewsArticleItem";
 
 import RenderSection from "../../hoc/RenderSection/RenderSection";
 import ProductLoader from "../../components/LoaderComponents/ProductLoader/ProductLoader";
+import { useSelector } from "react-redux";
+import { RootState } from "../../store/index.js";
+import { Food } from "../../domain/Food.domain";
 
 function HomePage () {
+    const products = useSelector<RootState, Food[]>(state => state.products.products);
+    const isLoading = useSelector<RootState, boolean>(state => state.products.isLoading);
+
     return (
         <div className="page page_home">
             <Banner />
             <main className="main">
                 <RenderSection sectionTitle="Акции" sectionLink="#" sectionClass="product-section" sectionLinkText="Все акции">
-                    {[1, 2, 3, 4].map((key, index) => (
-                        // <ProductItem key={ index } />
-                        <ProductLoader key={index}/>
-                    ))}
+                    {isLoading 
+                    ?
+                        [1, 2, 3, 4].map((key, index) => (
+                            <ProductLoader key={key} />
+                        ))
+                    :
+                        products.map((item, index) => (
+                            <ProductItem key={index} product={item} />
+                        ))
+                    }
                 </RenderSection>
                 <RenderSection sectionTitle="Новинки" sectionLink="#" sectionClass="product-section" sectionLinkText="Все новинки">
                     {[1, 2, 3, 4].map((key, index) => (
-                        <ProductItem key={ index } />
+                        <ProductLoader key={ index } />
                     ))}
                 </RenderSection>
                 <RenderSection sectionTitle="Покупали раньше" sectionLink="#" sectionClass="product-section" sectionLinkText="Все покупки">
                     {[1, 2, 3, 4].map((key, index) => (
-                        <ProductItem key={ index } />
+                        <ProductLoader key={ index } />
                     ))}
                 </RenderSection>
                 <RenderSection sectionTitle="Специальные предложения">

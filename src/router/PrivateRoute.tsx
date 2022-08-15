@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { Navigate, useLocation } from "react-router-dom";
 import useModal from "../hooks/useModal";
 import { RootState } from "../store/index.js";
-import { SWITCH_AUTH_MODAL } from "../store/reducers/modalReducer";
+import { SWITCH_AUTH_MODAL } from "../store/reducers/modalSlice";
 
 export const PrivateRoute: FC<{ children: JSX.Element }> = ({ children }) => {
   const location = useLocation();
