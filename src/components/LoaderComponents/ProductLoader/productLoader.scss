@@ -1,11 +1,11 @@
 .product-skeleton-loader {
-    --skeleton-color: rgba(189, 188, 188, 0.6);
-    $base-color: rgba(207, 207, 207, 0.6);
-    $shine-color: #dbdbdb86;
+    --skeleton-color: #e6e6e6e5;
+    $base-color: #e6e6e6e5; // rgba(207, 207, 207, 0.6)
+    $shine-color: #f0f0f0f0;
     $animation-duration: 2s;
-    $avatar-offset: 52 + 16;
+    $avatar-offset: 68;
 
-    background-image: linear-gradient(60deg, $base-color 0px, $shine-color 40px, $base-color 80px); 
+    // background-image: linear-gradient(120deg, $base-color 0px, $shine-color 20px, $base-color 80px); 
 
     cursor: default;
     filter: blur(0.3px);
@@ -20,7 +20,8 @@
     }
 
     &.product {
-        background-image: radial-gradient(rgb(228, 228, 228) 100%, transparent 0%);
+        overflow: hidden;
+        background-image: radial-gradient(rgb(255, 255, 255) 100%, transparent 0%);
 
         .product__like {
             background-image: radial-gradient(var(--skeleton-color) 100%, transparent 0%);
@@ -30,26 +31,26 @@
         .product__image {
             // background-image: linear-gradient(var(--skeleton-color) 100%, transparent 0%);
             background-image: linear-gradient(90deg, $base-color 0px, $shine-color 40px, $base-color 80px);
-            animation: shine-lines $animation-duration infinite linear; 
-            opacity: 0.8;
+            animation: shine-lines $animation-duration infinite linear alternate; 
+            // opacity: 0.8;
         }
 
         .product__content .content-price {
             background-image: linear-gradient(90deg, $base-color 0px, $shine-color 40px, $base-color 80px);
-            animation: shine-lines $animation-duration infinite linear; 
+            animation: shine-lines $animation-duration infinite linear alternate; 
             height: 21px;
             margin-bottom: 24px;
         }
 
         .product__content .content-info {
             background-image: linear-gradient(90deg, $base-color 0px, $shine-color 40px, $base-color 80px);
-            animation: shine-lines $animation-duration infinite linear; 
+            animation: shine-lines $animation-duration infinite linear alternate; 
             height: 37px;
         }
 
         .product__btn {
             background-image: linear-gradient(90deg, $base-color 0px, $shine-color 40px, $base-color 80px); 
-            animation: shine-lines $animation-duration infinite linear;
+            animation: shine-lines $animation-duration infinite linear alternate;
             border: none;
         }
 
