@@ -1,14 +1,16 @@
 import { configureStore } from '@reduxjs/toolkit'
 
-import ModalReducer from "./reducers/modalReducer";
-import UserReducer from "./reducers/userReducer";
-import CategoryReducer from "./reducers/categoryReducer";
+import ModalReducer from "./reducers/modalSlice";
+import UserReducer from "./reducers/userSlice";
+import CategoryReducer from "./reducers/categorySlice";
+import ProductReducer from "./reducers/productSlice";
 
 const store = configureStore({
     reducer: {
         modals: ModalReducer,
         user: UserReducer,
-        categories: CategoryReducer
+        categories: CategoryReducer,
+        products: ProductReducer
     }
 })
 

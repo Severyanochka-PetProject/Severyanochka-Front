@@ -1,5 +1,5 @@
 import CategoriesService from "../../services/categoriesService";
-import { LOADING_DATA, SET_CATEGORIES } from "../reducers/categoryReducer";
+import { LOADING_DATA, SET_CATEGORIES } from "../reducers/categorySlice";
 
 export const fetchCategories = () => {
     return async (dispatch : any) => {

@@ -13,6 +13,7 @@ import useRefresh from "../../hooks/useRefresh";
 
 import { fetchCategories } from '../../store/actions/category.action';
 import AppRouter from '../../router/AppRouter';
+import { fetchProducts } from '../../store/actions/product.action';
 
 function App() {
     useLoginVk();
@@ -21,7 +22,8 @@ function App() {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(fetchCategories())
+        dispatch(fetchCategories());
+        dispatch(fetchProducts());
     }, [])
 
     return (

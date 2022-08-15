@@ -15,7 +15,7 @@ import RegistrationService from "../../../services/registrationService";
 import Notify from "../../UI/ToastNotification/ToastNotification";
 
 import useModal from "../../../hooks/useModal";
-import { SWITCH_AUTH_MODAL, SWITCH_REG_MODAL } from '../../../store/reducers/modalReducer';
+import { SWITCH_AUTH_MODAL, SWITCH_REG_MODAL } from '../../../store/reducers/modalSlice';
 
 const RegistrationPopup : FC = () => {
     const [phone_number, setPhoneNumber] = useState('');
