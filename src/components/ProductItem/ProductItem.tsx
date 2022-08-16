@@ -1,5 +1,6 @@
 import React, { FC } from "react";
 import { useNavigate } from "react-router-dom";
+
 import { Food } from "../../domain/Food.domain";
 
 import './productItem.scss';
@@ -12,7 +13,7 @@ const ProductItem: FC<IProductItem> = ({ product, ...props }) => {
     const navigation = useNavigate();
 
     const goToProduct = () => {
-        navigation("/product")
+        navigation(`/product?id=${product.id_food}`)
     }
 
     return (

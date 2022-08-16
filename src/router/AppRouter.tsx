@@ -1,5 +1,5 @@
 import React from 'react'
-import { Route, Routes } from 'react-router-dom'
+import { Navigate, Route, Routes } from 'react-router-dom'
 import CategoriesPage from '../pages/CategoriesPage/CategoriesPage'
 import HomePage from '../pages/HomePage/HomePage'
 import NotFoundPage from '../pages/NotFoundPage/NotFoundPage'
@@ -13,8 +13,9 @@ export default function AppRouter() {
         <Route path="/product" element={
             <ProductPage />
         } />
-        <Route path="/categories" element={<CategoriesPage />} />
-        <Route path="*" element={<NotFoundPage />} />
+        <Route path="/categories"  element={<CategoriesPage />} />
+        <Route path="*" element={<Navigate to="/notfound" replace />} />
+        <Route path="/notfound" element={<NotFoundPage />} />
       </Routes>
   );
 }

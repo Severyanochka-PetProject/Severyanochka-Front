@@ -1,26 +1,37 @@
-import React from 'react'
+import React, { FC } from 'react'
+import { Food } from '../../../domain/Food.domain'
+
+import { computedDiscountPercent } from '../../../helper/price.helper';
 
 import CustomButton from '../../UI/CustomButton/CustomButton'
 
 import './productMain.scss'
 
-export default function ProductMain() {
+interface IProductMain {
+    product: Food
+}
+
+const ProductMain: FC<IProductMain> = ({ product, ...props }) => {
   return (
     <div className="product-page-main">
         <div className="product-page-main__banner">
-            <p className="banner-text">-50%</p>
+            {(product.discount && product.discount !== 0) &&
+                <p className="banner-text">-{ computedDiscountPercent(product.price, product.discount) }%</p>
+            }
             <div className="banner-image">
-                <img src="/images/productImages/batter.png" alt="" />
+                <img src={product.url} alt="" />
             </div>
         </div>
         <div className="product-page-main__info">
             <div className="info-price">
                 <div className="info-price__left">
-                    <p className="info-price__value">192,69 ₽</p>
+                    <p className="info-price__value">{ product.price } ₽</p>
                     <small>Обычная цена</small>
                 </div>
                 <div className="info-price__right">
-                    <p className="info-price__value info-price__value_bold">108,99 ₽</p>
+                    <p className="info-price__value info-price__value_bold">
+                        { product.discount ?  product.price - product.discount : '-'} ₽
+                    </p>
                     <small>С картой Северяночки</small>
                 </div>
             </div>
@@ -42,25 +53,33 @@ export default function ProductMain() {
                     <p>Вы получаете <b>10 бонусов</b></p>
                 </div>
             </div>
-            <div className="info-description">
+            <div className="info-table">
                 <table>
                     <tbody>
                         <tr>
                             <td>Бренд</td>
-                            <td className='bold'>ПРОСТОКВАШИНО</td>
+                            <td className='bold'>{ product.brand?.name }</td>
                         </tr>
                         <tr>
                             <td>Страна производителя</td>
-                            <td className='bold'>Россия</td>
+                            <td className='bold'>{ product.manufacture?.name }</td>
                         </tr>
                         <tr>
                             <td>Упаковка</td>
-                            <td className='bold'>180 г</td>
+                            <td className='bold'>-</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
+            {product.description &&
+                <div className="info-description">
+                    <small>Описание:</small>
+                    <p>{product.description}</p>
+                </div>
+            }
         </div>
     </div>
   )
 }
+
+export default ProductMain;

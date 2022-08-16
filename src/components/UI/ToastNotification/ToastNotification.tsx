@@ -20,7 +20,6 @@ const notificationType = {
 }
 
 const Notify = (config: INotifyConfig) => {
-    console.log(notificationType[config.notificationType])
     notificationType[config.notificationType](config.text, {
         position: "bottom-right",
         autoClose: 5000,
