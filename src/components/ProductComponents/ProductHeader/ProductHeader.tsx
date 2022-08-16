@@ -1,12 +1,17 @@
-import React from "react";
+import React, { FC } from "react";
+import { Food } from "../../../domain/Food.domain";
 
 import "./productHeader.scss";
 
-export default function ProductHeader() {
+interface IProductMain {
+  product: Food
+}
+
+const ProductHeader: FC<IProductMain> = ({ product }) => {
   return (
     <div className="product-page-header">
       <p className="product-page-header__title">
-        Масло ПРОСТОКВАШИНО сливочное в/с 82% фольга без змж, Россия, 180 г
+        { product.name }
       </p>
       <div className="product-page-header__bottom">
         <p className="product-code">арт. 371431</p>
@@ -92,3 +97,5 @@ export default function ProductHeader() {
     </div>
   );
 }
+
+export default ProductHeader;

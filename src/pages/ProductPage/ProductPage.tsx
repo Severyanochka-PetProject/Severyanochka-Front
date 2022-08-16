@@ -62,7 +62,7 @@ export default function ProductPage() {
     <div className="page product-page">
       {isLoadingCurrentProduct ? <p>Загрузка</p> :
         <main className="main">
-          <ProductHeader />
+          <ProductHeader product={currentProduct as Food} />
           <div className="main__body">
             <ProductMain product={currentProduct as Food} />
           </div>
