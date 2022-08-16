@@ -5,3 +5,11 @@
 @font-face {font-family: "Rubik-SemiBold";
     src: url("./Rubik-SemiBold.ttf") format("truetype")
 }
+
+@font-face {font-family: "Rubik-Light";
+    src: url("./Rubik-Light.ttf") format("truetype")
+}
+
+@font-face {font-family: "Rubik-Black";
+    src: url("./Rubik-Black.ttf") format("truetype")
+}
