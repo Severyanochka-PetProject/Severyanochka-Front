@@ -7,12 +7,6 @@
     margin-top: 24px;
     height: calc(100vh - 72px - 24px - 126px); //126 => 210
 
-    h1 {
-      color: #414141;
-      font-size: 4rem;
-      margin-bottom: 60px;
-    }
-
     .categories-wrapper {
       display: grid;
       grid-template-columns: repeat(4, 272px);
