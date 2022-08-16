@@ -45,7 +45,9 @@
 
             &__left {}
 
-            &__right {}
+            &__right {
+                text-align: right;
+            }
 
             &__value {
                 color: #606060;
@@ -93,10 +95,13 @@
             }
         }
 
-        .info-description {
+        .info-description, .info-table {
+            margin-top: 24px;
+        }
+
+        .info-table {
             font-size: 0.75rem;
             color: #414141;
-            margin-top: 24px;
 
             table {
                 width: 100%;
@@ -113,6 +118,22 @@
                     background: #F3F2F1;
                 }
             }
+        }
+
+        .info-description {
+
+            small {
+                color: #606060;
+                font-weight: 700;
+                font-size: 0.95rem;
+                margin-bottom: 10px;
+                display: block;
+            }
+
+            color: #414141;
+            font-size: 0.9rem;
+            line-height: 150%;
+            text-align: justify;
         }
     }
 }
