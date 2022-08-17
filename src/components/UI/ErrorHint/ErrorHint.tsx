@@ -3,10 +3,11 @@ import React, {FC} from 'react';
 import './errorHint.scss';
 
 interface IErrorHint {
-    message: string
+    message: string,
+    showTriangle?: boolean
 }
 
-const ErrorHint: FC<IErrorHint> = ({ message }) => {
+const ErrorHint: FC<IErrorHint> = ({ message, showTriangle= true }) => {
     return (
         <div className="error-hint">
             <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -17,7 +18,9 @@ const ErrorHint: FC<IErrorHint> = ({ message }) => {
             <p className="error-hint__text">
                 { message }
             </p>
-            <img src="/images/UI/tooltip.svg" alt=""/>
+            {showTriangle &&
+                <img src="/images/UI/tooltip.svg" alt=""/>
+            }
         </div>
     );
 };

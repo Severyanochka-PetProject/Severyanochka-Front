@@ -57,7 +57,7 @@ const BasketPage : FC = () => {
               <p>Вы получаете <b>10 бонусов</b></p>
             </div>
             <div className="basket-page__bottom">
-              <ErrorHint message={'Минимальная сумма заказа 1000р'} />
+              <ErrorHint showTriangle={false} message={'Минимальная сумма заказа 1000р'} />
               <CustomButton disabled={true}>
                 <span>Оформить заказ</span>
               </CustomButton>
