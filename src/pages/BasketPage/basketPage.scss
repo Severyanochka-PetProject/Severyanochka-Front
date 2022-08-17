@@ -1,3 +1,5 @@
+@import "src/scss/variables";
+
 .basket-page {
 
     &.page {
@@ -166,5 +168,72 @@
         .custom-button {
             height: 60px;
         }
+    }
+}
+
+@media screen and (max-width: $w-1040) {
+    .basket-page__wrapper {
+        column-gap: 32px;
+    }
+
+    .basket-page__section {
+        flex: 0.65;
+    }
+
+    .basket-page__aside {
+        flex: 0.35;
+    }
+}
+
+@media screen and (max-width: $w-750) {
+    .basket-page .main h1 {
+        margin-bottom: 32px;
+    }
+    .basket-page__wrapper {
+        row-gap: 32px;
+        flex-direction: column;
+    }
+
+    .basket-page.page {
+        padding-bottom: 206px;
+    }
+
+    .basket-page .main {
+        height: 100%;
+    }
+}
+
+@media screen and (max-width: $w-595) {
+    .select-item__name {
+        font-size: 0.75rem;
+    }
+
+    .select-item__img {
+        width: 108px;
+        height: 78px;
+    }
+
+    .select-item__info {
+        margin-left: 110px;
+    }
+
+    .select-item {
+        flex-direction: column;
+    }
+
+    .select-item__block {
+        margin-left: initial;
+    }
+
+    .select-item__controller {
+        width: 140px;
+    }
+
+    .select-item__wrapper {
+        flex-direction: row;
+        margin-top: 30px;
+        width: 100%;
+        column-gap: inherit;
+        justify-content: space-between;
     }
 }

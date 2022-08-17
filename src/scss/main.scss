@@ -22,3 +22,9 @@
 .page {
   padding-bottom: 206px;
 }
+
+@media screen and (max-width: $w-1040) {
+  .main h1 {
+    font-size: 3rem;
+  }
+}
