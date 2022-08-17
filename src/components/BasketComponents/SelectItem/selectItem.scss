@@ -10,6 +10,12 @@
     position: relative;
     transition: .3s all;
 
+    .custom-checkbox  {
+        position: absolute;
+        top: -10px;
+        z-index: 1;
+    }
+
     &:hover {
         transition: .3s all;
         box-shadow: 4px 8px 16px rgba(255, 102, 51, 0.2);
@@ -85,13 +91,17 @@
 
         p {
             cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            user-select: none;
         }
 
         svg {
             fill: #FFFFFF;
         }
     }
-    
+
     &__price {
         color: #414141;
         margin-right: 0;
