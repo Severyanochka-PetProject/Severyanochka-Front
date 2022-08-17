@@ -1,3 +1,5 @@
+@import "src/scss/variables";
+
 .select-item {
     width: 100%;
     box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.1);
@@ -9,6 +11,12 @@
     box-sizing: border-box;
     position: relative;
     transition: .3s all;
+
+    .custom-checkbox  {
+        position: absolute;
+        top: -10px;
+        z-index: 1;
+    }
 
     &:hover {
         transition: .3s all;
@@ -69,6 +77,13 @@
         margin-left: auto;
     }
 
+    &__wrapper {
+        display: flex;
+        column-gap: 48px;
+        margin-right: 0;
+        margin-left: auto;
+    }
+
     &__controller {
         background: #70C05B;
         border-radius: 4px;
@@ -85,17 +100,19 @@
 
         p {
             cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            user-select: none;
         }
 
         svg {
             fill: #FFFFFF;
         }
     }
-    
+
     &__price {
         color: #414141;
-        margin-right: 0;
-        margin-left: auto;
 
         p {
             font-family: 'Rubik-SemiBold', sans-serif;
@@ -106,5 +123,17 @@
             color: #8F8F8F;
             font-size: 1rem;
         }
+    }
+}
+
+@media screen and (max-width: $w-1040){
+    .select-item__wrapper {
+        flex-direction: column;
+        align-items: flex-end;
+        row-gap: 4px;
+    }
+
+    .select-item__name {
+        line-height: 150%;
     }
 }
