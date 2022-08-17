@@ -1,5 +1,5 @@
-import React from 'react'
-import { Navigate, Route, Routes } from 'react-router-dom'
+import React, {useEffect} from 'react'
+import {Navigate, Route, Routes, useLocation} from 'react-router-dom'
 
 import BasketPage from '../pages/BasketPage/BasketPage'
 import CategoriesPage from '../pages/CategoriesPage/CategoriesPage'
@@ -10,16 +10,22 @@ import ProductPage from '../pages/ProductPage/ProductPage'
 import { PrivateRoute } from './PrivateRoute'
 
 export default function AppRouter() {
-  return (
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/product" element={
-            <ProductPage />
-        } />
-        <Route path="/categories"  element={<CategoriesPage />} />
-        <Route path="/basket" element={<BasketPage />} />
-        <Route path="*" element={<Navigate to="/notfound" replace />} />
-        <Route path="/notfound" element={<NotFoundPage />} />
-      </Routes>
-  );
+    const { pathname } = useLocation();
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, [pathname])
+
+    return (
+        <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/product" element={
+                <ProductPage />
+            } />
+            <Route path="/categories"  element={<CategoriesPage />} />
+            <Route path="/basket" element={<BasketPage />} />
+            <Route path="*" element={<Navigate to="/notfound" replace />} />
+            <Route path="/notfound" element={<NotFoundPage />} />
+          </Routes>
+    );
 }

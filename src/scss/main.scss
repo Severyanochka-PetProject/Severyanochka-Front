@@ -28,3 +28,9 @@
     font-size: 3rem;
   }
 }
+
+@media screen and (max-width: $w-485) {
+  .main h1 {
+    font-size: 2rem;
+  }
+}
