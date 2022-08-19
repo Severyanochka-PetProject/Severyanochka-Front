@@ -2,12 +2,34 @@ import React, { FC } from "react";
 import { Food } from "../../../domain/Food.domain";
 
 import "./productHeader.scss";
+import {useDispatch, useSelector} from "react-redux";
+import {ADD_PRODUCT_TO_BASKET, REMOVE_PRODUCT_FROM_BASKET} from "../../../store/reducers/basketSlice";
+import {Basket, containsProductInBasket} from "../../../domain/Basket.domain";
+import {RootState} from "../../../store/index.js";
 
 interface IProductMain {
   product: Food
 }
 
 const ProductHeader: FC<IProductMain> = ({ product }) => {
+  const basket = useSelector<RootState, Basket>(state => state.basket)
+  const dispatch = useDispatch();
+
+  const addToBasket = () => {
+    const existInBasket = () => {
+      return basket.products.some(({id_food}) => product.id_food === id_food);
+    }
+    if (existInBasket()) {
+      dispatch(REMOVE_PRODUCT_FROM_BASKET(product.id_food));
+    } else {
+      dispatch(ADD_PRODUCT_TO_BASKET(product));
+    }
+  }
+
+  const containsProductInBasket = () => {
+    return basket.products.some(({ id_food }) => id_food === product.id_food);
+  }
+
   return (
     <div className="product-page-header">
       <p className="product-page-header__title">
@@ -76,7 +98,7 @@ const ProductHeader: FC<IProductMain> = ({ product }) => {
           </svg>
           <p>Поделиться</p>
         </div>
-        <div className="product-controller">
+        <div className={`product-controller ${ containsProductInBasket() ? 'item-basket' : '' }`} onClick={addToBasket}>
           <svg
             width="24"
             height="24"
@@ -91,7 +113,7 @@ const ProductHeader: FC<IProductMain> = ({ product }) => {
               fill="#414141"
             />
           </svg>
-          <p>В избраное </p>
+          <p>{ containsProductInBasket() ? 'Добавлено' : 'В избраное' } </p>
         </div>
       </div>
     </div>

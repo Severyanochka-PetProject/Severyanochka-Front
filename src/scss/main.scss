@@ -17,6 +17,13 @@
     margin-bottom: 60px;
     user-select: none;
   }
+
+  .item-basket {
+    p, svg path {
+      fill: #D80000;
+      color: #D80000 !important;
+    }
+  }
 }
 
 .page {

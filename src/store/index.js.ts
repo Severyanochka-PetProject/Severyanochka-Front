@@ -4,13 +4,15 @@ import ModalReducer from "./reducers/modalSlice";
 import UserReducer from "./reducers/userSlice";
 import CategoryReducer from "./reducers/categorySlice";
 import ProductReducer from "./reducers/productSlice";
+import BasketReducer from "./reducers/basketSlice";
 
 const store = configureStore({
     reducer: {
         modals: ModalReducer,
         user: UserReducer,
         categories: CategoryReducer,
-        products: ProductReducer
+        products: ProductReducer,
+        basket: BasketReducer
     }
 })
 
