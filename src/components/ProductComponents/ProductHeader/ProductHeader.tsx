@@ -12,23 +12,6 @@ interface IProductMain {
 }
 
 const ProductHeader: FC<IProductMain> = ({ product }) => {
-  const basket = useSelector<RootState, Basket>(state => state.basket)
-  const dispatch = useDispatch();
-
-  const addToBasket = () => {
-    const existInBasket = () => {
-      return basket.products.some(({id_food}) => product.id_food === id_food);
-    }
-    if (existInBasket()) {
-      dispatch(REMOVE_PRODUCT_FROM_BASKET(product.id_food));
-    } else {
-      dispatch(ADD_PRODUCT_TO_BASKET(product));
-    }
-  }
-
-  const containsProductInBasket = () => {
-    return basket.products.some(({ id_food }) => id_food === product.id_food);
-  }
 
   return (
     <div className="product-page-header">
@@ -98,7 +81,7 @@ const ProductHeader: FC<IProductMain> = ({ product }) => {
           </svg>
           <p>Поделиться</p>
         </div>
-        <div className={`product-controller ${ containsProductInBasket() ? 'item-basket' : '' }`} onClick={addToBasket}>
+        <div className={`product-controller ${ false ? 'item-basket' : '' }`}>
           <svg
             width="24"
             height="24"
@@ -113,7 +96,7 @@ const ProductHeader: FC<IProductMain> = ({ product }) => {
               fill="#414141"
             />
           </svg>
-          <p>{ containsProductInBasket() ? 'Добавлено' : 'В избраное' } </p>
+          <p>В избраное</p>
         </div>
       </div>
     </div>
