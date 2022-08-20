@@ -2,10 +2,6 @@ import React, { FC } from "react";
 import { Food } from "../../../domain/Food.domain";
 
 import "./productHeader.scss";
-import {useDispatch, useSelector} from "react-redux";
-import {ADD_PRODUCT_TO_BASKET, REMOVE_PRODUCT_FROM_BASKET} from "../../../store/reducers/basketSlice";
-import {Basket, containsProductInBasket} from "../../../domain/Basket.domain";
-import {RootState} from "../../../store/index.js";
 
 interface IProductMain {
   product: Food

@@ -1,11 +1,12 @@
 import {Food} from "../../domain/Food.domain";
+import {BasketProduct} from "../../domain/Basket.domain";
 
 export enum categoryActionTypes {
     ADD_PRODUCT_TO_BASKET = "ADD_PRODUCT_TO_BASKET",
 }
 
 export interface basketInitialState {
-    products: Food[],
+    products: BasketProduct[],
     isLoading: boolean
 }
 

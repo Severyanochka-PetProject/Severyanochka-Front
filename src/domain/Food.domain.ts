@@ -12,7 +12,7 @@ export type Food = {
     id_brand: number;
     id_manufacture: number;
     id_category: number;
-    category: Category,
-    brand: Brand,
-    manufacture: Manufacture
-} 
+    category?: Category,
+    brand?: Brand,
+    manufacture?: Manufacture
+}

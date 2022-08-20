@@ -31,7 +31,7 @@ const BasketPage : FC = () => {
             <div className="basket-page__wrapper">
               <div className={`basket-page__section ${ !basket.products.length ? 'basket-page__section_empty' : '' }`}>
                 {basket.products.length ? basket.products.map((item) => (
-                    <SelectItem index={item.id_food} key={item.id_food} product={item}/>
+                    <SelectItem index={item.id_food} key={item.id_food} basketProduct={item}/>
                 )) : <p>Вы не добавили ничего в корзину...</p>
                 }
               </div>

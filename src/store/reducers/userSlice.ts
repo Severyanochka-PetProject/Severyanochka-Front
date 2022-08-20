@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction  } from "@reduxjs/toolkit";
 import { User } from "../../domain/User.domain";
-import { userError, userInitialState} from "../types/user";
+import { userInitialState} from "../types/user";
 
 const initialState: userInitialState = {
     refresh_token: '',
@@ -31,7 +31,7 @@ export const userSlice = createSlice({
         },
         SET_AUTH_FLAG: (state, action: PayloadAction<boolean>) => {
             state.isAuth = action.payload
-        },
+        }
     },
   })
 

@@ -1,35 +1,22 @@
 import React, { FC, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import AuthService from "../../../services/authService";
-
 import "./headerProfileBlock.scss";
 import useModal from "../../../hooks/useModal";
-import { modalActionTypes } from "../../../store/types/modals";
 import { RootState } from "../../../store/index.js";
-import { SET_AUTH_FLAG } from "../../../store/reducers/userSlice";
 import { userInitialState } from "../../../store/types/user";
 import { SWITCH_AUTH_MODAL } from "../../../store/reducers/modalSlice";
+import {exit} from "../../../store/actions/user.action";
 
 const HeaderProfileBlock : FC = () => {
   const user = useSelector<RootState, userInitialState>((state) => state.user);
-  
+
   const dispatch = useDispatch();
 
   const [isOpenDropMenu, toggleDropMenu] = useState(false);
 
   const toggleModal = useModal();
 
-  const exit = async () => {
-    const { data } = await AuthService.logout();
-
-    if (data.status) {
-        dispatch(SET_AUTH_FLAG(false))
-    } else {
-        console.log('Не удалось выйти из личного кабинета')
-    }
-}
-  
   return (
     <>
       {user.isAuth ? (
@@ -80,7 +67,7 @@ const HeaderProfileBlock : FC = () => {
           >
             <ul>
               <li>Профиль</li>
-              <li onClick={exit}>Выйти</li>
+              <li onClick={() => dispatch(exit())}>Выйти</li>
             </ul>
           </div>
         </div>
