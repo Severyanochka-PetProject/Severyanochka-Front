@@ -5,6 +5,7 @@ import {Food} from "../domain/Food.domain";
 import {basketInitialState} from "../store/types/basket";
 import {BasketProduct} from "../domain/Basket.domain";
 import {userInitialState} from "../store/types/user";
+import {addProductToBasket, removeProductFromBasket} from "../store/actions/basket.action";
 
 const saveInLocalStorage = (basketProduct: BasketProduct) => {
     const currentLocalBasket = localStorage.getItem('user_basket');
@@ -32,6 +33,7 @@ const removeInLocalStorage = (id_food: number) => {
 export default function useAddToBasket() {
     const user = useSelector<RootState, userInitialState>(state => state.user);
     const basket = useSelector<RootState, basketInitialState>(state => state.basket);
+
     const dispatch = useDispatch();
 
     return (product: Food) => {
@@ -44,7 +46,7 @@ export default function useAddToBasket() {
                 removeInLocalStorage(product.id_food);
             }
 
-            dispatch(REMOVE_PRODUCT_FROM_BASKET(product.id_food));
+            dispatch(removeProductFromBasket(product.id_food));
         } else {
             const basketProduct: BasketProduct = {
                 count: 1,
@@ -57,7 +59,7 @@ export default function useAddToBasket() {
                 saveInLocalStorage(basketProduct);
             }
 
-            dispatch(ADD_PRODUCT_TO_BASKET(basketProduct));
+            dispatch(addProductToBasket(basketProduct));
         }
     }
 }

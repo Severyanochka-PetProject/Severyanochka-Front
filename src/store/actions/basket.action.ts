@@ -1,5 +1,5 @@
 import basketService from "../../services/basketService";
-import {INIT_USER_BASKET} from "../reducers/basketSlice";
+import {ADD_PRODUCT_TO_BASKET, INIT_USER_BASKET, REMOVE_PRODUCT_FROM_BASKET} from "../reducers/basketSlice";
 import {BasketProduct} from "../../domain/Basket.domain";
 
 export const fetchUserBasket = () => {
@@ -15,5 +15,29 @@ export const fetchUserBasket = () => {
         } else {
             dispatch(INIT_USER_BASKET(localBasket))
         }
+    }
+}
+
+export const addProductToBasket = (basketProduct: BasketProduct) => {
+    return async (dispatch: any, state: any) => {
+        const { user } = state();
+
+        if (user.isAuth) {
+            const status = await basketService.addProductToBasket(basketProduct, user.user.vk_user_id || user.user.id_user);
+        }
+
+        dispatch(ADD_PRODUCT_TO_BASKET(basketProduct));
+    }
+}
+
+export const removeProductFromBasket = (id_food: number) => {
+    return async (dispatch: any, state: any) => {
+        const { user } = state();
+
+        if (user.isAuth) {
+            const status = await basketService.removeProductFromBasket(id_food, user.user.vk_user_id || user.user.id_user);
+        }
+
+        dispatch(REMOVE_PRODUCT_FROM_BASKET(id_food));
     }
 }
