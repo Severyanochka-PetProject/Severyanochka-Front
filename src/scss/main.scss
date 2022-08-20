@@ -28,6 +28,13 @@
 
 .page {
   padding-bottom: 206px;
+
+  &_loading {
+    height: calc(100vh - 72px - 126px - 80px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 }
 
 @media screen and (max-width: $w-1040) {
