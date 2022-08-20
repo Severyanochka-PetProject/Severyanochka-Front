@@ -5,27 +5,34 @@ import Checkbox from '../../components/UI/Checkbox/Checkbox';
 import './basketPage.scss';
 import CustomButton from "../../components/UI/CustomButton/CustomButton";
 import ErrorHint from "../../components/UI/ErrorHint/ErrorHint";
+import {useSelector} from "react-redux";
+import {RootState} from "../../store/index.js";
+import {basketInitialState} from "../../store/types/basket";
 
 const BasketPage : FC = () => {
+  const basket = useSelector<RootState, basketInitialState>(state => state.basket);
+
   return (
       <div className="page basket-page">
         <main className="main">
           <div className="main__navigation">
             <h1>Корзина</h1>
-            <p>0</p>
+            <p>{ basket.products.length }</p>
           </div>
           <div className="basket-page__body">
-            <div className="basket-page__top">
-              <Checkbox value="selectAll" idFor="select-all" text="Выделить все"/>
-              <div className="basket-top-item select-delete">
-                <p>Удалить выбранные</p>
+            {!!basket.products.length &&
+              <div className="basket-page__top">
+                <Checkbox value="selectAll" idFor="select-all" text="Выделить все"/>
+                <div className="basket-top-item select-delete">
+                  <p>Удалить выбранные</p>
+                </div>
               </div>
-            </div>
+            }
             <div className="basket-page__wrapper">
-              <div className="basket-page__section">
-                {[1, 2, 3, 4].map((value) => (
-                    <SelectItem index={value} key={value}/>
-                ))
+              <div className={`basket-page__section ${ !basket.products.length ? 'basket-page__section_empty' : '' }`}>
+                {basket.products.length ? basket.products.map((item) => (
+                    <SelectItem index={item.id_food} key={item.id_food} product={item}/>
+                )) : <p>Вы не добавили ничего в корзину...</p>
                 }
               </div>
               <div className="basket-page__aside">
