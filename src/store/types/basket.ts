@@ -4,9 +4,8 @@ export enum categoryActionTypes {
     ADD_PRODUCT_TO_BASKET = "ADD_PRODUCT_TO_BASKET",
 }
 
-export interface categoryInitialState {
+export interface basketInitialState {
     products: Food[],
-    length: number,
     isLoading: boolean
 }
 

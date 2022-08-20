@@ -5,16 +5,20 @@ import './header.scss';
 
 import CatalogList from "../CatalogList/CatalogList";
 import HeaderProfileBlock from "./HeaderProfileBlock/HeaderProfileBlock";
+import {useSelector} from "react-redux";
+import {RootState} from "../../store/index.js";
+import {basketInitialState} from "../../store/types/basket";
 
 const Header: FC = () => {
+    const basket = useSelector<RootState, basketInitialState>(state => state.basket);
     const location = useLocation();
-    
+
     const [isOpenCatalogList, toggleCatalogList] = useState(false)
     const [currentWidth, setCurrentWidth] = useState(0)
 
     useEffect(() => {
         setCurrentWidth(window.innerWidth);
-        
+
         const resizeListener = () => {
             setCurrentWidth(window.innerWidth)
           };
@@ -28,10 +32,10 @@ const Header: FC = () => {
 
     const renderLogo = () => {
      return <>
-        <img src={ currentWidth >= 1040 
-                                ? "/images/header/logo.svg" 
+        <img src={ currentWidth >= 1040
+                                ? "/images/header/logo.svg"
                                 : "/images/header/logo-adapting.svg" } alt=""/>
-     </>   
+     </>
     }
 
     return (
@@ -69,6 +73,9 @@ const Header: FC = () => {
                             <p>Заказы</p>
                         </div>
                         <Link to="/basket" className={`controller-item ${location.pathname === '/basket' ? 'controller-item_active' : ''}`}>
+                            {!!basket.products.length &&
+                                <div className="controller-item__total">{ basket.products.length }</div>
+                            }
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path fillRule="evenodd" clipRule="evenodd" d="M5.5 21C5.5 19.6193 6.61929 18.5 8 18.5C9.38071 18.5 10.5 19.6193 10.5 21C10.5 22.3807 9.38071 23.5 8 23.5C6.61929 23.5 5.5 22.3807 5.5 21ZM8 19.5C7.17157 19.5 6.5 20.1716 6.5 21C6.5 21.8284 7.17157 22.5 8 22.5C8.82843 22.5 9.5 21.8284 9.5 21C9.5 20.1716 8.82843 19.5 8 19.5Z" fill="#414141"/>
                                 <path fillRule="evenodd" clipRule="evenodd" d="M17.5 21C17.5 19.6193 18.6193 18.5 20 18.5C21.3807 18.5 22.5 19.6193 22.5 21C22.5 22.3807 21.3807 23.5 20 23.5C18.6193 23.5 17.5 22.3807 17.5 21ZM20 19.5C19.1716 19.5 18.5 20.1716 18.5 21C18.5 21.8284 19.1716 22.5 20 22.5C20.8284 22.5 21.5 21.8284 21.5 21C21.5 20.1716 20.8284 19.5 20 19.5Z" fill="#414141"/>

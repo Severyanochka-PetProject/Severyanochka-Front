@@ -99,9 +99,21 @@
           outline: none;
           text-decoration: none;
           color: #000;
+          position: relative;
 
           &:not(:last-child) {
             margin-right: 24px;
+          }
+
+          &__total {
+            background: #FF6633;
+            border-radius: 4px;
+            padding: 2px 4px;
+            position: absolute;
+            top: -5px;
+            right: 12px;
+            color: #FFFFFF;
+            font-size: 0.7rem;
           }
 
           &_active, &:hover {
@@ -248,7 +260,7 @@
 @media screen and (max-width: $w-1260) {
   .header-wrapper {
     width: $wrapperWidth;
-    column-gap: 20px; 
+    column-gap: 20px;
   }
 
   .header-wrapper__filter {
@@ -280,7 +292,7 @@
 
 @media screen and (max-width: $w-1040) {
   .header-wrapper {
-    column-gap: 30px; 
+    column-gap: 30px;
   }
 
   .header-wrapper__controllers {
@@ -293,10 +305,9 @@
       font-size: 0.75rem;
     }
 
-    // svg {
-    //   width: 90%;
-    //   height: 90%;
-    // }
+    .controller-item__total {
+      right: 0;
+    }
   }
 
   .header-wrapper__filter .filter-options a {
@@ -308,12 +319,12 @@
   }
 }
 
-@media screen and (max-width: $w-750) { 
+@media screen and (max-width: $w-750) {
   .header-wrapper__controllers, .header-wrapper__signIn, .header-wrapper__filter .filter-options, .header-wrapper__profile {
     display: none;
   }
 }
 
-@media screen and (max-width: $w-595) { 
+@media screen and (max-width: $w-595) {
 
 }
