@@ -32,9 +32,7 @@ function App() {
     }, [])
 
     useEffect(() => {
-        if (user.isAuth) {
-            dispatch(fetchUserBasket());
-        }
+        dispatch(fetchUserBasket());
     }, [user.isAuth])
 
     return (
