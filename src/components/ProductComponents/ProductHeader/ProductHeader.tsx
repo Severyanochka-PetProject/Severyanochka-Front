@@ -2,12 +2,17 @@ import React, { FC } from "react";
 import { Food } from "../../../domain/Food.domain";
 
 import "./productHeader.scss";
+import {useDispatch, useSelector} from "react-redux";
+import {ADD_PRODUCT_TO_BASKET, REMOVE_PRODUCT_FROM_BASKET} from "../../../store/reducers/basketSlice";
+import {Basket, containsProductInBasket} from "../../../domain/Basket.domain";
+import {RootState} from "../../../store/index.js";
 
 interface IProductMain {
   product: Food
 }
 
 const ProductHeader: FC<IProductMain> = ({ product }) => {
+
   return (
     <div className="product-page-header">
       <p className="product-page-header__title">
@@ -76,7 +81,7 @@ const ProductHeader: FC<IProductMain> = ({ product }) => {
           </svg>
           <p>Поделиться</p>
         </div>
-        <div className="product-controller">
+        <div className={`product-controller ${ false ? 'item-basket' : '' }`}>
           <svg
             width="24"
             height="24"
@@ -91,7 +96,7 @@ const ProductHeader: FC<IProductMain> = ({ product }) => {
               fill="#414141"
             />
           </svg>
-          <p>В избраное </p>
+          <p>В избраное</p>
         </div>
       </div>
     </div>

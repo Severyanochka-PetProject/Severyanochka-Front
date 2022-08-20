@@ -42,6 +42,14 @@
       transition: .3s all;
       background: #FCD5BA;
     }
+
+    &_basket {
+      background: #FCD5BA;
+
+      svg path {
+        fill: #D80000;
+      }
+    }
   }
 
   &__image {

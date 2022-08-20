@@ -82,6 +82,16 @@
         flex-direction: column;
         row-gap: 24px;
         flex: 0.75;
+
+        &_empty {
+            align-items: center;
+            justify-content: center;
+
+            p {
+                color: #414141;
+                font-size: 1.5rem;
+            }
+        }
     }
 
     &__aside {
@@ -235,5 +245,11 @@
         width: 100%;
         column-gap: inherit;
         justify-content: space-between;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .basket-page__section_empty p {
+        font-size: 1.1rem;
     }
 }
