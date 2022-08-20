@@ -16,11 +16,12 @@ import { RootState } from '../../store/index.js';
 
 import './productPage.scss';
 import Notify from '../../components/UI/ToastNotification/ToastNotification';
+import Loader from "../../components/LoaderComponents/Loader/Loader";
 
 export default function ProductPage() {
   const location = useLocation();
   const navigation = useNavigate();
-  
+
   const products = useSelector<RootState, Food[]>(state => state.products.products);
   const isLoading = useSelector<RootState, boolean>(state => state.products.isLoading);
 
@@ -59,8 +60,10 @@ export default function ProductPage() {
   }, [])
 
   return (
-    <div className="page product-page">
-      {isLoadingCurrentProduct ? <p>Загрузка</p> :
+    <div className={`page product-page ${ isLoadingCurrentProduct ? 'page_loading' : '' }`}>
+      {isLoadingCurrentProduct ?
+          <Loader />
+          :
         <main className="main">
           <ProductHeader product={currentProduct as Food} />
           <div className="main__body">
@@ -75,7 +78,7 @@ export default function ProductPage() {
             sectionClass="product-section"
             sectionLinkText="Все акции"
           >
-            {isLoading ? 
+            {isLoading ?
               [1, 2, 3, 4].map((key, index) => (
                   <ProductLoader key={key} />
               ))

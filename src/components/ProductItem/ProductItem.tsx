@@ -6,15 +6,15 @@ import { Food } from "../../domain/Food.domain";
 import './productItem.scss';
 import {useSelector} from "react-redux";
 import {RootState} from "../../store/index.js";
-import {Basket} from "../../domain/Basket.domain";
 import useAddToBasket from "../../hooks/useAddToBasket";
+import {basketInitialState} from "../../store/types/basket";
 
 interface IProductItem {
     product: Food
 }
 
 const ProductItem: FC<IProductItem> = ({ product, ...props }) => {
-    const basket = useSelector<RootState, Basket>(state => state.basket)
+    const basket = useSelector<RootState, basketInitialState>(state => state.basket)
     const navigation = useNavigate();
 
     const addToBasket = useAddToBasket();

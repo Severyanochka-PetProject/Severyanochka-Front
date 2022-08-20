@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 
 import './app.scss';
 
@@ -14,8 +14,13 @@ import useRefresh from "../../hooks/useRefresh";
 import { fetchCategories } from '../../store/actions/category.action';
 import AppRouter from '../../router/AppRouter';
 import { fetchProducts } from '../../store/actions/product.action';
+import {RootState} from "../../store/index.js";
+import {userInitialState} from "../../store/types/user";
+import {fetchUserBasket} from "../../store/actions/basket.action";
 
 function App() {
+    const user = useSelector<RootState, userInitialState>(state => state.user);
+
     useLoginVk();
     useRefresh();
 
@@ -25,6 +30,12 @@ function App() {
         dispatch(fetchCategories());
         dispatch(fetchProducts());
     }, [])
+
+    useEffect(() => {
+        if (user.isAuth) {
+            dispatch(fetchUserBasket());
+        }
+    }, [user.isAuth])
 
     return (
         <div className="app">

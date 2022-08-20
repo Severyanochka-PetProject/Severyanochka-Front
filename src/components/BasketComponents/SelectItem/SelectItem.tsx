@@ -2,35 +2,35 @@ import React, {FC, useState} from 'react'
 import Checkbox from '../../UI/Checkbox/Checkbox'
 
 import './selectItem.scss'
-import {Food} from "../../../domain/Food.domain";
 import {computedDiscountPercent} from "../../../helper/price.helper";
 import {useNavigate} from "react-router-dom";
+import {BasketProduct} from "../../../domain/Basket.domain";
 
 interface ISelectItem {
     index: number,
-    product: Food
+    basketProduct: BasketProduct
 }
 
-const SelectItem : FC<ISelectItem> = ({ index, product }) => {
+const SelectItem : FC<ISelectItem> = ({ index, basketProduct }) => {
     const [count, setCount] = useState<number>(1);
     const navigation = useNavigate();
 
 
     const goToProduct = () => {
-        navigation(`/product?id=${product.id_food}`)
+        navigation(`/product?id=${basketProduct.product.id_food}`)
     }
     return (
         <div className="select-item">
             <Checkbox value={index.toString()} idFor={index.toString()} />
             <div className="select-item__img">
-                <img src={product.url} alt={product.name} />
+                <img src={basketProduct.product.url} alt={basketProduct.product.name} />
             </div>
             <div className="select-item__info">
-                <p className="select-item__name" onClick={goToProduct}>{ product.name }</p>
+                <p className="select-item__name" onClick={goToProduct}>{ basketProduct.product.name }</p>
                 <small>
-                    <span>{ product.price } ₽</span> за шт.
-                    {product.discount &&
-                        <div className="select-item__discount">{ computedDiscountPercent(product.price, product.discount) }%</div>
+                    <span>{ basketProduct.product.price } ₽</span> за шт.
+                    {basketProduct.product.discount &&
+                        <div className="select-item__discount">{ computedDiscountPercent(basketProduct.product.price, basketProduct.product.discount) }%</div>
                     }
                 </small>
             </div>
@@ -52,9 +52,9 @@ const SelectItem : FC<ISelectItem> = ({ index, product }) => {
                     </div>
                 </div>
                 <div className="select-item__price">
-                    <p>{ product.price } ₽</p>
-                    {product.discount &&
-                        <small><s>{ product.price - product.discount } ₽</s></small>
+                    <p>{ basketProduct.product.price } ₽</p>
+                    {basketProduct.product.discount &&
+                        <small><s>{ basketProduct.product.price - basketProduct.product.discount } ₽</s></small>
                     }
                 </div>
             </div>
