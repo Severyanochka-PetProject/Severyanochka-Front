@@ -16,4 +16,9 @@ export interface BasketServiceInterface {
      * Удаление продукта из Корзину
      */
     removeProductFromBasket(id_food: number, id_user: number): Promise<AxiosResponse>;
+
+    /**
+     * Обновление продукта в Корзине
+     */
+    updateBasketProduct(id_user: number, id_food: number, count: number): Promise<AxiosResponse>;
 }
