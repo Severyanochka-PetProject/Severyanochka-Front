@@ -1,5 +1,10 @@
 import basketService from "../../services/basketService";
-import {ADD_PRODUCT_TO_BASKET, INIT_USER_BASKET, REMOVE_PRODUCT_FROM_BASKET} from "../reducers/basketSlice";
+import {
+    ADD_PRODUCT_TO_BASKET,
+    INIT_USER_BASKET,
+    REMOVE_PRODUCT_FROM_BASKET,
+    UPDATE_BASKET_PRODUCT
+} from "../reducers/basketSlice";
 import {BasketProduct} from "../../domain/Basket.domain";
 
 export const fetchUserBasket = () => {
@@ -39,5 +44,18 @@ export const removeProductFromBasket = (id_food: number) => {
         }
 
         dispatch(REMOVE_PRODUCT_FROM_BASKET(id_food));
+    }
+}
+
+export const updateBasketProduct = (basketProduct: BasketProduct) => {
+    return async (dispatch: any, state: any) => {
+        const { user } = state();
+
+        if (user.isAuth) {
+            const status = await  basketService.updateBasketProduct(user.user.vk_user_id || user.user.id_user,
+                basketProduct.id_food, basketProduct.count);
+        }
+
+        dispatch(UPDATE_BASKET_PRODUCT(basketProduct));
     }
 }

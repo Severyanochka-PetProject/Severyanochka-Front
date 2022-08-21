@@ -28,6 +28,14 @@ class basketService implements BasketServiceInterface {
             data: payload
         });
     }
+
+    async updateBasketProduct(id_user: number, id_food: number, count: number): Promise<AxiosResponse> {
+        return await api.patch('/product-apiV1/baskets/update-product-basket', {
+            id_user,
+            id_food,
+            count
+        })
+    }
 }
 
 export default new basketService();

@@ -22,12 +22,16 @@ const categorySlice = createSlice({
             const productIndex = state.products.findIndex((value : Food, index: number) => value.id_food === action.payload);
             state.products.splice(productIndex, 1);
         },
+        UPDATE_BASKET_PRODUCT: (state, action: PayloadAction<BasketProduct>) => {
+            const productIndex = state.products.findIndex((value : Food, index: number) => value.id_food === action.payload.id_food);
+            state.products[productIndex].count = action.payload.count;
+        },
         RESET_BASKET:(state) => {
             state.products = []
         }
     }
 })
 
-export const { ADD_PRODUCT_TO_BASKET, REMOVE_PRODUCT_FROM_BASKET, INIT_USER_BASKET, RESET_BASKET } = categorySlice.actions;
+export const { ADD_PRODUCT_TO_BASKET, REMOVE_PRODUCT_FROM_BASKET, INIT_USER_BASKET, RESET_BASKET, UPDATE_BASKET_PRODUCT } = categorySlice.actions;
 
 export default categorySlice.reducer;

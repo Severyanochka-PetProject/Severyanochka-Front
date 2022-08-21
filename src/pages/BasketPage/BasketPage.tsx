@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, {FC, useCallback} from 'react'
 import SelectItem from '../../components/BasketComponents/SelectItem/SelectItem';
 import Checkbox from '../../components/UI/Checkbox/Checkbox';
 
@@ -11,6 +11,18 @@ import {basketInitialState} from "../../store/types/basket";
 
 const BasketPage : FC = () => {
   const basket = useSelector<RootState, basketInitialState>(state => state.basket);
+
+  const basketTotalWithoutDiscount = useCallback((): number => {
+    return Number(basket.products.reduce((prev, current) => {
+      return prev + (current.product.price * current.count)
+    }, 0))
+  }, [basket.products])
+
+  const basketTotalDiscount = useCallback((): number => {
+    return Number(basket.products.reduce((prev, current) => {
+      return Number(prev) + Number(current.product.discount || 0) * current.count
+    }, 0))
+  }, [basket.products])
 
   return (
       <div className="page basket-page">
@@ -37,23 +49,25 @@ const BasketPage : FC = () => {
               </div>
               <div className="basket-page__aside">
                 <div className="basket-page__bonus">
-                  <p className="basket-page__text bonus-text">На карте накоплено 200 ₽ </p>
+                  <p className="basket-page__text bonus-text">На карте накоплено 0 ₽ </p>
                 </div>
                 <span className="basket-page__line"/>
                 <div className="basket-page__check">
                   <div className="check-item">
-                    <p className="basket-page__text">3 товара</p>
-                    <p className="basket-page__text basket-page__text_black">258,10 ₽</p>
+                    <p className="basket-page__text">{ basket.products.length } товара</p>
+                    <p className="basket-page__text basket-page__text_black">{ basketTotalWithoutDiscount().toFixed(2) } ₽</p>
                   </div>
                   <div className="check-item bonus-item">
                     <p className="basket-page__text">Скидка</p>
-                    <p className="basket-page__text basket-page__text_black">-8,01 ₽</p>
+                    <p className="basket-page__text basket-page__text_black">-{ basketTotalDiscount().toFixed(2) } ₽</p>
                   </div>
                 </div>
                 <span className="basket-page__line"/>
                 <div className="basket-page__total">
                   <p className="basket-page__text">Итог</p>
-                  <p className="basket-page__text basket-page__text_black">258,10 ₽</p>
+                  <p className="basket-page__text basket-page__text_black">
+                    { (basketTotalWithoutDiscount() - basketTotalDiscount()).toFixed(2) } ₽
+                  </p>
                 </div>
                 <div className="info-button__bonus">
               <span>
@@ -63,7 +77,7 @@ const BasketPage : FC = () => {
                       fill="#70C05B"/>
                 </svg>
               </span>
-                  <p>Вы получаете <b>10 бонусов</b></p>
+                  <p>Вы получаете <b>- бонусов</b></p>
                 </div>
                 <div className="basket-page__bottom">
                   <ErrorHint showTriangle={false} message={'Минимальная сумма заказа 1000р'}/>
