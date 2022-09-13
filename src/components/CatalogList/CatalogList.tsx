@@ -13,7 +13,7 @@ interface ICatalogList {
     isOpen: boolean
 }
 
-const CatalogList :FC<ICatalogList> = ({ isOpen }) => {
+const CatalogList :FC<ICatalogList> = React.memo(({ isOpen }) => {
     const isLoading = useSelector<RootState, boolean>(state => state.categories.isLoading);
     const categories = useSelector<RootState, Category[]>(state => state.categories.categories);
 
@@ -48,6 +48,6 @@ const CatalogList :FC<ICatalogList> = ({ isOpen }) => {
             }
         </div>
     );
-};
+});
 
 export default CatalogList;

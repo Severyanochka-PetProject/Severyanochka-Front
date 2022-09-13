@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, {FC, useMemo} from 'react';
 import { useSelector } from "react-redux";
 
 import { CSSTransition } from 'react-transition-group';
@@ -28,13 +28,13 @@ const ModalWrapper: FC = () => {
         currentPopup = <SetPhoneLoginPopup />
     }
 
-    const isActiveAnimation = () => {
+    const isActiveAnimation = useMemo(() => {
         return openAuth || openReg || openSetPhoneLogin
-    }
+    }, [openAuth, openReg, openSetPhoneLogin])
 
     return (
         <>
-        <CSSTransition in={isActiveAnimation()} timeout={700} classNames="alert" unmountOnExit>
+        <CSSTransition in={isActiveAnimation} timeout={700} classNames="alert" unmountOnExit>
             <div className={`modal-wrapper ${isOpen ? 'modal_active' : ''}`}>
                 { currentPopup }
             </div>

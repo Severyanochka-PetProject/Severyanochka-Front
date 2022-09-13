@@ -10,7 +10,7 @@ interface IRenderSection {
     sectionLink?: string | null,
     sectionLinkText?: string | null,
     sectionId?: string| null,
-    sectionClass?: string | null, 
+    sectionClass?: string | null,
 }
 
 const RenderSection: FC <IRenderSection> = ({ sectionLink, sectionTitle, children, sectionLinkText, sectionId, sectionClass }) => {

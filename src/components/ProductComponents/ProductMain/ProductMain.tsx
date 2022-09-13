@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, {FC, useCallback} from 'react'
 import { Food } from '../../../domain/Food.domain'
 
 import { computedDiscountPercent } from '../../../helper/price.helper';
@@ -6,7 +6,7 @@ import { computedDiscountPercent } from '../../../helper/price.helper';
 import CustomButton from '../../UI/CustomButton/CustomButton'
 
 import './productMain.scss'
-// import {ADD_PRODUCT_TO_BASKET, REMOVE_PRODUCT_FROM_BASKET} from "../../../store/reducers/basketSlice";
+
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../../store/index.js";
 import useAddToBasket from "../../../hooks/useAddToBasket";
@@ -16,15 +16,14 @@ interface IProductMain {
     product: Food
 }
 
-const ProductMain: FC<IProductMain> = ({ product, ...props }) => {
+const ProductMain: FC<IProductMain> = React.memo(({ product, ...props }) => {
     const basket = useSelector<RootState, basketInitialState>(state => state.basket)
-    const dispatch = useDispatch();
 
     const addToBasket = useAddToBasket();
 
-    const containsProductInBasket = () => {
+    const containsProductInBasket = useCallback(() => {
         return basket.products.some(({ id_food }) => id_food === product.id_food);
-    }
+    }, [basket.products, product.id_food])
 
   return (
     <div className="product-page-main">
@@ -100,6 +99,6 @@ const ProductMain: FC<IProductMain> = ({ product, ...props }) => {
         </div>
     </div>
   )
-}
+});
 
 export default ProductMain;

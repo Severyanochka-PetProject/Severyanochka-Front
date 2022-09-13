@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useMemo} from "react";
 import { Link } from "react-router-dom";
 
 import './homePage.scss';
@@ -15,7 +15,9 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../store/index.js";
 import { Food } from "../../domain/Food.domain";
 
-function HomePage () {
+const totalRenderItems = [1, 2, 3, 4];
+
+const HomePage = React.memo(() => {
     const products = useSelector<RootState, Food[]>(state => state.products.products);
     const isLoading = useSelector<RootState, boolean>(state => state.products.isLoading);
 
@@ -24,9 +26,9 @@ function HomePage () {
             <Banner />
             <main className="main">
                 <RenderSection sectionTitle="Акции" sectionLink="#" sectionClass="product-section" sectionLinkText="Все акции">
-                    {isLoading 
+                    {isLoading
                     ?
-                        [1, 2, 3, 4].map((key, index) => (
+                        totalRenderItems.map((key, index) => (
                             <ProductLoader key={key} />
                         ))
                     :
@@ -36,12 +38,12 @@ function HomePage () {
                     }
                 </RenderSection>
                 <RenderSection sectionTitle="Новинки" sectionLink="#" sectionClass="product-section" sectionLinkText="Все новинки">
-                    {[1, 2, 3, 4].map((key, index) => (
+                    {totalRenderItems.map((key, index) => (
                         <ProductLoader key={ index } />
                     ))}
                 </RenderSection>
                 <RenderSection sectionTitle="Покупали раньше" sectionLink="#" sectionClass="product-section" sectionLinkText="Все покупки">
-                    {[1, 2, 3, 4].map((key, index) => (
+                    {totalRenderItems.map((key, index) => (
                         <ProductLoader key={ index } />
                     ))}
                 </RenderSection>
@@ -61,6 +63,6 @@ function HomePage () {
             </main>
         </div>
     )
-}
+})
 
 export default HomePage;

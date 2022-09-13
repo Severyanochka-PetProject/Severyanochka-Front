@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, {FC, useCallback} from "react";
 import { useNavigate } from "react-router-dom";
 
 import { Food } from "../../domain/Food.domain";
@@ -13,20 +13,24 @@ interface IProductItem {
     product: Food
 }
 
-const ProductItem: FC<IProductItem> = ({ product, ...props }) => {
+const ProductItem: FC<IProductItem> = React.memo(({ product, ...props }) => {
     const basket = useSelector<RootState, basketInitialState>(state => state.basket)
     const navigation = useNavigate();
 
     const addToBasket = useAddToBasket();
 
-    const goToProduct = () => {
+    const goToProduct = useCallback(() => {
         navigation(`/product?id=${product.id_food}`)
-    }
+    }, [])
 
-    const containsProductInBasket = () => {
+    const containsProductInBasket = useCallback(() => {
         return basket.products.some(({ id_food }) => id_food === product.id_food);
-    }
+    },[basket.products, product.id_food])
 
+    const addProductToBasket = useCallback((event: any) => {
+        event.stopPropagation();
+        addToBasket(product);
+    }, [addToBasket, product])
 
     return (
         <div className="product" onClick={goToProduct} {...props}>
@@ -70,18 +74,15 @@ const ProductItem: FC<IProductItem> = ({ product, ...props }) => {
                         </div>
                     </div>
                     <div className={`product__btn  ${containsProductInBasket() ? 'added' : ''}`}
-                         onClick={((event) => {
-                             event.stopPropagation();
-                             addToBasket(product);
-                         })}>
-                        <p>{containsProductInBasket() ? 'Добавлено' : 'В корзину'}</p>
+                         onClick={addProductToBasket}>
+                        <p>{ containsProductInBasket() ? 'Добавлено' : 'В корзину' }</p>
                     </div>
                 </div>
             </div>
         </div>
     );
 
-}
+});
 
 export default ProductItem;
 

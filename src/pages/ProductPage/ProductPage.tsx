@@ -18,7 +18,7 @@ import './productPage.scss';
 import Notify from '../../components/UI/ToastNotification/ToastNotification';
 import Loader from "../../components/LoaderComponents/Loader/Loader";
 
-export default function ProductPage() {
+const ProductPage = () => {
   const location = useLocation();
   const navigation = useNavigate();
 
@@ -93,3 +93,5 @@ export default function ProductPage() {
     </div>
   );
 }
+
+export default ProductPage;
