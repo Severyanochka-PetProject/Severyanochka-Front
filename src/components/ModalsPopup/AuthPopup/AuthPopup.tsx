@@ -17,7 +17,7 @@ import AuthService from "../../../services/authService";
 import {SET_AUTH_FLAG, SET_USER_DATA} from "../../../store/reducers/userSlice";
 
 
-const AuthPopup: FC = () => {
+const AuthPopup: FC = React.memo(() => {
     const [authStage, toggleStage] = useState(1);
     const [phone_number, setPhoneNumber] = useState('');
     const [password, setPassword] = useState('');
@@ -196,7 +196,7 @@ const AuthPopup: FC = () => {
             </div>
         </div>
     );
-};
+});
 
 export default AuthPopup;
 

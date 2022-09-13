@@ -1,4 +1,3 @@
-import {ADD_PRODUCT_TO_BASKET, REMOVE_PRODUCT_FROM_BASKET} from "../store/reducers/basketSlice";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../store/index.js";
 import {Food} from "../domain/Food.domain";

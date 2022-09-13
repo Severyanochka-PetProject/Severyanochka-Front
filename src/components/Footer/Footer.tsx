@@ -3,7 +3,7 @@ import React from "react";
 import './footer.scss';
 import { Link } from "react-router-dom";
 
-function Footer () {
+const Footer = React.memo(() => {
     return (
         <footer className="footer">
             <div className="footer__wrapper">
@@ -21,16 +21,16 @@ function Footer () {
                 </div>
                 <div className="footer__left">
                     <div className="footer__social">
-                        <Link to=''>
+                        <Link to='#'>
                             <img src="/images/social/instagram.svg" alt=""/>
                         </Link>
-                        <Link to=''>
+                        <Link to='#'>
                             <img src="/images/social/vkontakte.svg" alt=""/>
                         </Link>
-                        <Link to=''>
+                        <Link to='#'>
                             <img src="/images/social/facebook.svg" alt=""/>
                         </Link>
-                        <Link to=''>
+                        <Link to='#'>
                             <img src="/images/social/ok.svg" alt=""/>
                         </Link>
                     </div>
@@ -46,6 +46,6 @@ function Footer () {
             </div>
         </footer>
     )
-}
+})
 
 export default Footer;

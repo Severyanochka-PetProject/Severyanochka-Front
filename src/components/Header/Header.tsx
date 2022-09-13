@@ -1,4 +1,4 @@
-import React, {FC, useEffect, useState} from "react";
+import React, {FC, useCallback, useEffect, useMemo, useState} from "react";
 import { Link } from "react-router-dom";
 
 import './header.scss';
@@ -57,6 +57,6 @@ const Header: FC = () => {
             <CatalogList isOpen={isOpenCatalogList} />
         </header>
     )
-}
+};
 
 export default Header;
