@@ -24,6 +24,7 @@ const HomePage = React.memo(() => {
     return (
         <div className="page page_home">
             <Banner />
+            <h1>Test Jenkins</h1>
             <main className="main">
                 <RenderSection sectionTitle="Акции" sectionLink="#" sectionClass="product-section" sectionLinkText="Все акции">
                     {isLoading
