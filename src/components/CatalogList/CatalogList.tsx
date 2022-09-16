@@ -2,7 +2,7 @@ import React, {FC, useState} from 'react';
 import {useSelector} from "react-redux";
 import {Link} from "react-router-dom";
 
-import './catalogList..scss';
+import "./catalogList..scss";
 
 import {RootState} from "../../store/index.js";
 import {Category} from "../../domain/Category.domain";
@@ -18,7 +18,7 @@ const CatalogList :FC<ICatalogList> = React.memo(({ isOpen }) => {
     const categories = useSelector<RootState, Category[]>(state => state.categories.categories);
 
     return (
-        <div className={`catalog-list ${ isOpen ? 'catalog-list_open' : '' }`}>
+        <div className={`catalog-list ${ isOpen ? 'catalog-list_open' : "" }`}>
             {!isLoading ?
                 <div className="catalog-list__wrapper">
                     <div className="list-block">

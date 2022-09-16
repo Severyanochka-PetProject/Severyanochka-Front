@@ -30,7 +30,7 @@
   "scripts": {
     "start": "react-scripts start",
     "start:https": "set HTTPS=true&&set SSL_CRT_FILE=localhost.crt&&set SSL_KEY_FILE=localhost-key.key&&react-scripts start",
-    "build": "GENERATE_SOURCEMAP=false react-scripts build",
+    "build": "CI=false GENERATE_SOURCEMAP=false react-scripts build",
     "winBuild": "set \"GENERATE_SOURCEMAP=false\" && react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
@@ -78,7 +78,11 @@
     "@storybook/preset-create-react-app": "^4.0.1",
     "@storybook/react": "^6.4.19",
     "@storybook/testing-library": "0.0.9",
+    "@typescript-eslint/eslint-plugin": "^5.37.0",
+    "@typescript-eslint/parser": "^5.37.0",
     "chromatic": "^6.5.2",
+    "eslint": "^8.23.1",
+    "eslint-plugin-react": "^7.31.8",
     "webpack": "^5.70.0"
   }
 }
