@@ -33,7 +33,7 @@ const SelectItem : FC<ISelectItem> = ({ index, basketProduct }) => {
         let updatedBasketProduct = {...basketProduct};
         updatedBasketProduct.count  = updatedBasketProduct.count + value;
 
-        updateProduct(updatedBasketProduct);
+       updateProduct(updatedBasketProduct)
     }
 
     return (
