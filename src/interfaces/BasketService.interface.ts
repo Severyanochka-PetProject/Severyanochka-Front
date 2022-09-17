@@ -37,4 +37,9 @@ export interface BasketServiceInterface {
      * Обновление данных о товаре в LocalStorage
      */
     updateInLocalStorage (basketProduct: BasketProduct): void;
+
+    /**
+     * Полная очистка корзины
+     */
+    clearBasketLocalStorage (): void;
 }

@@ -72,6 +72,10 @@ class basketService implements BasketServiceInterface {
             localStorage.setItem('user_basket', JSON.stringify(currentLocalBasket));
         }
     }
+
+    clearBasketLocalStorage (): void {
+        localStorage.removeItem('user_basket')
+    }
 }
 
 export default new basketService();

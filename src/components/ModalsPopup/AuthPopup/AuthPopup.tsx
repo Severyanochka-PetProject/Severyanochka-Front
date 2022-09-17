@@ -14,6 +14,7 @@ import useModal from "../../../hooks/useModal";
 import { isValidPhoneNumber, isValidPassword } from '../../../validators/validator';
 import { SWITCH_AUTH_MODAL, SWITCH_REG_MODAL } from '../../../store/reducers/modalSlice';
 import AuthService from "../../../services/authService";
+import BasketService from "../../../services/basketService";
 import {SET_AUTH_FLAG, SET_USER_DATA} from "../../../store/reducers/userSlice";
 
 
@@ -73,6 +74,8 @@ const AuthPopup: FC = React.memo(() => {
 
             dispatch(SET_USER_DATA(response.data));
             dispatch(SET_AUTH_FLAG(true));
+
+            BasketService.clearBasketLocalStorage();
 
             toggleModal(SWITCH_AUTH_MODAL, false, false);
         } catch (error: any) {
