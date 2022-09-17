@@ -5,7 +5,6 @@ import {basketInitialState} from "../store/types/basket";
 import {BasketProduct} from "../domain/Basket.domain";
 import {userInitialState} from "../store/types/user";
 import {addProductToBasket, removeProductFromBasket} from "../store/actions/basket.action";
-import BasketService from "../services/basketService";
 
 export default function useAddToBasket() {
     const user = useSelector<RootState, userInitialState>(state => state.user);
@@ -18,11 +17,6 @@ export default function useAddToBasket() {
             return basket.products.some(({id_food}) => product.id_food === id_food);
         }
         if (existInBasket()) {
-
-            if (!user.isAuth) {
-                BasketService.removeInLocalStorage(product.id_food);
-            }
-
             dispatch(removeProductFromBasket(product.id_food));
         } else {
             const basketProduct: BasketProduct = {
@@ -30,10 +24,6 @@ export default function useAddToBasket() {
                 id_food: product.id_food,
                 id_user: user.user.vk_user_id || user.user.id_user,
                 product
-            }
-
-            if (!user.isAuth) {
-                BasketService.saveInLocalStorage(basketProduct);
             }
 
             dispatch(addProductToBasket(basketProduct));

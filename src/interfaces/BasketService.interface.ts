@@ -32,4 +32,14 @@ export interface BasketServiceInterface {
      * Удаление продукта из LocalStorage
     */
     removeInLocalStorage (id_food: number): void;
+
+    /**
+     * Обновление данных о товаре в LocalStorage
+     */
+    updateInLocalStorage (basketProduct: BasketProduct): void;
+
+    /**
+     * Полная очистка корзины
+     */
+    clearBasketLocalStorage (): void;
 }

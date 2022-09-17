@@ -5,6 +5,7 @@ import {useDispatch} from "react-redux";
 import {useLocation, useNavigate} from "react-router-dom";
 import useSetAuthorizationData from "./useSetAuthorizationData";
 import { SWITCH_SET_PHONE_LOGIN_VK_MODAL } from "../store/reducers/modalSlice";
+import BasketService from "../services/basketService";
 
 export default function useLoginVk () {
     const dispatch = useDispatch();
@@ -24,9 +25,11 @@ export default function useLoginVk () {
 
                 localStorage.setItem('access', data);
 
-                const res = await AuthService.me()
+                const res = await AuthService.me();
 
                 setAuthData(res.data, true)
+
+                BasketService.clearBasketLocalStorage();
             })
                 .catch(() => {
                     dispatch(SWITCH_SET_PHONE_LOGIN_VK_MODAL({isOpen: true, popup: true}))

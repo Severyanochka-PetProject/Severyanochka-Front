@@ -60,6 +60,22 @@ class basketService implements BasketServiceInterface {
 
         localStorage.setItem('user_basket', JSON.stringify(currentLocalBasket));
     }
+
+    updateInLocalStorage (basketProduct: BasketProduct): void {
+        let currentLocalBasket = JSON.parse(localStorage.getItem('user_basket') || '[]');
+
+        const productIndex = currentLocalBasket.findIndex((value : Food, index: number) => value.id_food === basketProduct.id_food);
+
+        if (productIndex > -1) {
+            currentLocalBasket[productIndex].count = basketProduct.count
+
+            localStorage.setItem('user_basket', JSON.stringify(currentLocalBasket));
+        }
+    }
+
+    clearBasketLocalStorage (): void {
+        localStorage.removeItem('user_basket')
+    }
 }
 
 export default new basketService();

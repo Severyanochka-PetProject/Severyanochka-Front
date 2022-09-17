@@ -11,6 +11,7 @@ import CustomButton from "../../UI/CustomButton/CustomButton";
 import phoneMask from "../../../plugins/phoneMask.js";
 
 import AuthService from "../../../services/authService";
+import BasketService from "../../../services/basketService";
 
 import Notify from "../../UI/ToastNotification/ToastNotification";
 
@@ -41,6 +42,8 @@ const SetPhoneLoginPopup: FC = () => {
             await AuthService.loginVk(access_token, user_id, email, phone_number)
                 .then((response) => {
                     navigation('/');
+
+                    BasketService.clearBasketLocalStorage();
 
                     closeModal(SWITCH_SET_PHONE_LOGIN_VK_MODAL, false, false);
                 })
