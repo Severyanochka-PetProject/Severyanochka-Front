@@ -6,6 +6,7 @@ import {
     UPDATE_BASKET_PRODUCT
 } from "../reducers/basketSlice";
 import {BasketProduct} from "../../domain/Basket.domain";
+import BasketService from "../../services/basketService";
 
 export const fetchUserBasket = () => {
     return async (dispatch : any, state: any) => {
@@ -29,6 +30,8 @@ export const addProductToBasket = (basketProduct: BasketProduct) => {
 
         if (user.isAuth) {
             const status = await basketService.addProductToBasket(basketProduct, user.user.vk_user_id || user.user.id_user);
+        } else {
+            BasketService.saveInLocalStorage(basketProduct);
         }
 
         dispatch(ADD_PRODUCT_TO_BASKET(basketProduct));
@@ -41,6 +44,8 @@ export const removeProductFromBasket = (id_food: number) => {
 
         if (user.isAuth) {
             const status = await basketService.removeProductFromBasket(id_food, user.user.vk_user_id || user.user.id_user);
+        } else {
+            BasketService.removeInLocalStorage(id_food);
         }
 
         dispatch(REMOVE_PRODUCT_FROM_BASKET(id_food));
@@ -54,6 +59,8 @@ export const updateBasketProduct = (basketProduct: BasketProduct) => {
         if (user.isAuth) {
             const status = await  basketService.updateBasketProduct(user.user.vk_user_id || user.user.id_user,
                 basketProduct.id_food, basketProduct.count);
+        } else {
+            basketService.updateInLocalStorage(basketProduct);
         }
 
         dispatch(UPDATE_BASKET_PRODUCT(basketProduct));
