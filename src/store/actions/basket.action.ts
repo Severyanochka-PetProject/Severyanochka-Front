@@ -8,6 +8,8 @@ import {
 import {BasketProduct} from "../../domain/Basket.domain";
 import BasketService from "../../services/basketService";
 
+import {debounceHelper} from "../../helper/debounce.helper";
+
 export const fetchUserBasket = () => {
     return async (dispatch : any, state: any) => {
         const { user } = state();
@@ -56,9 +58,13 @@ export const updateBasketProduct = (basketProduct: BasketProduct) => {
     return async (dispatch: any, state: any) => {
         const { user } = state();
 
-        if (user.isAuth) {
-            const status = await  basketService.updateBasketProduct(user.user.vk_user_id || user.user.id_user,
+        const updateBasket = async () => {
+            await basketService.updateBasketProduct(user.user.vk_user_id || user.user.id_user,
                 basketProduct.id_food, basketProduct.count);
+        }
+
+        if (user.isAuth) {
+            debounceHelper(async() => await updateBasket(), 1000)()
         } else {
             basketService.updateInLocalStorage(basketProduct);
         }
