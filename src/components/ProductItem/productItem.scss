@@ -14,13 +14,6 @@
   &:hover {
     transition: .3s all;
     box-shadow: 4px 8px 16px rgba(255, 102, 51, 0.2);
-
-    .product__btn {
-      transition: .3s all;
-      color: #FFFFFF;
-      background: #FF6633;
-      border: 1px solid #FF6633;
-    }
   }
 
   &__like {

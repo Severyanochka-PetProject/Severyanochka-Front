@@ -1,4 +1,4 @@
-import React, {FC, useCallback} from 'react'
+import React, {FC, useCallback, useMemo} from 'react'
 import SelectItem from '../../components/BasketComponents/SelectItem/SelectItem';
 import Checkbox from '../../components/UI/Checkbox/Checkbox';
 
@@ -8,9 +8,16 @@ import ErrorHint from "../../components/UI/ErrorHint/ErrorHint";
 import {useSelector} from "react-redux";
 import {RootState} from "../../store/index.js";
 import {basketInitialState} from "../../store/types/basket";
+import {SWITCH_AUTH_MODAL} from "../../store/reducers/modalSlice";
+import useModal from "../../hooks/useModal";
+
+const TOTAL_BASKET : number = 1000
 
 const BasketPage : FC = () => {
   const basket = useSelector<RootState, basketInitialState>(state => state.basket);
+  const isAuth = useSelector<RootState, boolean>(state => state.user.isAuth);
+
+  const toggleModal = useModal();
 
   const basketTotalWithoutDiscount = useCallback((): number => {
     return Number(basket.products.reduce((prev, current) => {
@@ -23,6 +30,16 @@ const BasketPage : FC = () => {
       return Number(prev) + Number(current.product.discount || 0) * current.count
     }, 0))
   }, [basket.products])
+
+  const isActive = useMemo(() => {
+    return TOTAL_BASKET < (basketTotalWithoutDiscount() - basketTotalDiscount())
+  }, [basketTotalDiscount])
+
+  const createOrder = useCallback(() => {
+    if (!isAuth) {
+      toggleModal(SWITCH_AUTH_MODAL, true, true);
+    }
+  }, [isAuth, toggleModal])
 
   return (
       <div className="page basket-page">
@@ -80,8 +97,10 @@ const BasketPage : FC = () => {
                   <p>Вы получаете <b>- бонусов</b></p>
                 </div>
                 <div className="basket-page__bottom">
-                  <ErrorHint showTriangle={false} message={'Минимальная сумма заказа 1000р'}/>
-                  <CustomButton disabled={true}>
+                  {!isActive &&
+                    <ErrorHint showTriangle={ false } message={'Минимальная сумма заказа 1000р'}/>
+                  }
+                  <CustomButton disabled={ !isActive } onClick={createOrder}>
                     <span>Оформить заказ</span>
                   </CustomButton>
                 </div>
