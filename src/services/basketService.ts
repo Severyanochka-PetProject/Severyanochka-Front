@@ -2,6 +2,7 @@ import api from "../api/axios";
 import {BasketServiceInterface} from "../interfaces/BasketService.interface";
 import {AxiosResponse} from "axios";
 import {BasketProduct} from "../domain/Basket.domain";
+import {Food} from "../domain/Food.domain";
 
 class basketService implements BasketServiceInterface {
     async getUserBasket(id_user: number): Promise<AxiosResponse> {
@@ -35,6 +36,29 @@ class basketService implements BasketServiceInterface {
             id_food,
             count
         })
+    }
+
+    saveInLocalStorage (basketProduct: BasketProduct) {
+        const currentLocalBasket = localStorage.getItem('user_basket');
+        let localBasket: BasketProduct[] = [];
+
+        if (!currentLocalBasket) {
+            localBasket.push(basketProduct);
+        } else {
+            localBasket = JSON.parse(currentLocalBasket);
+            localBasket.push(basketProduct);
+        }
+
+        localStorage.setItem('user_basket', JSON.stringify(localBasket));
+    }
+
+    removeInLocalStorage (id_food: number) {
+        let currentLocalBasket = JSON.parse(localStorage.getItem('user_basket') || '[]');
+
+        const productIndex = currentLocalBasket.findIndex((value : Food, index: number) => value.id_food === id_food);
+        currentLocalBasket.splice(productIndex, 1);
+
+        localStorage.setItem('user_basket', JSON.stringify(currentLocalBasket));
     }
 }
 
