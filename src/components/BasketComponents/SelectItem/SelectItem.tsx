@@ -69,7 +69,7 @@ const SelectItem : FC<ISelectItem> = ({ index, basketProduct }) => {
                     </div>
                 </div>
                 <div className="select-item__price">
-                    <p>{ basketProduct.product.price - (basketProduct.product.discount || 0) } ₽</p>
+                    <p>{ (basketProduct.product.price - (basketProduct.product.discount || 0)).toFixed(2) } ₽</p>
                     {basketProduct.product.discount &&
                         <small><s>{ basketProduct.product.price } ₽</s></small>
                     }
