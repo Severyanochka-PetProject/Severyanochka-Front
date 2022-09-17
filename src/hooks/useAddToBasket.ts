@@ -5,29 +5,7 @@ import {basketInitialState} from "../store/types/basket";
 import {BasketProduct} from "../domain/Basket.domain";
 import {userInitialState} from "../store/types/user";
 import {addProductToBasket, removeProductFromBasket} from "../store/actions/basket.action";
-
-const saveInLocalStorage = (basketProduct: BasketProduct) => {
-    const currentLocalBasket = localStorage.getItem('user_basket');
-    let localBasket: BasketProduct[] = [];
-
-    if (!currentLocalBasket) {
-        localBasket.push(basketProduct);
-    } else {
-        localBasket = JSON.parse(currentLocalBasket);
-        localBasket.push(basketProduct);
-    }
-
-    localStorage.setItem('user_basket', JSON.stringify(localBasket));
-}
-
-const removeInLocalStorage = (id_food: number) => {
-    let currentLocalBasket = JSON.parse(localStorage.getItem('user_basket') || '[]');
-
-    const productIndex = currentLocalBasket.findIndex((value : Food, index: number) => value.id_food === id_food);
-    currentLocalBasket.splice(productIndex, 1);
-
-    localStorage.setItem('user_basket', JSON.stringify(currentLocalBasket));
-}
+import BasketService from "../services/basketService";
 
 export default function useAddToBasket() {
     const user = useSelector<RootState, userInitialState>(state => state.user);
@@ -42,7 +20,7 @@ export default function useAddToBasket() {
         if (existInBasket()) {
 
             if (!user.isAuth) {
-                removeInLocalStorage(product.id_food);
+                BasketService.removeInLocalStorage(product.id_food);
             }
 
             dispatch(removeProductFromBasket(product.id_food));
@@ -55,7 +33,7 @@ export default function useAddToBasket() {
             }
 
             if (!user.isAuth) {
-                saveInLocalStorage(basketProduct);
+                BasketService.saveInLocalStorage(basketProduct);
             }
 
             dispatch(addProductToBasket(basketProduct));

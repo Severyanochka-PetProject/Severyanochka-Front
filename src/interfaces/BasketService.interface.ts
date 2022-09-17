@@ -21,4 +21,15 @@ export interface BasketServiceInterface {
      * Обновление продукта в Корзине
      */
     updateBasketProduct(id_user: number, id_food: number, count: number): Promise<AxiosResponse>;
+
+    /**
+     * Сохранение продукта в LocalStorage
+     * @param basketProduct
+     */
+    saveInLocalStorage (basketProduct: BasketProduct): void;
+
+    /**
+     * Удаление продукта из LocalStorage
+    */
+    removeInLocalStorage (id_food: number): void;
 }
