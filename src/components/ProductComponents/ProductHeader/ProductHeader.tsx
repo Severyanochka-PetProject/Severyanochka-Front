@@ -15,7 +15,7 @@ const ProductHeader: FC<IProductMain> = ({ product }) => {
         { product.name }
       </p>
       <div className="product-page-header__bottom">
-        <p className="product-code">арт. 371431</p>
+        <p className="product-code">арт. { product.vendor_code }</p>
         <div className="product-rating">
           <div className="content-rating">
             <div className="rating-star">

@@ -14,5 +14,6 @@ export type Food = {
     id_category: number;
     category?: Category,
     brand?: Brand,
-    manufacture?: Manufacture
+    manufacture?: Manufacture,
+    vendor_code: number
 }
