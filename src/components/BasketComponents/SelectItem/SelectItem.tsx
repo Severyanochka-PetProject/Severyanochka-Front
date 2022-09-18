@@ -5,8 +5,10 @@ import './selectItem.scss'
 import {computedDiscountPercent} from "../../../helper/price.helper";
 import {useNavigate} from "react-router-dom";
 import {BasketProduct} from "../../../domain/Basket.domain";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {removeProductFromBasket, updateBasketProduct} from "../../../store/actions/basket.action";
+import {RootState} from "../../../store/index.js";
+import {ADD_SELECT_PRODUCTS, REMOVE_SELECT_PRODUCT} from "../../../store/reducers/basketSlice";
 
 interface ISelectItem {
     index: number,
@@ -14,6 +16,8 @@ interface ISelectItem {
 }
 
 const SelectItem : FC<ISelectItem> = ({ index, basketProduct }) => {
+    const selectedProductsId = useSelector<RootState, number[]>(state => state.basket.selectedProductsId);
+
     const navigation = useNavigate();
     const dispatch = useDispatch();
 
@@ -24,6 +28,10 @@ const SelectItem : FC<ISelectItem> = ({ index, basketProduct }) => {
     const updateProduct = (updatedBasketProduct: BasketProduct) => {
         if (updatedBasketProduct.count === 0) {
             dispatch(removeProductFromBasket(updatedBasketProduct.id_food));
+
+            if (selectedProductsId.includes(updatedBasketProduct.id_food)) {
+                dispatch(REMOVE_SELECT_PRODUCT(basketProduct.id_food))
+            }
         } else {
             dispatch(updateBasketProduct(updatedBasketProduct));
         }
@@ -36,9 +44,22 @@ const SelectItem : FC<ISelectItem> = ({ index, basketProduct }) => {
        updateProduct(updatedBasketProduct)
     }
 
+    const selectItem = (eventTarget: HTMLInputElement) => {
+        if (eventTarget.checked) {
+            dispatch(ADD_SELECT_PRODUCTS(basketProduct.id_food))
+        } else {
+            dispatch(REMOVE_SELECT_PRODUCT(basketProduct.id_food))
+        }
+    }
+
     return (
         <div className="select-item">
-            <Checkbox value={index.toString()} idFor={index.toString()} />
+            <Checkbox
+                value={index.toString()}
+                idFor={index.toString()}
+                changeCheckbox={selectItem}
+                checked={selectedProductsId.includes(basketProduct.id_food)}
+            />
             <div className="select-item__img">
                 <img src={basketProduct.product.url} alt={basketProduct.product.name} />
             </div>

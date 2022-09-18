@@ -7,6 +7,7 @@ export enum categoryActionTypes {
 
 export interface basketInitialState {
     products: BasketProduct[],
+    selectedProductsId: number[],
     isLoading: boolean
 }
 

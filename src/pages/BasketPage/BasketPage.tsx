@@ -1,21 +1,24 @@
-import React, {FC, useCallback, useMemo} from 'react'
+import React, {FC, useCallback, useMemo, useState} from 'react'
 import SelectItem from '../../components/BasketComponents/SelectItem/SelectItem';
 import Checkbox from '../../components/UI/Checkbox/Checkbox';
 
 import './basketPage.scss';
 import CustomButton from "../../components/UI/CustomButton/CustomButton";
 import ErrorHint from "../../components/UI/ErrorHint/ErrorHint";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../store/index.js";
 import {basketInitialState} from "../../store/types/basket";
 import {SWITCH_AUTH_MODAL} from "../../store/reducers/modalSlice";
 import useModal from "../../hooks/useModal";
+import {ADD_SELECT_PRODUCTS} from "../../store/reducers/basketSlice";
 
 const TOTAL_BASKET : number = 1000
 
 const BasketPage : FC = () => {
   const basket = useSelector<RootState, basketInitialState>(state => state.basket);
   const isAuth = useSelector<RootState, boolean>(state => state.user.isAuth);
+
+  const dispatch = useDispatch();
 
   const toggleModal = useModal();
 
@@ -33,13 +36,25 @@ const BasketPage : FC = () => {
 
   const isActive = useMemo(() => {
     return TOTAL_BASKET < (basketTotalWithoutDiscount() - basketTotalDiscount())
-  }, [basketTotalDiscount])
+  }, [basketTotalDiscount, basketTotalWithoutDiscount])
 
   const createOrder = useCallback(() => {
     if (!isAuth) {
       toggleModal(SWITCH_AUTH_MODAL, true, true);
     }
   }, [isAuth, toggleModal])
+
+  const selectAll = (eventTarget: HTMLInputElement) => {
+    if (eventTarget.checked) {
+      let ids: number[] = [];
+
+      basket.products.forEach(product => ids.push(product.id_food))
+
+      dispatch(ADD_SELECT_PRODUCTS(ids));
+    } else {
+      dispatch(ADD_SELECT_PRODUCTS([]));
+    }
+  }
 
   return (
       <div className="page basket-page">
@@ -51,7 +66,7 @@ const BasketPage : FC = () => {
           <div className="basket-page__body">
             {!!basket.products.length &&
               <div className="basket-page__top">
-                <Checkbox value="selectAll" idFor="select-all" text="Выделить все"/>
+                <Checkbox checked={basket.products.length === basket.selectedProductsId.length} changeCheckbox={selectAll} value="selectAll" idFor="select-all" text="Выделить все"/>
                 <div className="basket-top-item select-delete">
                   <p>Удалить выбранные</p>
                 </div>
