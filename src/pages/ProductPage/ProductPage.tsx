@@ -28,7 +28,7 @@ const ProductPage = () => {
   const [currentProduct, setCurrentProduct] = useState({});
   const [isLoadingCurrentProduct, setLoadingCurrentProduct] = useState(true);
 
-  useEffect(() => {
+  const loadingProduct = () => {
     setLoadingCurrentProduct(true);
     const getProduct = async (id: number) => {
       return await productService.getProductById(id);
@@ -51,13 +51,17 @@ const ProductPage = () => {
           navigation("/notfound", { replace: true });
         }
       })
-      .finally(() => {
-        setLoadingCurrentProduct(false)
-      });
+          .finally(() => {
+            setLoadingCurrentProduct(false)
+          });
     } else {
       setLoadingCurrentProduct(false)
     }
-  }, [])
+  }
+
+  useEffect(() => {
+    loadingProduct();
+  }, [location.search])
 
   return (
     <div className={`page product-page ${ isLoadingCurrentProduct ? 'page_loading' : '' }`}>

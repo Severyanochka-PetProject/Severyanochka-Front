@@ -5,11 +5,13 @@ import Checkbox from '../../components/UI/Checkbox/Checkbox';
 import './basketPage.scss';
 import CustomButton from "../../components/UI/CustomButton/CustomButton";
 import ErrorHint from "../../components/UI/ErrorHint/ErrorHint";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../store/index.js";
 import {basketInitialState} from "../../store/types/basket";
 import {SWITCH_AUTH_MODAL} from "../../store/reducers/modalSlice";
 import useModal from "../../hooks/useModal";
+import {ADD_SELECT_PRODUCTS, REMOVE_SELECT_PRODUCT} from "../../store/reducers/basketSlice";
+import {removeProductFromBasket} from "../../store/actions/basket.action";
 
 const TOTAL_BASKET : number = 1000
 
@@ -17,29 +19,59 @@ const BasketPage : FC = () => {
   const basket = useSelector<RootState, basketInitialState>(state => state.basket);
   const isAuth = useSelector<RootState, boolean>(state => state.user.isAuth);
 
+  const dispatch = useDispatch();
+
   const toggleModal = useModal();
 
   const basketTotalWithoutDiscount = useCallback((): number => {
-    return Number(basket.products.reduce((prev, current) => {
+    const products = basket.products.filter(p => basket.selectedProductsId.includes(p.id_food));
+    return Number(products.reduce((prev, current) => {
       return prev + (current.product.price * current.count)
     }, 0))
-  }, [basket.products])
+  }, [basket.selectedProductsId, basket.products])
 
   const basketTotalDiscount = useCallback((): number => {
-    return Number(basket.products.reduce((prev, current) => {
+    const products = basket.products.filter(p => basket.selectedProductsId.includes(p.id_food));
+
+    return Number(products.reduce((prev, current) => {
       return Number(prev) + Number(current.product.discount || 0) * current.count
     }, 0))
-  }, [basket.products])
+  }, [basket.selectedProductsId, basket.products])
 
   const isActive = useMemo(() => {
     return TOTAL_BASKET < (basketTotalWithoutDiscount() - basketTotalDiscount())
-  }, [basketTotalDiscount])
+  }, [basketTotalDiscount, basketTotalWithoutDiscount])
 
   const createOrder = useCallback(() => {
     if (!isAuth) {
       toggleModal(SWITCH_AUTH_MODAL, true, true);
     }
   }, [isAuth, toggleModal])
+
+  const selectAll = (eventTarget: HTMLInputElement) => {
+    if (eventTarget.checked) {
+      let ids: number[] = [];
+
+      basket.products.forEach(product => ids.push(product.id_food))
+
+      dispatch(ADD_SELECT_PRODUCTS(ids));
+    } else {
+      dispatch(REMOVE_SELECT_PRODUCT([]));
+    }
+  }
+
+  const removeAll = () => {
+    const products = basket.products.filter(p => basket.selectedProductsId.includes(p.id_food));
+
+    if (!products.length) {
+      return;
+    }
+
+    products.forEach(p => {
+      dispatch(removeProductFromBasket(p.id_food));
+      dispatch(REMOVE_SELECT_PRODUCT(p.id_food));
+    })
+  }
 
   return (
       <div className="page basket-page">
@@ -51,8 +83,9 @@ const BasketPage : FC = () => {
           <div className="basket-page__body">
             {!!basket.products.length &&
               <div className="basket-page__top">
-                <Checkbox value="selectAll" idFor="select-all" text="Выделить все"/>
-                <div className="basket-top-item select-delete">
+                <Checkbox checked={basket.products.length === basket.selectedProductsId.length} changeCheckbox={selectAll} value="selectAll" idFor="select-all" text="Выделить все"/>
+                <div className={`basket-top-item select-delete ${ !basket.selectedProductsId.length ? 'select-delete_inactive' : '' }`}
+                     onClick={removeAll}>
                   <p>Удалить выбранные</p>
                 </div>
               </div>
@@ -71,7 +104,7 @@ const BasketPage : FC = () => {
                 <span className="basket-page__line"/>
                 <div className="basket-page__check">
                   <div className="check-item">
-                    <p className="basket-page__text">{ basket.products.length } товара</p>
+                    <p className="basket-page__text">{ basket.selectedProductsId.length } товара</p>
                     <p className="basket-page__text basket-page__text_black">{ basketTotalWithoutDiscount().toFixed(2) } ₽</p>
                   </div>
                   <div className="check-item bonus-item">
@@ -98,7 +131,7 @@ const BasketPage : FC = () => {
                 </div>
                 <div className="basket-page__bottom">
                   {!isActive &&
-                    <ErrorHint showTriangle={ false } message={'Минимальная сумма заказа 1000р'}/>
+                    <ErrorHint showTriangle={ false } message={`Минимальная сумма заказа ${ TOTAL_BASKET }руб.`}/>
                   }
                   <CustomButton disabled={ !isActive } onClick={createOrder}>
                     <span>Оформить заказ</span>
