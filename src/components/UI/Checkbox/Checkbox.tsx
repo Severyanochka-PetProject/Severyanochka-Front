@@ -7,12 +7,19 @@ interface ICheckbox {
     disabled?: boolean,
     value: string,
     idFor: string,
+    changeCheckbox(value: any): any,
+    checked?: boolean
 }
 
-const Checkbox : FC<ICheckbox> = ({ text, disabled = false, value, idFor, ...props }) => {
+const Checkbox : FC<ICheckbox> = ({ text, checked= false, disabled = false, value, changeCheckbox, idFor, ...props }) => {
   return (
     <div className={`custom-checkbox ${ disabled ? 'custom-checkbox__disabled' : '' }`} {...props}>
-        <input type="checkbox" value={value} disabled={disabled} id={idFor} />
+        <input type="checkbox"
+               value={value}
+               onChange={(e) => changeCheckbox(e.target)}
+               disabled={disabled}
+               checked={checked}
+               id={idFor} />
         <label htmlFor={idFor}>{ text }</label>
     </div>
   )
