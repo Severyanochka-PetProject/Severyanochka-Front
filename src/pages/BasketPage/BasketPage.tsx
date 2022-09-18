@@ -1,4 +1,4 @@
-import React, {FC, useCallback, useMemo, useState} from 'react'
+import React, {FC, useCallback, useMemo} from 'react'
 import SelectItem from '../../components/BasketComponents/SelectItem/SelectItem';
 import Checkbox from '../../components/UI/Checkbox/Checkbox';
 
@@ -23,16 +23,19 @@ const BasketPage : FC = () => {
   const toggleModal = useModal();
 
   const basketTotalWithoutDiscount = useCallback((): number => {
-    return Number(basket.products.reduce((prev, current) => {
+    const products = basket.products.filter(p => basket.selectedProductsId.includes(p.id_food));
+    return Number(products.reduce((prev, current) => {
       return prev + (current.product.price * current.count)
     }, 0))
-  }, [basket.products])
+  }, [basket.selectedProductsId, basket.products])
 
   const basketTotalDiscount = useCallback((): number => {
-    return Number(basket.products.reduce((prev, current) => {
+    const products = basket.products.filter(p => basket.selectedProductsId.includes(p.id_food));
+
+    return Number(products.reduce((prev, current) => {
       return Number(prev) + Number(current.product.discount || 0) * current.count
     }, 0))
-  }, [basket.products])
+  }, [basket.selectedProductsId, basket.products])
 
   const isActive = useMemo(() => {
     return TOTAL_BASKET < (basketTotalWithoutDiscount() - basketTotalDiscount())
@@ -86,7 +89,7 @@ const BasketPage : FC = () => {
                 <span className="basket-page__line"/>
                 <div className="basket-page__check">
                   <div className="check-item">
-                    <p className="basket-page__text">{ basket.products.length } товара</p>
+                    <p className="basket-page__text">{ basket.selectedProductsId.length } товара</p>
                     <p className="basket-page__text basket-page__text_black">{ basketTotalWithoutDiscount().toFixed(2) } ₽</p>
                   </div>
                   <div className="check-item bonus-item">
@@ -113,7 +116,7 @@ const BasketPage : FC = () => {
                 </div>
                 <div className="basket-page__bottom">
                   {!isActive &&
-                    <ErrorHint showTriangle={ false } message={'Минимальная сумма заказа 1000р'}/>
+                    <ErrorHint showTriangle={ false } message={`Минимальная сумма заказа ${ TOTAL_BASKET }руб.`}/>
                   }
                   <CustomButton disabled={ !isActive } onClick={createOrder}>
                     <span>Оформить заказ</span>
