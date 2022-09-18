@@ -73,6 +73,14 @@
                 color: #FF6633;
                 cursor: pointer;
                 font-weight: 400;
+                user-select: none;
+                transition: .3s all;
+
+                &.select-delete_inactive {
+                    color: #BFBFBF;
+                    cursor: default;
+                    transition: .3s all;
+                }
             }
         }
     }

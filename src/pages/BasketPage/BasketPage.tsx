@@ -10,7 +10,8 @@ import {RootState} from "../../store/index.js";
 import {basketInitialState} from "../../store/types/basket";
 import {SWITCH_AUTH_MODAL} from "../../store/reducers/modalSlice";
 import useModal from "../../hooks/useModal";
-import {ADD_SELECT_PRODUCTS} from "../../store/reducers/basketSlice";
+import {ADD_SELECT_PRODUCTS, REMOVE_SELECT_PRODUCT} from "../../store/reducers/basketSlice";
+import {removeProductFromBasket} from "../../store/actions/basket.action";
 
 const TOTAL_BASKET : number = 1000
 
@@ -55,8 +56,21 @@ const BasketPage : FC = () => {
 
       dispatch(ADD_SELECT_PRODUCTS(ids));
     } else {
-      dispatch(ADD_SELECT_PRODUCTS([]));
+      dispatch(REMOVE_SELECT_PRODUCT([]));
     }
+  }
+
+  const removeAll = () => {
+    const products = basket.products.filter(p => basket.selectedProductsId.includes(p.id_food));
+
+    if (!products.length) {
+      return;
+    }
+
+    products.forEach(p => {
+      dispatch(removeProductFromBasket(p.id_food));
+      dispatch(REMOVE_SELECT_PRODUCT(p.id_food));
+    })
   }
 
   return (
@@ -70,7 +84,8 @@ const BasketPage : FC = () => {
             {!!basket.products.length &&
               <div className="basket-page__top">
                 <Checkbox checked={basket.products.length === basket.selectedProductsId.length} changeCheckbox={selectAll} value="selectAll" idFor="select-all" text="Выделить все"/>
-                <div className="basket-top-item select-delete">
+                <div className={`basket-top-item select-delete ${ !basket.selectedProductsId.length ? 'select-delete_inactive' : '' }`}
+                     onClick={removeAll}>
                   <p>Удалить выбранные</p>
                 </div>
               </div>
