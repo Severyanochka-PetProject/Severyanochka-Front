@@ -30,7 +30,7 @@ export default function useLoginVk () {
 
                 setAuthData(res.data, true)
 
-                const status = await basketService.addRangProductsFromLocalStorageToUserBasket(user_id);
+                const status = await basketService.addRangProductsFromLocalStorageToUserBasket(res.data.id_user);
             })
                 .catch(() => {
                     dispatch(SWITCH_SET_PHONE_LOGIN_VK_MODAL({isOpen: true, popup: true}))
