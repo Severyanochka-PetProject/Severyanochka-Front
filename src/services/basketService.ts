@@ -5,6 +5,21 @@ import {BasketProduct} from "../domain/Basket.domain";
 import {Food} from "../domain/Food.domain";
 
 class basketService implements BasketServiceInterface {
+
+    async addRangeProducts(id_user: number, products: BasketProduct[]): Promise<AxiosResponse<boolean>> {
+        const payload = {
+            id_user,
+            products: products.map(p => {
+                return {
+                    id_product: p.id_food,
+                    count: p.count
+                }
+            })
+        }
+
+        return await api.post('/product-apiV1/baskets/add-range-basket', payload);
+    }
+
     async getUserBasket(id_user: number): Promise<AxiosResponse> {
         return await api.get(`/product-apiV1/baskets/get-user-basket?id_user=${ id_user }`);
     }
@@ -75,6 +90,26 @@ class basketService implements BasketServiceInterface {
 
     clearBasketLocalStorage (): void {
         localStorage.removeItem('user_basket')
+    }
+
+    getBasketInLocalStorage(): BasketProduct[] | [] {
+        return JSON.parse(localStorage.getItem('user_basket') || '[]');
+    }
+
+    async addRangProductsFromLocalStorageToUserBasket(id_user: number): Promise<boolean> {
+        const localBasket = this.getBasketInLocalStorage();
+
+        if (localBasket.length) {
+            try {
+                await this.addRangeProducts(id_user, localBasket);
+            } catch (err) {
+                return false
+            }
+        }
+
+        this.clearBasketLocalStorage();
+
+        return true
     }
 }
 
