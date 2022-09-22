@@ -16,6 +16,8 @@ import { SWITCH_AUTH_MODAL, SWITCH_REG_MODAL } from '../../../store/reducers/mod
 import AuthService from "../../../services/authService";
 import BasketService from "../../../services/basketService";
 import {SET_AUTH_FLAG, SET_USER_DATA} from "../../../store/reducers/userSlice";
+import basketService from "../../../services/basketService";
+import Notify from "../../UI/ToastNotification/ToastNotification";
 
 
 const AuthPopup: FC = React.memo(() => {
@@ -75,7 +77,7 @@ const AuthPopup: FC = React.memo(() => {
             dispatch(SET_USER_DATA(response.data));
             dispatch(SET_AUTH_FLAG(true));
 
-            BasketService.clearBasketLocalStorage();
+            const status = await basketService.addRangProductsFromLocalStorageToUserBasket(response.data.id_user);
 
             toggleModal(SWITCH_AUTH_MODAL, false, false);
         } catch (error: any) {
