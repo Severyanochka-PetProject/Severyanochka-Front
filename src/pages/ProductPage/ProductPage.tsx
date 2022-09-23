@@ -74,7 +74,7 @@ const ProductPage = () => {
             <ProductMain product={currentProduct as Food} />
           </div>
           <div className="main__reviews">
-            <ProductReviews />
+            <ProductReviews product={currentProduct as Food} />
           </div>
           <RenderSection
             sectionTitle="Акции"

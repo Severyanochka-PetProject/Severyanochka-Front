@@ -1,9 +1,28 @@
-import React from "react";
+import React, {FC} from "react";
 import CustomButton from "../../UI/CustomButton/CustomButton";
 
 import "./productReviews.scss";
+import {socket} from "../../../api/socket";
+import {Food} from "../../../domain/Food.domain";
+import {useSelector} from "react-redux";
+import {RootState} from "../../../store/index.js";
+import {User} from "../../../domain/User.domain";
 
-export default function ProductReviews() {
+interface IProductReviews {
+  product: Food
+}
+
+const ProductReviews: FC<IProductReviews> = ({ product }) => {
+  const user = useSelector<RootState, User>(state => state.user.user);
+
+  const sendReview = () => {
+    socket.emit('user_send_review', {
+      user,
+      product,
+      date: Date.now()
+    })
+  }
+
   return (
     <div className="product-page-reviews">
       <div className="section__header">
@@ -272,9 +291,9 @@ export default function ProductReviews() {
             <textarea
               className="chat-input-field"
               placeholder="Отзыв"
-            ></textarea>
+            />
             <div className="chat-input-button">
-              <CustomButton disabled={true}>Отправить отзыв</CustomButton>
+              <CustomButton disabled={false} onClick={sendReview} >Отправить отзыв</CustomButton>
             </div>
           </div>
         </div>
@@ -282,3 +301,5 @@ export default function ProductReviews() {
     </div>
   );
 }
+
+export default ProductReviews;

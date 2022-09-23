@@ -17,11 +17,11 @@ import { fetchProducts } from '../../store/actions/product.action';
 import {RootState} from "../../store/index.js";
 import {userInitialState} from "../../store/types/user";
 import {fetchUserBasket} from "../../store/actions/basket.action";
-import {basketInitialState} from "../../store/types/basket";
+
+import {socket} from "../../api/socket";
 
 function App() {
     const user = useSelector<RootState, userInitialState>(state => state.user);
-    const basket = useSelector<RootState, basketInitialState>(state => state.basket);
 
     useLoginVk();
     useRefresh();
@@ -35,7 +35,15 @@ function App() {
 
     useEffect(() => {
         dispatch(fetchUserBasket());
-    }, [user.isAuth, basket.products.length])
+    }, [user.isAuth])
+
+    useEffect(() => {
+        socket.connect();
+
+        socket.on('connect', () => {
+            console.log('Socket connection successfully initialized!')
+        })
+    }, [])
 
     return (
         <div className="app">
