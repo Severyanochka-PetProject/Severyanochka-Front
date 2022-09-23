@@ -1,4 +1,4 @@
-import React, {FC} from "react";
+import React, {FC, useEffect, useState} from "react";
 import CustomButton from "../../UI/CustomButton/CustomButton";
 
 import "./productReviews.scss";
@@ -15,13 +15,36 @@ interface IProductReviews {
 const ProductReviews: FC<IProductReviews> = ({ product }) => {
   const user = useSelector<RootState, User>(state => state.user.user);
 
+  const [reviewText, setReviewText] = useState<string>('');
+
   const sendReview = () => {
-    socket.emit('user_send_review', {
+    if (!reviewText.length) {
+      return
+    }
+
+    socket.emit('USER_SEND_REVIEW', {
       user,
       product,
-      date: Date.now()
+      reviewText
     })
+
+    setReviewText('');
   }
+
+  useEffect(() => {
+    socket.on('REVIEW_SUCCESSFULLY_SEND', () => {
+      console.log('Отзыв успешно отправлен')
+    })
+
+    socket.on('REVIEW_ERROR_SEND', () => {
+      console.log('Ошибка при отправке отзыва')
+    })
+
+    return () => {
+      socket.off('REVIEW_SUCCESSFULLY_SEND');
+      socket.off('REVIEW_ERROR_SEND');
+    }
+  }, [])
 
   return (
     <div className="product-page-reviews">
@@ -291,9 +314,11 @@ const ProductReviews: FC<IProductReviews> = ({ product }) => {
             <textarea
               className="chat-input-field"
               placeholder="Отзыв"
+              value={reviewText}
+              onChange={e => setReviewText(e.target.value)}
             />
             <div className="chat-input-button">
-              <CustomButton disabled={false} onClick={sendReview} >Отправить отзыв</CustomButton>
+              <CustomButton disabled={!reviewText.length} onClick={sendReview} >Отправить отзыв</CustomButton>
             </div>
           </div>
         </div>
