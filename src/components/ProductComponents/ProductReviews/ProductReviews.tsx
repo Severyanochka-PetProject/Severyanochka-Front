@@ -9,10 +9,11 @@ import {RootState} from "../../../store/index.js";
 import {User} from "../../../domain/User.domain";
 import {IResponseServerReviews} from "../../../interfaces/ProductService.interface";
 import {parseDatetimeString} from "../../../helper/time.helper";
+import {Review} from "../../../domain/Review.domain";
 
 interface IProductReviews {
   product: Food,
-  reviews: IResponseServerReviews
+  reviews: IResponseServerReviews,
 }
 
 const ProductReviews: FC<IProductReviews> = ({ product, reviews }) => {
@@ -24,30 +25,19 @@ const ProductReviews: FC<IProductReviews> = ({ product, reviews }) => {
     if (!reviewText.length) {
       return
     }
+    let reviewForm: Review = {
+      text: reviewText,
+      stars: null,
+      id_user: user.id_user,
+      id_food: product.id_food,
+      product: product,
+      date: Date.now()
+    }
 
-    socket.emit('USER_SEND_REVIEW', {
-      user,
-      product,
-      reviewText
-    })
+    socket.emit('USER_SEND_REVIEW', reviewForm)
 
     setReviewText('');
   }
-
-  useEffect(() => {
-    socket.on('REVIEW_SUCCESSFULLY_SEND', () => {
-      console.log('Отзыв успешно отправлен')
-    })
-
-    socket.on('REVIEW_ERROR_SEND', () => {
-      console.log('Ошибка при отправке отзыва')
-    })
-
-    return () => {
-      socket.off('REVIEW_SUCCESSFULLY_SEND');
-      socket.off('REVIEW_ERROR_SEND');
-    }
-  }, [])
 
   return (
     <div className="product-page-reviews">
@@ -189,7 +179,7 @@ const ProductReviews: FC<IProductReviews> = ({ product, reviews }) => {
         <div className="reviews-chat">
           <div className="reviews-chat__area">
             {reviews.reviews.map(r => (
-                <div className="reviews-chat__review" key={r.id_review}>
+                <div className="reviews-chat__review" key={r.date}>
                   <div className="review-user">
                     <svg
                         width="16"
@@ -215,9 +205,9 @@ const ProductReviews: FC<IProductReviews> = ({ product, reviews }) => {
                   </div>
                   <div className="review-rating">
                     <div className="review-rating__wrapper">
-                      {[1, 2, 3, 4, 5].map((stare, index) => (
+                      {r.stars && [1, 2, 3, 4, 5].map((stare, index) => (
                           <div className="rating-star" key={index}>
-                            <img src={`/images/productItem/${ stare <= r.stars ? 'star-set.svg' : 'star-unset.svg' }`} alt="star"/>
+                            <img src={`/images/productItem/${ stare <= (r.stars ?? 0) ? 'star-set.svg' : 'star-unset.svg' }`} alt="star"/>
                           </div>
                       ))}
                     </div>

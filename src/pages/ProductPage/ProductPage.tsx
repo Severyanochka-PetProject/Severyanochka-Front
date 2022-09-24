@@ -19,6 +19,7 @@ import './productPage.scss';
 import Notify from '../../components/UI/ToastNotification/ToastNotification';
 import Loader from "../../components/LoaderComponents/Loader/Loader";
 import {IResponseServerReviews} from "../../interfaces/ProductService.interface";
+import {socket} from "../../api/socket";
 
 const ProductPage = () => {
   const location = useLocation();
@@ -90,6 +91,34 @@ const ProductPage = () => {
     })
   }, [location.search])
 
+  useEffect(() => {
+    socket.on('REVIEW_SUCCESSFULLY_SEND', () => {
+      console.log('Успешно отправлено')
+    })
+
+    socket.on('REVIEW_ERROR_SEND', () => {
+      console.log('Ошибка при отправке отзыва')
+    })
+
+    socket.on('REVIEW_NEW_REVIEW', (data) => {
+      setReviews((prevState => ({
+        ...prevState,
+        reviews: [
+          ...(prevState as IResponseServerReviews).reviews,
+          data
+        ],
+        count: (prevState as IResponseServerReviews).reviews.length + 1
+      })))
+    })
+
+    return () => {
+      socket.off('REVIEW_SUCCESSFULLY_SEND');
+      socket.off('REVIEW_ERROR_SEND');
+      socket.off('REVIEW_NEW_REVIEW');
+      setReviews({})
+    }
+  }, [])
+
   return (
     <div className={`page product-page ${ isLoadingCurrentProduct ? 'page_loading' : '' }`}>
       {isLoadingCurrentProduct ?
@@ -101,7 +130,10 @@ const ProductPage = () => {
             <ProductMain product={currentProduct as Food} />
           </div>
           <div className="main__reviews">
-            <ProductReviews product={currentProduct as Food} reviews={reviews as IResponseServerReviews} />
+            <ProductReviews
+                product={currentProduct as Food}
+                reviews={reviews as IResponseServerReviews}
+            />
           </div>
           <RenderSection
             sectionTitle="Акции"

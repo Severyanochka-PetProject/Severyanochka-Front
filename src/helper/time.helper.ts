@@ -1,4 +1,4 @@
-export const parseDatetimeString = (date: string | Date) => {
+export const parseDatetimeString = (date: string | number) => {
     const d = new Date(date);
     const year = d.getFullYear();
     const month = d.getMonth() + 1;
