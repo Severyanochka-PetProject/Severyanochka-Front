@@ -2,12 +2,14 @@ import React, { FC } from "react";
 import { Food } from "../../../domain/Food.domain";
 
 import "./productHeader.scss";
+import {IResponseServerReviews} from "../../../interfaces/ProductService.interface";
 
 interface IProductMain {
-  product: Food
+  product: Food,
+  reviews: IResponseServerReviews
 }
 
-const ProductHeader: FC<IProductMain> = ({ product }) => {
+const ProductHeader: FC<IProductMain> = ({ product, reviews }) => {
 
   return (
     <div className="product-page-header">
@@ -34,7 +36,7 @@ const ProductHeader: FC<IProductMain> = ({ product }) => {
               <img src="/images/productItem/star-unset.svg" alt="star" />
             </div>
           </div>
-          <p>3 отзыва</p>
+          <p>{ reviews.count } отзыва</p>
         </div>
         <div className="product-controller">
           <svg
