@@ -15,8 +15,11 @@ import RenderSection from '../../hoc/RenderSection/RenderSection';
 import { RootState } from '../../store/index.js';
 
 import './productPage.scss';
+
 import Notify from '../../components/UI/ToastNotification/ToastNotification';
 import Loader from "../../components/LoaderComponents/Loader/Loader";
+import {IResponseServerReviews} from "../../interfaces/ProductService.interface";
+import {socket} from "../../api/socket";
 
 const ProductPage = () => {
   const location = useLocation();
@@ -26,10 +29,10 @@ const ProductPage = () => {
   const isLoading = useSelector<RootState, boolean>(state => state.products.isLoading);
 
   const [currentProduct, setCurrentProduct] = useState({});
+  const [reviews, setReviews] = useState<IResponseServerReviews | {}>({});
   const [isLoadingCurrentProduct, setLoadingCurrentProduct] = useState(true);
 
-  const loadingProduct = () => {
-    setLoadingCurrentProduct(true);
+  const loadingProduct = async () => {
     const getProduct = async (id: number) => {
       return await productService.getProductById(id);
     }
@@ -37,7 +40,7 @@ const ProductPage = () => {
     const { id } = queryString.parse(location.search);
 
     if (id !== null) {
-      getProduct(+id).then(response => {
+      await getProduct(+id).then(response => {
         if (response.data) {
           const { data } = response;
 
@@ -51,17 +54,70 @@ const ProductPage = () => {
           navigation("/notfound", { replace: true });
         }
       })
-          .finally(() => {
-            setLoadingCurrentProduct(false)
-          });
-    } else {
-      setLoadingCurrentProduct(false)
+    }
+  }
+
+  const loadingReviews = async () => {
+    const getReviews = async (id: number) => {
+      return await productService.getProductReviews(id);
+    }
+
+    const { id } = queryString.parse(location.search);
+
+    if (id !== null) {
+      await getReviews(+id).then(response => {
+
+        if (response.data) {
+          const { data } = response
+
+          setReviews(data);
+        } else {
+          Notify({
+            notificationType: "error",
+            text: "Не удалось получить озывы о данном товаре!"
+          })
+        }
+      })
     }
   }
 
   useEffect(() => {
-    loadingProduct();
+    setLoadingCurrentProduct(true);
+    Promise.all([
+      loadingReviews(),
+      loadingProduct()
+    ]).finally(() => {
+      setLoadingCurrentProduct(false)
+    })
   }, [location.search])
+
+  useEffect(() => {
+    socket.on('REVIEW_SUCCESSFULLY_SEND', () => {
+      console.log('Успешно отправлено')
+    })
+
+    socket.on('REVIEW_ERROR_SEND', () => {
+      console.log('Ошибка при отправке отзыва')
+    })
+
+    socket.on('REVIEW_NEW_REVIEW', (data) => {
+      setReviews((prevState => ({
+        ...prevState,
+        reviews: [
+          ...(prevState as IResponseServerReviews).reviews,
+          data
+        ],
+        count: (prevState as IResponseServerReviews).reviews.length + 1
+      })))
+    })
+
+    return () => {
+      socket.off('REVIEW_SUCCESSFULLY_SEND');
+      socket.off('REVIEW_ERROR_SEND');
+      socket.off('REVIEW_NEW_REVIEW');
+      setReviews({})
+    }
+  }, [])
 
   return (
     <div className={`page product-page ${ isLoadingCurrentProduct ? 'page_loading' : '' }`}>
@@ -69,12 +125,15 @@ const ProductPage = () => {
           <Loader />
           :
         <main className="main">
-          <ProductHeader product={currentProduct as Food} />
+          <ProductHeader product={currentProduct as Food} reviews={reviews as IResponseServerReviews} />
           <div className="main__body">
             <ProductMain product={currentProduct as Food} />
           </div>
           <div className="main__reviews">
-            <ProductReviews />
+            <ProductReviews
+                product={currentProduct as Food}
+                reviews={reviews as IResponseServerReviews}
+            />
           </div>
           <RenderSection
             sectionTitle="Акции"

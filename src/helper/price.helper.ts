@@ -3,5 +3,5 @@ export const computedDiscountPercent = (price: number, discount: number | null) 
         return 0
     }
 
-    return (discount * 100 / price).toFixed(2);
+    return (discount * 100 / price).toFixed(0);
 }
