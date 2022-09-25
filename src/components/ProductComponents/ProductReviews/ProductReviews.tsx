@@ -1,4 +1,4 @@
-import React, {FC, useEffect, useState} from "react";
+import React, {FC, useState} from "react";
 import CustomButton from "../../UI/CustomButton/CustomButton";
 
 import "./productReviews.scss";
@@ -6,10 +6,15 @@ import {socket} from "../../../api/socket";
 import {Food} from "../../../domain/Food.domain";
 import {useSelector} from "react-redux";
 import {RootState} from "../../../store/index.js";
-import {User} from "../../../domain/User.domain";
 import {IResponseServerReviews} from "../../../interfaces/ProductService.interface";
 import {parseDatetimeString} from "../../../helper/time.helper";
 import {Review} from "../../../domain/Review.domain";
+import ProductReviewStarBoard from "./ProductReviewStarBoard/ProductReviewStarBoard";
+import RatingStarImg from "../../UI/RatingStarImg/RatingStarImg";
+import ReviewsBoardRow from "./ReviewsBoardRow/ReviewsBoardRow";
+import {userInitialState} from "../../../store/types/user";
+import {SWITCH_AUTH_MODAL} from "../../../store/reducers/modalSlice";
+import useModal from "../../../hooks/useModal";
 
 interface IProductReviews {
   product: Food,
@@ -17,18 +22,25 @@ interface IProductReviews {
 }
 
 const ProductReviews: FC<IProductReviews> = ({ product, reviews }) => {
-  const user = useSelector<RootState, User>(state => state.user.user);
+  const toggleModal = useModal();
+  const user = useSelector<RootState, userInitialState>(state => state.user);
 
   const [reviewText, setReviewText] = useState<string>('');
 
   const sendReview = () => {
     if (!reviewText.length) {
-      return
+      return;
     }
+
+    if (!user.isAuth) {
+      toggleModal(SWITCH_AUTH_MODAL, true, true);
+      return;
+    }
+
     let reviewForm: Review = {
       text: reviewText,
       stars: null,
-      id_user: user.id_user,
+      id_user: user.user.id_user,
       id_food: product.id_food,
       product: product,
       date: Date.now()
@@ -48,132 +60,22 @@ const ProductReviews: FC<IProductReviews> = ({ product, reviews }) => {
         <div className="reviews-board">
           <div className="reviews-board__top">
             <div className="reviews-board__star-wrapper">
-              <div className="rating-star">
-                <img src="/images/productItem/star-set.svg" alt="star" />
-              </div>
-              <div className="rating-star">
-                <img src="/images/productItem/star-set.svg" alt="star" />
-              </div>
-              <div className="rating-star">
-                <img src="/images/productItem/star-set.svg" alt="star" />
-              </div>
-              <div className="rating-star">
-                <img src="/images/productItem/star-set.svg" alt="star" />
-              </div>
-              <div className="rating-star">
-                <img src="/images/productItem/star-unset.svg" alt="star" />
-              </div>
+              {[1, 2, 3, 4, 5].map(i => (
+                  <RatingStarImg setActive={ i <= 4} key={i} />
+              ))}
             </div>
             <p className="reviews-board__text reviews-board__text_bold">
               4 из 5
             </p>
           </div>
           <div className="reviews-board__bottom">
-            <div className="reviews-board__row">
-              <p className="reviews-board__text">5</p>
-              <div className="reviews-board__star-wrapper">
-                <div className="rating-star">
-                  <img src="/images/productItem/star-set.svg" alt="star" />
-                </div>
-                <div className="rating-star">
-                  <img src="/images/productItem/star-set.svg" alt="star" />
-                </div>
-                <div className="rating-star">
-                  <img src="/images/productItem/star-set.svg" alt="star" />
-                </div>
-                <div className="rating-star">
-                  <img src="/images/productItem/star-set.svg" alt="star" />
-                </div>
-                <div className="rating-star">
-                  <img src="/images/productItem/star-set.svg" alt="star" />
-                </div>
-              </div>
-              <p className="reviews-board__text">{ reviews.reviewsStatistic[5] }</p>
-            </div>
-            <div className="reviews-board__row">
-              <p className="reviews-board__text">4</p>
-              <div className="reviews-board__star-wrapper">
-                <div className="rating-star">
-                  <img src="/images/productItem/star-set.svg" alt="star" />
-                </div>
-                <div className="rating-star">
-                  <img src="/images/productItem/star-set.svg" alt="star" />
-                </div>
-                <div className="rating-star">
-                  <img src="/images/productItem/star-set.svg" alt="star" />
-                </div>
-                <div className="rating-star">
-                  <img src="/images/productItem/star-set.svg" alt="star" />
-                </div>
-                <div className="rating-star">
-                  <img src="/images/productItem/star-unset.svg" alt="star" />
-                </div>
-              </div>
-              <p className="reviews-board__text">{ reviews.reviewsStatistic[4] }</p>
-            </div>
-            <div className="reviews-board__row">
-              <p className="reviews-board__text">3</p>
-              <div className="reviews-board__star-wrapper">
-                <div className="rating-star">
-                  <img src="/images/productItem/star-set.svg" alt="star" />
-                </div>
-                <div className="rating-star">
-                  <img src="/images/productItem/star-set.svg" alt="star" />
-                </div>
-                <div className="rating-star">
-                  <img src="/images/productItem/star-set.svg" alt="star" />
-                </div>
-                <div className="rating-star">
-                  <img src="/images/productItem/star-unset.svg" alt="star" />
-                </div>
-                <div className="rating-star">
-                  <img src="/images/productItem/star-unset.svg" alt="star" />
-                </div>
-              </div>
-              <p className="reviews-board__text">{ reviews.reviewsStatistic[3] }</p>
-            </div>
-            <div className="reviews-board__row">
-              <p className="reviews-board__text">2</p>
-              <div className="reviews-board__star-wrapper">
-                <div className="rating-star">
-                  <img src="/images/productItem/star-set.svg" alt="star" />
-                </div>
-                <div className="rating-star">
-                  <img src="/images/productItem/star-set.svg" alt="star" />
-                </div>
-                <div className="rating-star">
-                  <img src="/images/productItem/star-unset.svg" alt="star" />
-                </div>
-                <div className="rating-star">
-                  <img src="/images/productItem/star-unset.svg" alt="star" />
-                </div>
-                <div className="rating-star">
-                  <img src="/images/productItem/star-unset.svg" alt="star" />
-                </div>
-              </div>
-              <p className="reviews-board__text">{ reviews.reviewsStatistic[2] }</p>
-            </div>
-            <div className="reviews-board__row">
-              <p className="reviews-board__text">1</p>
-              <div className="reviews-board__star-wrapper">
-                <div className="rating-star">
-                  <img src="/images/productItem/star-set.svg" alt="star" />
-                </div>
-                <div className="rating-star">
-                  <img src="/images/productItem/star-unset.svg" alt="star" />
-                </div>
-                <div className="rating-star">
-                  <img src="/images/productItem/star-unset.svg" alt="star" />
-                </div>
-                <div className="rating-star">
-                  <img src="/images/productItem/star-unset.svg" alt="star" />
-                </div>
-                <div className="rating-star">
-                  <img src="/images/productItem/star-unset.svg" alt="star" />
-                </div>
-              </div>
-              <p className="reviews-board__text">{ reviews.reviewsStatistic[1] }</p>
-            </div>
+            {[5, 4, 3, 2, 1].map((value, index) => (
+                <ReviewsBoardRow rowIndex={value}
+                                 reviewsCount={ reviews.reviewsStatistic[value as keyof typeof reviews.reviewsStatistic] }
+                                 key={index}
+                />
+              ))
+            }
           </div>
         </div>
         <div className="reviews-chat">
@@ -221,32 +123,12 @@ const ProductReviews: FC<IProductReviews> = ({ product, reviews }) => {
             }
           </div>
           <div className="reviews-chat__input">
-            <div className="chat-input-rating">
-              <p className="reviews-board__text reviews-board__text_bold">
-                Ваша оценка
-              </p>
-              <div className="reviews-board__star-wrapper">
-                <div className="rating-star">
-                  <img src="/images/productItem/star-unset.svg" alt="star" />
-                </div>
-                <div className="rating-star">
-                  <img src="/images/productItem/star-unset.svg" alt="star" />
-                </div>
-                <div className="rating-star">
-                  <img src="/images/productItem/star-unset.svg" alt="star" />
-                </div>
-                <div className="rating-star">
-                  <img src="/images/productItem/star-unset.svg" alt="star" />
-                </div>
-                <div className="rating-star">
-                  <img src="/images/productItem/star-unset.svg" alt="star" />
-                </div>
-              </div>
-            </div>
+            <ProductReviewStarBoard />
             <textarea
               className="chat-input-field"
               placeholder="Отзыв"
               value={reviewText}
+              onKeyDown={(event => event.key === 'Enter' ? sendReview(): null)}
               onChange={e => setReviewText(e.target.value)}
             />
             <div className="chat-input-button">
