@@ -59,6 +59,7 @@
     &__paging {
         display: flex;
         justify-content: flex-end;
+        margin: 10px 0;
     }
 
     &__area {
@@ -71,7 +72,6 @@
         display: flex;
         flex-direction: column;
         row-gap: 16px;
-        margin-top: 42px;
 
         .chat-input-rating {
             display: flex;
@@ -172,21 +172,31 @@
     column-gap: 10px;
 
     li {
-        padding: 6px 8px;
-        background: #FCD5BA;
-        color: #FF6633;
-        border-radius: 5px;
-        transition: .3s all;
-        cursor: pointer;
+
+        a {
+            padding: 7px 9px;
+            background: #FCD5BA;
+            color: #FF6633;
+            border-radius: 5px;
+            transition: .3s all;
+            cursor: pointer;
+            display: block;
+        }
 
         &.selected {
-            background: #FF6633;
-            color: #FFFFFF;
+
+            a {
+                background: #FF6633;
+                color: #FFFFFF;
+            }
         }
 
         &.next, &.previous {
-            background: #FF6633;
-            color: #FFFFFF;
+
+            a {
+                background: #FF6633;
+                color: #FFFFFF;
+            }
         }
     }
 }

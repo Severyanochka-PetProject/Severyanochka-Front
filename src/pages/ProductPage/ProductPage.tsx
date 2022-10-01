@@ -110,11 +110,14 @@ const ProductPage = () => {
   }
 
   useEffect(() => {
+    loadingReviews()
+  }, [reviewPage]);
+
+  useEffect(() => {
     setLoadingCurrentProduct(true);
     Promise.all([
       loadingProduct(),
       loadingReviewsStatistic(),
-      loadingReviews()
     ]).finally(() => {
       setLoadingCurrentProduct(false)
     })
@@ -172,6 +175,9 @@ const ProductPage = () => {
                 product={currentProduct as Food}
                 reviews={reviews as IResponseServerReviews}
                 reviewsStatistic={reviewsStatistic as IResponseServerReviewsStatistic}
+                currentPage={reviewPage}
+                perPage={PERPAGE_REVIEWS}
+                onChangePage={setReviewPage}
             />
           </div>
           <RenderSection

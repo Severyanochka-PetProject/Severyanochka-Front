@@ -21,10 +21,13 @@ import ReviewItem from "./ReviewItem/ReviewItem";
 interface IProductReviews {
   product: Food,
   reviews: IResponseServerReviews,
-  reviewsStatistic: IResponseServerReviewsStatistic
+  reviewsStatistic: IResponseServerReviewsStatistic,
+  currentPage: number,
+  perPage: number,
+  onChangePage: (value: number) => void
 }
 
-const ProductReviews: FC<IProductReviews> = ({ product, reviews, reviewsStatistic }) => {
+const ProductReviews: FC<IProductReviews> = ({ product, reviews, reviewsStatistic, currentPage, perPage, onChangePage }) => {
   const toggleModal = useModal();
   const user = useSelector<RootState, userInitialState>(state => state.user);
 
@@ -52,6 +55,11 @@ const ProductReviews: FC<IProductReviews> = ({ product, reviews, reviewsStatisti
     socket.emit('USER_SEND_REVIEW', reviewForm)
 
     setReviewText('');
+  }
+
+  const getReviews = (page: any) => {
+    console.log(page.selected + 1)
+    onChangePage(page.selected + 1)
   }
 
   return (
@@ -86,16 +94,18 @@ const ProductReviews: FC<IProductReviews> = ({ product, reviews, reviewsStatisti
             {reviews.reviewsPage.map(r => (
               <ReviewItem review={r} key={r.id_review} />
             ))}
-            <div className="reviews-chat__paging">
+          </div>
+          <div className="reviews-chat__paging">
               <ReactPaginate
                   className="custom-paging"
                   nextLabel=">"
                   previousLabel="<"
-                  pageRangeDisplayed={5}
-                  pageCount={Math.ceil(reviewsStatistic.count / 5)}
+                  initialPage={currentPage - 1}
+                  pageRangeDisplayed={perPage}
+                  pageCount={Math.ceil(reviewsStatistic.count / perPage)}
+                  onPageChange={getReviews}
               />
             </div>
-          </div>
           <div className="reviews-chat__input">
             <ProductReviewStarBoard />
             <textarea
