@@ -24,10 +24,11 @@ interface IProductReviews {
   reviewsStatistic: IResponseServerReviewsStatistic,
   currentPage: number,
   perPage: number,
-  onChangePage: (value: number) => void
+  onChangePage: (value: number) => void,
+  changePage: (value: number) => void,
 }
 
-const ProductReviews: FC<IProductReviews> = ({ product, reviews, reviewsStatistic, currentPage, perPage, onChangePage }) => {
+const ProductReviews: FC<IProductReviews> = ({ product, reviews, reviewsStatistic, currentPage, perPage, onChangePage, changePage }) => {
   const toggleModal = useModal();
   const user = useSelector<RootState, userInitialState>(state => state.user);
 
@@ -36,6 +37,10 @@ const ProductReviews: FC<IProductReviews> = ({ product, reviews, reviewsStatisti
   const sendReview = () => {
     if (!reviewText.length) {
       return;
+    }
+
+    if (currentPage !== 1) {
+      changePage(1);
     }
 
     if (!user.isAuth) {
@@ -92,7 +97,7 @@ const ProductReviews: FC<IProductReviews> = ({ product, reviews, reviewsStatisti
         <div className="reviews-chat">
           <div className="reviews-chat__area">
             {reviews.reviewsPage.map(r => (
-              <ReviewItem review={r} key={r.id_review} />
+              <ReviewItem review={r} key={r.date} />
             ))}
           </div>
           <div className="reviews-chat__paging">

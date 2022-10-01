@@ -73,7 +73,6 @@ const ProductPage = () => {
 
         if (response.data) {
           const { data } = response
-          console.log(data);
           setReviews(data);
         } else {
           Notify({
@@ -97,7 +96,6 @@ const ProductPage = () => {
 
         if (response.data) {
           const { data } = response
-          console.log(data);
           setReviewsStatistic(data);
         } else {
           Notify({
@@ -134,16 +132,16 @@ const ProductPage = () => {
 
     socket.on('REVIEW_NEW_REVIEW', (data) => {
       const { id } = queryString.parse(location.search);
-
+      
       if (Number(id) !== data.id_food) {
         return;
       }
 
       setReviews((prevState => ({
         ...prevState,
-        reviews: [
+        reviewsPage: [
+          data,
           ...(prevState as IResponseServerReviews).reviewsPage,
-          data
         ],
         count: (prevState as IResponseServerReviews).reviewsPage.length + 1
       })))
@@ -178,6 +176,7 @@ const ProductPage = () => {
                 currentPage={reviewPage}
                 perPage={PERPAGE_REVIEWS}
                 onChangePage={setReviewPage}
+                changePage={setReviewPage}
             />
           </div>
           <RenderSection
