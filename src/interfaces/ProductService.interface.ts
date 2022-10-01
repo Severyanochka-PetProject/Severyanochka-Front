@@ -2,9 +2,8 @@ import { AxiosResponse } from "axios";
 import { Food } from "../domain/Food.domain";
 import {Review} from "../domain/Review.domain";
 
-export interface IResponseServerReviews {
+export interface IResponseServerReviewsStatistic {
     count: number,
-    reviews: Review[],
     reviewsStatistic: {
         0: number,
         1: number,
@@ -13,6 +12,10 @@ export interface IResponseServerReviews {
         4: number,
         5: number,
     }
+}
+
+export interface IResponseServerReviews {
+    reviewsPage: Review[]
 }
 
 export interface IProductService {
@@ -31,9 +34,12 @@ export interface IProductService {
     getProductById(id: number): Promise<AxiosResponse<Food>>;
 
     /**
-     *  Получение списка отзывов о товаре
-     *
-     *  @return Food
+     *  Получение статистики отзывов о товаре
      */
-    getProductReviews(id: number): Promise<AxiosResponse<IResponseServerReviews>>
+     getProductReviewsStatistic(id: number): Promise<AxiosResponse<IResponseServerReviewsStatistic>>;
+
+     /**
+     *  Получение постраинчного спика отзывов о товаре
+     */
+     getProductReviews(id: number, page: number, perPage: number): Promise<AxiosResponse<IResponseServerReviews>>;
 }

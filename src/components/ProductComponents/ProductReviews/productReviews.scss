@@ -56,6 +56,11 @@
     max-width: 688px;
     width: 100%;
 
+    &__paging {
+        display: flex;
+        justify-content: flex-end;
+    }
+
     &__area {
         display: flex;
         flex-direction: column;
@@ -155,6 +160,33 @@
                 line-height: 150%;
                 text-align: justify;
             }
+        }
+    }
+}
+
+
+// Pagint-Styles
+.custom-paging {
+    list-style: none;
+    display: flex;
+    column-gap: 10px;
+
+    li {
+        padding: 6px 8px;
+        background: #FCD5BA;
+        color: #FF6633;
+        border-radius: 5px;
+        transition: .3s all;
+        cursor: pointer;
+
+        &.selected {
+            background: #FF6633;
+            color: #FFFFFF;
+        }
+
+        &.next, &.previous {
+            background: #FF6633;
+            color: #FFFFFF;
         }
     }
 }
