@@ -1,5 +1,4 @@
-import React, {FC, useState} from "react";
-import ReactPaginate from 'react-paginate';
+import React, {FC, useEffect, useRef, useState} from "react";
 
 import CustomButton from "../../UI/CustomButton/CustomButton";
 
@@ -24,23 +23,21 @@ interface IProductReviews {
   reviewsStatistic: IResponseServerReviewsStatistic,
   currentPage: number,
   perPage: number,
-  onChangePage: (value: number) => void,
   changePage: (value: number) => void,
+  isReviewsEndFlag: boolean
 }
 
-const ProductReviews: FC<IProductReviews> = ({ product, reviews, reviewsStatistic, currentPage, perPage, onChangePage, changePage }) => {
+const ProductReviews: FC<IProductReviews> = ({ product, reviews, reviewsStatistic, currentPage, changePage, isReviewsEndFlag, perPage }) => {
   const toggleModal = useModal();
   const user = useSelector<RootState, userInitialState>(state => state.user);
+  
+  const $chatArea = useRef<HTMLDivElement>(null);
 
   const [reviewText, setReviewText] = useState<string>('');
 
   const sendReview = () => {
     if (!reviewText.length) {
       return;
-    }
-
-    if (currentPage !== 1) {
-      changePage(1);
     }
 
     if (!user.isAuth) {
@@ -62,10 +59,24 @@ const ProductReviews: FC<IProductReviews> = ({ product, reviews, reviewsStatisti
     setReviewText('');
   }
 
-  const getReviews = (page: any) => {
-    console.log(page.selected + 1)
-    onChangePage(page.selected + 1)
-  }
+  useEffect(() => {
+    const scrollListner = () => {
+      if ($chatArea.current!.scrollHeight <= 
+        ($chatArea.current!.scrollTop + $chatArea.current!.offsetHeight) 
+        && !isReviewsEndFlag) 
+        {
+        changePage(currentPage + 1);
+      }
+    }
+
+    if ($chatArea !== null && $chatArea.current !== null) {
+      $chatArea.current.addEventListener('scroll', scrollListner)
+    }
+
+    return () => {
+      $chatArea.current?.removeEventListener('scroll', scrollListner)
+    }
+  }, [changePage, currentPage, isReviewsEndFlag])
 
   return (
     <div className="product-page-reviews">
@@ -95,22 +106,11 @@ const ProductReviews: FC<IProductReviews> = ({ product, reviews, reviewsStatisti
           </div>
         </div>
         <div className="reviews-chat">
-          <div className="reviews-chat__area">
+          <div className={`reviews-chat__area ${ reviews.reviewsPage.length >= 5 ? 'reviews-chat__area_overflow-set' : '' }`} ref={$chatArea}>
             {reviews.reviewsPage.map(r => (
               <ReviewItem review={r} key={r.date} />
             ))}
           </div>
-          <div className="reviews-chat__paging">
-              <ReactPaginate
-                  className="custom-paging"
-                  nextLabel=">"
-                  previousLabel="<"
-                  initialPage={currentPage - 1}
-                  pageRangeDisplayed={perPage}
-                  pageCount={Math.ceil(reviewsStatistic.count / perPage)}
-                  onPageChange={getReviews}
-              />
-            </div>
           <div className="reviews-chat__input">
             <ProductReviewStarBoard />
             <textarea

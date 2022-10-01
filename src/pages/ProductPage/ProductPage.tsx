@@ -21,7 +21,7 @@ import Loader from "../../components/LoaderComponents/Loader/Loader";
 import {IResponseServerReviews, IResponseServerReviewsStatistic} from "../../interfaces/ProductService.interface";
 import {socket} from "../../api/socket";
 
-const PERPAGE_REVIEWS = 5
+const PERPAGE_REVIEWS = 10
 
 const ProductPage = () => {
   const location = useLocation();
@@ -35,6 +35,7 @@ const ProductPage = () => {
   const [reviewsStatistic, setReviewsStatistic] = useState<IResponseServerReviewsStatistic | {}>({});
   const [reviewPage, setReviewPage] = useState(1);
   const [isLoadingCurrentProduct, setLoadingCurrentProduct] = useState(true);
+  const [isReviewsEnd, setReviewsEnd] = useState<boolean>(false);
 
   const loadingProduct = async () => {
     const getProduct = async (id: number) => {
@@ -73,7 +74,22 @@ const ProductPage = () => {
 
         if (response.data) {
           const { data } = response
-          setReviews(data);
+          
+          setReviewsEnd(data.reviewsPage.length < PERPAGE_REVIEWS);
+
+          if (Object.keys(reviews).length) {
+            setReviews(prevState => ({
+              ...prevState, 
+              reviewsPage: [ 
+                ...(prevState as IResponseServerReviews).reviewsPage,
+                ...data.reviewsPage, 
+              ]
+            }));
+          } else {
+            setReviews(data)
+          }
+
+          
         } else {
           Notify({
             notificationType: "error",
@@ -142,9 +158,13 @@ const ProductPage = () => {
         reviewsPage: [
           data,
           ...(prevState as IResponseServerReviews).reviewsPage,
-        ],
-        count: (prevState as IResponseServerReviews).reviewsPage.length + 1
+        ]
       })))
+
+      setReviewsStatistic(prevState =>({
+        ...prevState,
+        count: (reviews as IResponseServerReviews).reviewsPage?.length + 1
+      }))
     })
     
     return () => {
@@ -175,8 +195,8 @@ const ProductPage = () => {
                 reviewsStatistic={reviewsStatistic as IResponseServerReviewsStatistic}
                 currentPage={reviewPage}
                 perPage={PERPAGE_REVIEWS}
-                onChangePage={setReviewPage}
                 changePage={setReviewPage}
+                isReviewsEndFlag={isReviewsEnd}
             />
           </div>
           <RenderSection

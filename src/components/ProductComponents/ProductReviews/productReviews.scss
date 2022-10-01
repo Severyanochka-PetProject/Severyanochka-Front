@@ -56,22 +56,33 @@
     max-width: 688px;
     width: 100%;
 
-    &__paging {
-        display: flex;
-        justify-content: flex-end;
-        margin: 10px 0;
-    }
-
     &__area {
         display: flex;
         flex-direction: column;
         row-gap: 40px;
+
+        &.reviews-chat__area_overflow-set {
+            overflow-y: scroll;
+        }
+
+        height: 535px;
+
+        &::-webkit-scrollbar {
+            width: 5px;
+            background-color: #fcd5ba65;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            background-color: #FF6633;
+            border-radius: 15px;
+        }
     }
 
     &__input {
         display: flex;
         flex-direction: column;
         row-gap: 16px;
+        margin-top: 41px;
 
         .chat-input-rating {
             display: flex;
@@ -159,43 +170,7 @@
                 font-size: 1rem;
                 line-height: 150%;
                 text-align: justify;
-            }
-        }
-    }
-}
-
-
-// Pagint-Styles
-.custom-paging {
-    list-style: none;
-    display: flex;
-    column-gap: 10px;
-
-    li {
-
-        a {
-            padding: 7px 9px;
-            background: #FCD5BA;
-            color: #FF6633;
-            border-radius: 5px;
-            transition: .3s all;
-            cursor: pointer;
-            display: block;
-        }
-
-        &.selected {
-
-            a {
-                background: #FF6633;
-                color: #FFFFFF;
-            }
-        }
-
-        &.next, &.previous {
-
-            a {
-                background: #FF6633;
-                color: #FFFFFF;
+                word-break: break-all;
             }
         }
     }
