@@ -18,8 +18,10 @@ import './productPage.scss';
 
 import Notify from '../../components/UI/ToastNotification/ToastNotification';
 import Loader from "../../components/LoaderComponents/Loader/Loader";
-import {IResponseServerReviews} from "../../interfaces/ProductService.interface";
+import {IResponseServerReviews, IResponseServerReviewsStatistic} from "../../interfaces/ProductService.interface";
 import {socket} from "../../api/socket";
+
+const PERPAGE_REVIEWS = 10
 
 const ProductPage = () => {
   const location = useLocation();
@@ -30,7 +32,10 @@ const ProductPage = () => {
 
   const [currentProduct, setCurrentProduct] = useState({});
   const [reviews, setReviews] = useState<IResponseServerReviews | {}>({});
+  const [reviewsStatistic, setReviewsStatistic] = useState<IResponseServerReviewsStatistic | {}>({});
+  const [reviewPage, setReviewPage] = useState(1);
   const [isLoadingCurrentProduct, setLoadingCurrentProduct] = useState(true);
+  const [isReviewsEnd, setReviewsEnd] = useState<boolean>(false);
 
   const loadingProduct = async () => {
     const getProduct = async (id: number) => {
@@ -59,22 +64,59 @@ const ProductPage = () => {
 
   const loadingReviews = async () => {
     const getReviews = async (id: number) => {
-      return await productService.getProductReviews(id);
+      return await productService.getProductReviews(id, reviewPage, PERPAGE_REVIEWS);
     }
 
-    const { id } = queryString.parse(location.search);
+    let { id } = queryString.parse(location.search);
 
     if (id !== null) {
       await getReviews(+id).then(response => {
 
         if (response.data) {
           const { data } = response
+          
+          setReviewsEnd(data.reviewsPage.length < PERPAGE_REVIEWS);
 
-          setReviews(data);
+          if (Object.keys(reviews).length) {
+            setReviews(prevState => ({
+              ...prevState, 
+              reviewsPage: [ 
+                ...(prevState as IResponseServerReviews).reviewsPage,
+                ...data.reviewsPage, 
+              ]
+            }));
+          } else {
+            setReviews(data)
+          }
+
+          
         } else {
           Notify({
             notificationType: "error",
-            text: "Не удалось получить озывы о данном товаре!"
+            text: "Не удалось получить отзывы о данном товаре!"
+          })
+        }
+      })
+    }
+  }
+
+  const loadingReviewsStatistic = async () => {
+    const getReviewsStatistic = async (id: number) => {
+      return await productService.getProductReviewsStatistic(id);
+    }
+
+    const { id } = queryString.parse(location.search);
+
+    if (id !== null) {
+      await getReviewsStatistic(+id).then(response => {
+
+        if (response.data) {
+          const { data } = response
+          setReviewsStatistic(data);
+        } else {
+          Notify({
+            notificationType: "error",
+            text: "Не удалось получить отзывы о данном товаре!"
           })
         }
       })
@@ -82,10 +124,14 @@ const ProductPage = () => {
   }
 
   useEffect(() => {
+    loadingReviews()
+  }, [reviewPage]);
+
+  useEffect(() => {
     setLoadingCurrentProduct(true);
     Promise.all([
-      loadingReviews(),
-      loadingProduct()
+      loadingProduct(),
+      loadingReviewsStatistic(),
     ]).finally(() => {
       setLoadingCurrentProduct(false)
     })
@@ -102,21 +148,25 @@ const ProductPage = () => {
 
     socket.on('REVIEW_NEW_REVIEW', (data) => {
       const { id } = queryString.parse(location.search);
-
-      if (Number(id) !== data.id_food) {
+      
+      if (Number(id) !== data.id_food && reviewPage !== 1) {
         return;
       }
 
       setReviews((prevState => ({
         ...prevState,
-        reviews: [
-          ...(prevState as IResponseServerReviews).reviews,
-          data
-        ],
-        count: (prevState as IResponseServerReviews).reviews.length + 1
+        reviewsPage: [
+          data,
+          ...(prevState as IResponseServerReviews).reviewsPage,
+        ]
       })))
-    })
 
+      setReviewsStatistic(prevState =>({
+        ...prevState,
+        count: (prevState as IResponseServerReviewsStatistic ).count + 1
+      }))
+    })
+    
     return () => {
       socket.off('REVIEW_SUCCESSFULLY_SEND');
       socket.off('REVIEW_ERROR_SEND');
@@ -131,7 +181,10 @@ const ProductPage = () => {
           <Loader />
           :
         <main className="main">
-          <ProductHeader product={currentProduct as Food} reviews={reviews as IResponseServerReviews} />
+          <ProductHeader 
+            product={currentProduct as Food} 
+            reviewsStatistic={reviewsStatistic as IResponseServerReviewsStatistic}
+          />
           <div className="main__body">
             <ProductMain product={currentProduct as Food} />
           </div>
@@ -139,6 +192,11 @@ const ProductPage = () => {
             <ProductReviews
                 product={currentProduct as Food}
                 reviews={reviews as IResponseServerReviews}
+                reviewsStatistic={reviewsStatistic as IResponseServerReviewsStatistic}
+                currentPage={reviewPage}
+                perPage={PERPAGE_REVIEWS}
+                changePage={setReviewPage}
+                isReviewsEndFlag={isReviewsEnd}
             />
           </div>
           <RenderSection
