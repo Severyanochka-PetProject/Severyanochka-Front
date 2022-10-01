@@ -1,7 +1,7 @@
 import api from "../api/axios";
 import { AxiosResponse } from "axios";
 import { Food } from "../domain/Food.domain";
-import {IProductService, IResponseServerReviews} from "../interfaces/ProductService.interface";
+import {IProductService, IResponseServerReviews, IResponseServerReviewsStatistic} from "../interfaces/ProductService.interface";
 
 class ProductService implements IProductService {
 
@@ -13,8 +13,12 @@ class ProductService implements IProductService {
         return await api.get(`/product-apiV1/products?id=${ id }`);
     }
 
-    async getProductReviews(id: number): Promise<AxiosResponse<IResponseServerReviews>> {
-        return await api.get(`/product-apiV1/reviews?id=${ id }`);
+    async getProductReviewsStatistic(id: number): Promise<AxiosResponse<IResponseServerReviewsStatistic>> {
+        return await api.get(`/product-apiV1/reviews/reviews-statistic?id=${ id }`);
+    }
+
+    async getProductReviews(id: number, page: number, perPage: number): Promise<AxiosResponse<IResponseServerReviews>> {
+        return await api.get(`/product-apiV1/reviews?id=${ id }&perPage=${ perPage }&page=${ page }`);
     }
 }
 
