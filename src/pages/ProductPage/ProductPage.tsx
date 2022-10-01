@@ -163,7 +163,7 @@ const ProductPage = () => {
 
       setReviewsStatistic(prevState =>({
         ...prevState,
-        count: (reviews as IResponseServerReviews).reviewsPage?.length + 1
+        count: (prevState as IResponseServerReviewsStatistic ).count + 1
       }))
     })
     

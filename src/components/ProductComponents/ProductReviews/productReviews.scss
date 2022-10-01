@@ -63,6 +63,7 @@
 
         &.reviews-chat__area_overflow-set {
             overflow-y: scroll;
+            padding-right: 15px;
         }
 
         height: 535px;
@@ -170,7 +171,7 @@
                 font-size: 1rem;
                 line-height: 150%;
                 text-align: justify;
-                word-break: break-all;
+                word-break: break-word;
             }
         }
     }

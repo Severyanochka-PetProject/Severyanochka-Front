@@ -1,4 +1,4 @@
-import React, {FC, useEffect, useRef, useState} from "react";
+import React, {FC, useCallback, useEffect, useRef, useState} from "react";
 
 import CustomButton from "../../UI/CustomButton/CustomButton";
 
@@ -35,7 +35,7 @@ const ProductReviews: FC<IProductReviews> = ({ product, reviews, reviewsStatisti
 
   const [reviewText, setReviewText] = useState<string>('');
 
-  const sendReview = () => {
+  const sendReview = useCallback(() => {
     if (!reviewText.length) {
       return;
     }
@@ -57,12 +57,12 @@ const ProductReviews: FC<IProductReviews> = ({ product, reviews, reviewsStatisti
     socket.emit('USER_SEND_REVIEW', reviewForm)
 
     setReviewText('');
-  }
+  }, [product, reviewText, toggleModal, user.isAuth, user.user.id_user])
 
   useEffect(() => {
     const scrollListner = () => {
       if ($chatArea.current!.scrollHeight <= 
-        ($chatArea.current!.scrollTop + $chatArea.current!.offsetHeight) 
+        Math.ceil($chatArea.current!.scrollTop + $chatArea.current!.offsetHeight) 
         && !isReviewsEndFlag) 
         {
         changePage(currentPage + 1);
@@ -106,9 +106,9 @@ const ProductReviews: FC<IProductReviews> = ({ product, reviews, reviewsStatisti
           </div>
         </div>
         <div className="reviews-chat">
-          <div className={`reviews-chat__area ${ reviews.reviewsPage.length >= 5 ? 'reviews-chat__area_overflow-set' : '' }`} ref={$chatArea}>
+          <div className={`reviews-chat__area ${ reviews?.reviewsPage?.length >= 5 ? 'reviews-chat__area_overflow-set' : '' }`} ref={$chatArea}>
             {reviews.reviewsPage.map(r => (
-              <ReviewItem review={r} key={r.date} />
+              <ReviewItem review={r} key={r.id_review} />
             ))}
           </div>
           <div className="reviews-chat__input">
