@@ -149,7 +149,7 @@ const ProductPage = () => {
     socket.on('REVIEW_NEW_REVIEW', (data) => {
       const { id } = queryString.parse(location.search);
       
-      if (Number(id) !== data.id_food && reviewPage !== 1) {
+      if (Number(id) !== data.id_food) {
         return;
       }
 
