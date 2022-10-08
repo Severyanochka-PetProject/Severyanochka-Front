@@ -51,13 +51,14 @@ const ProductReviews: FC<IProductReviews> = ({ product, reviews, reviewsStatisti
       id_user: user.user.id_user,
       id_food: product.id_food,
       product: product,
-      date: Date.now()
+      date: Date.now(),
+      user: user.user
     }
 
     socket.emit('USER_SEND_REVIEW', reviewForm)
 
     setReviewText('');
-  }, [product, reviewText, toggleModal, user.isAuth, user.user.id_user])
+  }, [product, reviewText, toggleModal, user.isAuth, user.user])
 
   useEffect(() => {
     const scrollListner = () => {
@@ -106,8 +107,9 @@ const ProductReviews: FC<IProductReviews> = ({ product, reviews, reviewsStatisti
           </div>
         </div>
         <div className="reviews-chat">
-          <div className={`reviews-chat__area ${ reviews?.reviewsPage?.length >= 5 ? 'reviews-chat__area_overflow-set' : '' }`} ref={$chatArea}>
-            {reviews.reviewsPage.map(r => (
+          <div className={`reviews-chat__area 
+          ${ reviews?.reviewsPage?.length >= 5 ? 'reviews-chat__area_overflow-set' : '' }`} ref={$chatArea}>
+            {reviews?.reviewsPage?.map(r => (
               <ReviewItem review={r} key={r.id_review} />
             ))}
           </div>

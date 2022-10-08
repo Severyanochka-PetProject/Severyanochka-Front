@@ -74,10 +74,10 @@ const ProductPage = () => {
 
         if (response.data) {
           const { data } = response
-          
-          setReviewsEnd(data.reviewsPage.length < PERPAGE_REVIEWS);
 
-          if (Object.keys(reviews).length) {
+          if (Object.keys(reviews).length 
+            && (reviews as IResponseServerReviews).reviewsPage[0]?.id_food === +(id as string)) {
+            setReviewsEnd(data.reviewsPage.length < PERPAGE_REVIEWS);
             setReviews(prevState => ({
               ...prevState, 
               reviewsPage: [ 
@@ -86,6 +86,8 @@ const ProductPage = () => {
               ]
             }));
           } else {
+            setReviewPage(1);
+            setReviewsEnd(false);
             setReviews(data)
           }
 
@@ -124,8 +126,8 @@ const ProductPage = () => {
   }
 
   useEffect(() => {
-    loadingReviews()
-  }, [reviewPage]);
+    loadingReviews();
+  }, [reviewPage, location.search]);
 
   useEffect(() => {
     setLoadingCurrentProduct(true);
