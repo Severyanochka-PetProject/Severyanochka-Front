@@ -30,7 +30,7 @@ const ReviewItem: FC<IReviewItem> = ({ review }) => {
                         fill="#414141"
                     />
                 </svg>
-                <p>Николай</p>
+                <p>{ review.user.first_name } { review.user?.last_name?.slice(0, 1) }.</p>
             </div>
             <div className="review-rating">
                 <div className="review-rating__wrapper">
