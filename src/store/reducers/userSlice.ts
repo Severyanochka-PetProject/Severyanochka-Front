@@ -3,6 +3,7 @@ import { User } from "../../domain/User.domain";
 import { userInitialState} from "../types/user";
 
 const initialState: userInitialState = {
+    isLoadingData: true,
     refresh_token: '',
     user: {
         id_user: 0,
@@ -23,6 +24,9 @@ export const userSlice = createSlice({
     name: 'user',
     initialState,
     reducers: {
+        SET_LOADING_USER_FLAG: (state, action: PayloadAction<boolean>) => {
+            state.isLoadingData = action.payload
+        },
         SET_USER_DATA: (state, action: PayloadAction<User>) => {
             state.user = action.payload
         },
@@ -35,6 +39,6 @@ export const userSlice = createSlice({
     },
   })
 
-  export const { SET_USER_DATA, SET_REFRESH_TOKEN, SET_AUTH_FLAG } = userSlice.actions;
+  export const { SET_USER_DATA, SET_REFRESH_TOKEN, SET_AUTH_FLAG, SET_LOADING_USER_FLAG } = userSlice.actions;
 
   export default userSlice.reducer;

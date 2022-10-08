@@ -33,4 +33,5 @@ export interface userInitialState {
     user: User,
     isAuth: boolean,
     errors: userError,
+    isLoadingData: boolean
 }

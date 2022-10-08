@@ -22,7 +22,8 @@ import {socket} from "../../api/socket";
 
 function App() {
     const user = useSelector<RootState, userInitialState>(state => state.user);
-
+    const isLoadingData = useSelector<RootState, boolean>(state => state.user.isLoadingData);
+    
     useLoginVk();
     useRefresh();
 
@@ -47,11 +48,17 @@ function App() {
 
     return (
         <div className="app">
-            <Header />
-            <ModalWrapper />
-            <AppRouter />
-            <MobileHeader />
-            <Footer />
+            {isLoadingData ?
+                <></>
+                :
+                <>
+                    <Header />
+                    <ModalWrapper />
+                    <AppRouter />
+                    <MobileHeader />
+                    <Footer />
+                </>
+            }
         </div>
     );
 }
