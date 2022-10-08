@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { Filter } from '../../components/Filter/Filter'
 import ProductItem from '../../components/ProductItem/ProductItem'
+import Notify from '../../components/UI/ToastNotification/ToastNotification'
 import { Food } from '../../domain/Food.domain'
 import { RootState } from '../../store/index.js'
 
@@ -10,6 +11,13 @@ import './favoritesPage.scss'
 export const FavoritesPage = () => {
     const products = useSelector<RootState, Food[]>(state => state.products.products);
     
+    useEffect(() => {
+        Notify({
+            notificationType: "info",
+            text: "Данная страница находится в разработке!"
+        })
+    }, [])
+
   return (
     <div className='page favorites-page'>
         <main className='main'>
