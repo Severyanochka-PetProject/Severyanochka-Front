@@ -32,6 +32,10 @@ html {
 .page {
   padding-bottom: 206px;
 
+  .main {
+    margin-top: 24px;
+  }
+
   &_loading {
     height: calc(100vh - 72px - 126px - 80px);
     display: flex;

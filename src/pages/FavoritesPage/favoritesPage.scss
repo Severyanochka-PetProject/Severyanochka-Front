@@ -1,0 +1,23 @@
+.favorites-page {
+
+    &__body {
+        display: flex;
+        column-gap: 40px;
+    }
+
+    .favorites-body {
+
+        &__left {
+            width: 272px;
+            flex-shrink: 0;
+        }
+
+        &__right {
+            width: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            column-gap: 40px;
+            row-gap: 40px;
+        }
+    }
+}

@@ -6,6 +6,7 @@ import CategoriesPage from '../pages/CategoriesPage/CategoriesPage'
 import HomePage from '../pages/HomePage/HomePage'
 import NotFoundPage from '../pages/NotFoundPage/NotFoundPage'
 import ProductPage from '../pages/ProductPage/ProductPage'
+import { FavoritesPage } from '../pages/FavoritesPage/FavoritesPage'
 
 import { PrivateRoute } from './PrivateRoute'
 
@@ -24,6 +25,11 @@ export default function AppRouter() {
             } />
             <Route path="/categories"  element={<CategoriesPage />} />
             <Route path="/basket" element={<BasketPage />} />
+            <Route path="/favorites" element={
+                <PrivateRoute>
+                    <FavoritesPage />
+                </PrivateRoute>
+            }/>
             <Route path="*" element={<Navigate to="/notfound" replace />} />
             <Route path="/notfound" element={<NotFoundPage />} />
           </Routes>

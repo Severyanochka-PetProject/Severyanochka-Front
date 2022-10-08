@@ -1,0 +1,15 @@
+.custom-filter {
+    width: 100%;
+    
+    &__header {
+        background: #F3F2F1;
+        border-radius: 4px;
+        padding: 10px;
+
+        p {
+            color: #414141;
+            font-size: 1rem;
+            font-weight: bold;
+        }
+    }
+}
