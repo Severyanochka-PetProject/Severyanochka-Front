@@ -1,6 +1,9 @@
 .custom-filter {
     width: 100%;
-    
+    row-gap: 40px;
+    display: flex;
+    flex-direction: column;
+
     &__header {
         background: #F3F2F1;
         border-radius: 4px;
@@ -10,6 +13,13 @@
             color: #414141;
             font-size: 1rem;
             font-weight: bold;
+        }
+    }
+
+    &__btn {
+        .custom-button {
+            height: 40px;
+            font-size: 1rem;
         }
     }
 }
