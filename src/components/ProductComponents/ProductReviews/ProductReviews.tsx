@@ -16,6 +16,7 @@ import {userInitialState} from "../../../store/types/user";
 import {SWITCH_AUTH_MODAL} from "../../../store/reducers/modalSlice";
 import useModal from "../../../hooks/useModal";
 import ReviewItem from "./ReviewItem/ReviewItem";
+import {computedAvgRatingStars} from "../../../helper/productRating.helper";
 
 interface IProductReviews {
   product: Food,
@@ -30,7 +31,7 @@ interface IProductReviews {
 const ProductReviews: FC<IProductReviews> = ({ product, reviews, reviewsStatistic, currentPage, changePage, isReviewsEndFlag, perPage }) => {
   const toggleModal = useModal();
   const user = useSelector<RootState, userInitialState>(state => state.user);
-  
+
   const $chatArea = useRef<HTMLDivElement>(null);
 
   const [reviewText, setReviewText] = useState<string>('');
@@ -62,9 +63,9 @@ const ProductReviews: FC<IProductReviews> = ({ product, reviews, reviewsStatisti
 
   useEffect(() => {
     const scrollListner = () => {
-      if ($chatArea.current!.scrollHeight <= 
-        Math.ceil($chatArea.current!.scrollTop + $chatArea.current!.offsetHeight) 
-        && !isReviewsEndFlag) 
+      if ($chatArea.current!.scrollHeight <=
+        Math.ceil($chatArea.current!.scrollTop + $chatArea.current!.offsetHeight)
+        && !isReviewsEndFlag)
         {
         changePage(currentPage + 1);
       }
@@ -89,7 +90,7 @@ const ProductReviews: FC<IProductReviews> = ({ product, reviews, reviewsStatisti
           <div className="reviews-board__top">
             <div className="reviews-board__star-wrapper">
               {[1, 2, 3, 4, 5].map(i => (
-                  <RatingStarImg setActive={ i <= 4} key={i} />
+                  <RatingStarImg setActive={ i <= computedAvgRatingStars(reviewsStatistic.reviewsStatistic)} key={i} />
               ))}
             </div>
             <p className="reviews-board__text reviews-board__text_bold">

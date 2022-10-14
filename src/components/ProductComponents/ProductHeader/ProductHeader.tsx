@@ -3,6 +3,8 @@ import { Food } from "../../../domain/Food.domain";
 
 import "./productHeader.scss";
 import {IResponseServerReviewsStatistic} from "../../../interfaces/ProductService.interface";
+import RatingStarImg from "../../UI/RatingStarImg/RatingStarImg";
+import {computedAvgRatingStars} from "../../../helper/productRating.helper";
 
 interface IProductMain {
   product: Food,
@@ -29,21 +31,9 @@ const ProductHeader: FC<IProductMain> = ({ product, reviewsStatistic, $refReview
         <p className="product-code">арт. { product.vendor_code }</p>
         <div className="product-rating" onClick={scrollToReview}>
           <div className="content-rating">
-            <div className="rating-star">
-              <img src="/images/productItem/star-set.svg" alt="star" />
-            </div>
-            <div className="rating-star">
-              <img src="/images/productItem/star-set.svg" alt="star" />
-            </div>
-            <div className="rating-star">
-              <img src="/images/productItem/star-set.svg" alt="star" />
-            </div>
-            <div className="rating-star">
-              <img src="/images/productItem/star-set.svg" alt="star" />
-            </div>
-            <div className="rating-star">
-              <img src="/images/productItem/star-unset.svg" alt="star" />
-            </div>
+            {[1, 2, 3, 4, 5].map(i => (
+                <RatingStarImg setActive={ i <= computedAvgRatingStars(reviewsStatistic.reviewsStatistic)} key={i} />
+            ))}
           </div>
           <p>{ reviewsStatistic.count } отзыва</p>
         </div>

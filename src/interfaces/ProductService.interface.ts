@@ -2,16 +2,17 @@ import { AxiosResponse } from "axios";
 import { Food } from "../domain/Food.domain";
 import {Review} from "../domain/Review.domain";
 
+export interface IReviewsStatistic {
+    0: number,
+    1: number,
+    2: number,
+    3: number,
+    4: number,
+    5: number,
+}
 export interface IResponseServerReviewsStatistic {
     count: number,
-    reviewsStatistic: {
-        0: number,
-        1: number,
-        2: number,
-        3: number,
-        4: number,
-        5: number,
-    }
+    reviewsStatistic: IReviewsStatistic
 }
 
 export interface IResponseServerReviews {
