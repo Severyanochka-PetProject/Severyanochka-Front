@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, {RefObject, useEffect, useRef, useState} from 'react'
 import { useSelector } from 'react-redux';
 import queryString from "query-string";
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -29,6 +29,8 @@ const ProductPage = () => {
 
   const products = useSelector<RootState, Food[]>(state => state.products.products);
   const isLoading = useSelector<RootState, boolean>(state => state.products.isLoading);
+
+  const $reviewBlock = useRef<HTMLDivElement>(null);
 
   const [currentProduct, setCurrentProduct] = useState({});
   const [reviews, setReviews] = useState<IResponseServerReviews | {}>({});
@@ -75,14 +77,14 @@ const ProductPage = () => {
         if (response.data) {
           const { data } = response
 
-          if (Object.keys(reviews).length 
+          if (Object.keys(reviews).length
             && (reviews as IResponseServerReviews).reviewsPage[0]?.id_food === +(id as string)) {
             setReviewsEnd(data.reviewsPage.length < PERPAGE_REVIEWS);
             setReviews(prevState => ({
-              ...prevState, 
-              reviewsPage: [ 
+              ...prevState,
+              reviewsPage: [
                 ...(prevState as IResponseServerReviews).reviewsPage,
-                ...data.reviewsPage, 
+                ...data.reviewsPage,
               ]
             }));
           } else {
@@ -91,7 +93,7 @@ const ProductPage = () => {
             setReviews(data)
           }
 
-          
+
         } else {
           Notify({
             notificationType: "error",
@@ -150,7 +152,7 @@ const ProductPage = () => {
 
     socket.on('REVIEW_NEW_REVIEW', (data) => {
       const { id } = queryString.parse(location.search);
-      
+
       if (Number(id) !== data.id_food) {
         return;
       }
@@ -168,7 +170,7 @@ const ProductPage = () => {
         count: (prevState as IResponseServerReviewsStatistic ).count + 1
       }))
     })
-    
+
     return () => {
       socket.off('REVIEW_SUCCESSFULLY_SEND');
       socket.off('REVIEW_ERROR_SEND');
@@ -183,14 +185,15 @@ const ProductPage = () => {
           <Loader />
           :
         <main className="main">
-          <ProductHeader 
-            product={currentProduct as Food} 
+          <ProductHeader
+            product={currentProduct as Food}
             reviewsStatistic={reviewsStatistic as IResponseServerReviewsStatistic}
+            $refReviewBlock={$reviewBlock}
           />
           <div className="main__body">
             <ProductMain product={currentProduct as Food} />
           </div>
-          <div className="main__reviews">
+          <div className="main__reviews" ref={$reviewBlock}>
             <ProductReviews
                 product={currentProduct as Food}
                 reviews={reviews as IResponseServerReviews}

@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, {FC, RefObject, useRef} from "react";
 import { Food } from "../../../domain/Food.domain";
 
 import "./productHeader.scss";
@@ -6,10 +6,19 @@ import {IResponseServerReviewsStatistic} from "../../../interfaces/ProductServic
 
 interface IProductMain {
   product: Food,
-  reviewsStatistic: IResponseServerReviewsStatistic
+  reviewsStatistic: IResponseServerReviewsStatistic,
+  $refReviewBlock: RefObject<HTMLDivElement | null>
 }
 
-const ProductHeader: FC<IProductMain> = ({ product, reviewsStatistic }) => {
+const ProductHeader: FC<IProductMain> = ({ product, reviewsStatistic, $refReviewBlock }) => {
+
+  const scrollToReview = () => {
+    if ($refReviewBlock.current) {
+      $refReviewBlock.current.scrollIntoView({
+        behavior: "smooth"
+      })
+    }
+  }
 
   return (
     <div className="product-page-header">
@@ -18,7 +27,7 @@ const ProductHeader: FC<IProductMain> = ({ product, reviewsStatistic }) => {
       </p>
       <div className="product-page-header__bottom">
         <p className="product-code">арт. { product.vendor_code }</p>
-        <div className="product-rating">
+        <div className="product-rating" onClick={scrollToReview}>
           <div className="content-rating">
             <div className="rating-star">
               <img src="/images/productItem/star-set.svg" alt="star" />

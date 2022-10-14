@@ -24,6 +24,7 @@
         .product-rating {
             display: flex;
             align-items: center;
+            cursor: pointer;
 
             .content-rating {
                 display: flex;
@@ -34,7 +35,6 @@
                 font-size: 0.875rem;
                 margin-left: 8px;
                 text-decoration: underline;
-                cursor: pointer;
             }
         }
 
