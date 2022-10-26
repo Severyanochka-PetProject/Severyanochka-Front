@@ -108,12 +108,14 @@ const ProductReviews: FC<IProductReviews> = ({ product, reviews, reviewsStatisti
           </div>
         </div>
         <div className="reviews-chat">
-          <div className={`reviews-chat__area 
-          ${ reviews?.reviewsPage?.length >= 5 ? 'reviews-chat__area_overflow-set' : '' }`} ref={$chatArea}>
-            {reviews?.reviewsPage?.map(r => (
-              <ReviewItem review={r} key={r.id_review} />
-            ))}
-          </div>
+          {!!reviews.reviewsPage?.length &&
+            <div className={`reviews-chat__area 
+            ${reviews?.reviewsPage?.length >= 5 ? 'reviews-chat__area_overflow-set' : '' }`} ref={$chatArea}>
+              {reviews?.reviewsPage?.map(r => (
+                  <ReviewItem review={r} key={r.id_review} />
+              ))}
+            </div>
+          }
           <div className="reviews-chat__input">
             <ProductReviewStarBoard />
             <textarea

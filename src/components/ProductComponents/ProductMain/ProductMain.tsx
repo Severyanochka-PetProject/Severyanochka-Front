@@ -7,7 +7,7 @@ import CustomButton from '../../UI/CustomButton/CustomButton'
 
 import './productMain.scss'
 
-import {useDispatch, useSelector} from "react-redux";
+import {useSelector} from "react-redux";
 import {RootState} from "../../../store/index.js";
 import useAddToBasket from "../../../hooks/useAddToBasket";
 import {basketInitialState} from "../../../store/types/basket";
@@ -28,8 +28,8 @@ const ProductMain: FC<IProductMain> = React.memo(({ product, ...props }) => {
   return (
     <div className="product-page-main">
         <div className="product-page-main__banner">
-            {(product.discount && product.discount !== 0) &&
-                <p className="banner-text">-{ computedDiscountPercent(product.price, product.discount) }%</p>
+            {(product.discount && Number(product.discount) !== 0) &&
+                <p className="banner-text">-{  computedDiscountPercent(product.price, product.discount) }%</p>
             }
             <div className="banner-image">
                 <img src={product.url} alt="" />
@@ -43,7 +43,7 @@ const ProductMain: FC<IProductMain> = React.memo(({ product, ...props }) => {
                 </div>
                 <div className="info-price__right">
                     <p className="info-price__value info-price__value_bold">
-                        { product.discount ?  product.price - product.discount : '-'} ₽
+                        { product.discount && Number(product.discount) !== 0 ?  product.price - product.discount : '-'} ₽
                     </p>
                     <small>С картой Северяночки</small>
                 </div>

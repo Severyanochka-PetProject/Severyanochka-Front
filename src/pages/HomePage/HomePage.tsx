@@ -32,8 +32,8 @@ const HomePage = React.memo(() => {
                             <ProductLoader key={key} />
                         ))
                     :
-                        products.map((item, index) => (
-                            <ProductItem key={index} product={item} />
+                        totalRenderItems.map(index => (
+                            <ProductItem key={index} product={products[index || 0]} />
                         ))
                     }
                 </RenderSection>
