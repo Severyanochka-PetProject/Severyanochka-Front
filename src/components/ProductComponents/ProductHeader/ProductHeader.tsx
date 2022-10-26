@@ -1,4 +1,4 @@
-import React, {FC, RefObject, useRef} from "react";
+import React, {FC, RefObject} from "react";
 import { Food } from "../../../domain/Food.domain";
 
 import "./productHeader.scss";

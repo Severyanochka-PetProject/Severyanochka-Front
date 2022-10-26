@@ -215,8 +215,8 @@ const ProductPage = () => {
                   <ProductLoader key={key} />
               ))
             :
-              products.map((item, index) => (
-                <ProductItem key={index} product={item} />
+                [1, 2, 3, 4].map( index => (
+                <ProductItem key={index} product={products[index]} />
               ))
           }
           </RenderSection>
