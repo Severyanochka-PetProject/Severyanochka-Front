@@ -10,12 +10,12 @@ export interface AuthServiceInterface {
      * Авторизация через сайт
     */
     login(payload: ILoginPayload): Promise<AxiosResponse>;
-    
+
     /**
-     * Авторизация через VK 
+     * Авторизация через VK
      */
     loginVk(
-        access_token: string, 
+        access_token: string,
         vk_user_id: number,
         email: string,
         phone_number?: string
@@ -27,7 +27,7 @@ export interface AuthServiceInterface {
     me(): Promise<AxiosResponse>;
 
     refresh(): Promise<AxiosResponse>;
-    
+
     /**
      * Получение данных пользователя из VK
      */

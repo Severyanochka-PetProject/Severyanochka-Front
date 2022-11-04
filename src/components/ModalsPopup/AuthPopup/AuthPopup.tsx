@@ -13,12 +13,8 @@ import useModal from "../../../hooks/useModal";
 
 import { isValidPhoneNumber, isValidPassword } from '../../../validators/validator';
 import { SWITCH_AUTH_MODAL, SWITCH_REG_MODAL } from '../../../store/reducers/modalSlice';
-import AuthService from "../../../services/authService";
-import BasketService from "../../../services/basketService";
-import {SET_AUTH_FLAG, SET_USER_DATA} from "../../../store/reducers/userSlice";
-import basketService from "../../../services/basketService";
-import Notify from "../../UI/ToastNotification/ToastNotification";
 
+import {loginHandler} from "./AuthPopup.handler";
 
 const AuthPopup: FC = React.memo(() => {
     const [authStage, toggleStage] = useState(1);
@@ -57,39 +53,17 @@ const AuthPopup: FC = React.memo(() => {
             return
         }
 
-        setErrors({
-            status: false,
-            message: ""
-        })
-
-        setLoading(true);
-
-        try {
-            const { data } = await AuthService.login({
+        const payload = {setErrors,
+            setLoading,
+            dispatch,
+            toggleModal,
+            payload: {
                 phone_number,
                 password
-            })
-
-            localStorage.setItem('access', data)
-
-            const response = await AuthService.me()
-
-            dispatch(SET_USER_DATA(response.data));
-            dispatch(SET_AUTH_FLAG(true));
-
-            const status = await basketService.addRangProductsFromLocalStorageToUserBasket(response.data.id_user);
-
-            toggleModal(SWITCH_AUTH_MODAL, false, false);
-        } catch (error: any) {
-
-            setErrors({
-                status: true,
-                message: error.response.data.error
-            })
-
-        } finally {
-            setLoading(false);
+            }
         }
+
+        await loginHandler(payload);
     }, [dispatch, isValidUserPassword, isValidUserPhone, password, phone_number, toggleModal])
 
     const openRegistrationPopup = useCallback(() => {
