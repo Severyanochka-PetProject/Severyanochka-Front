@@ -67,7 +67,7 @@ const SelectItem : FC<ISelectItem> = ({ index, basketProduct }) => {
                 <p className="select-item__name" onClick={goToProduct}>{ basketProduct.product.name }</p>
                 <small>
                     <span>{ basketProduct.product.price } ₽</span> за шт.
-                    {basketProduct.product.discount &&
+                    {Number(basketProduct.product.discount) &&
                         <div className="select-item__discount">- { computedDiscountPercent(basketProduct.product.price, basketProduct.product.discount) }%</div>
                     }
                 </small>
@@ -91,7 +91,7 @@ const SelectItem : FC<ISelectItem> = ({ index, basketProduct }) => {
                 </div>
                 <div className="select-item__price">
                     <p>{ (basketProduct.product.price - (basketProduct.product.discount || 0)).toFixed(2) } ₽</p>
-                    {basketProduct.product.discount &&
+                    {!!Number(basketProduct.product.discount) &&
                         <small><s>{ basketProduct.product.price } ₽</s></small>
                     }
                 </div>

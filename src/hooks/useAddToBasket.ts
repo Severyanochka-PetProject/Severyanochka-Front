@@ -5,6 +5,7 @@ import {basketInitialState} from "../store/types/basket";
 import {BasketProduct} from "../domain/Basket.domain";
 import {userInitialState} from "../store/types/user";
 import {addProductToBasket, removeProductFromBasket} from "../store/actions/basket.action";
+import {ADD_SELECT_PRODUCTS} from "../store/reducers/basketSlice";
 
 export default function useAddToBasket() {
     const user = useSelector<RootState, userInitialState>(state => state.user);
@@ -28,5 +29,7 @@ export default function useAddToBasket() {
 
             dispatch(addProductToBasket(basketProduct));
         }
+
+        dispatch(ADD_SELECT_PRODUCTS(product.id_food));
     }
 }

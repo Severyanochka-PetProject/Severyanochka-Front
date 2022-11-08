@@ -109,7 +109,7 @@ const BasketPage : FC = () => {
                   </div>
                   <div className="check-item bonus-item">
                     <p className="basket-page__text">Скидка</p>
-                    <p className="basket-page__text basket-page__text_black">-{ basketTotalDiscount().toFixed(2) } ₽</p>
+                    <p className="basket-page__text basket-page__text_black">{ basketTotalDiscount().toFixed(2) } ₽</p>
                   </div>
                 </div>
                 <span className="basket-page__line"/>
