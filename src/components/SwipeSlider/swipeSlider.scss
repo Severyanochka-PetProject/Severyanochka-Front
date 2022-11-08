@@ -28,16 +28,16 @@
   }
 }
 
-@media screen and (max-width: $w-1260) {
-  .swipe-slider .swiper-slide.slide.slide_2 {
-    position: relative;
-    overflow: hidden;
-
-    img {
-      position: absolute;
-      width: max-content;
-      left: 50%;
-      transform: translateX(-50%);
-    }
-  }
-}
+//@media screen and (max-width: $w-1260) {
+//  .swipe-slider .swiper-slide.slide.slide_2 {
+//    position: relative;
+//    overflow: hidden;
+//
+//    img {
+//      position: absolute;
+//      width: max-content;
+//      left: 50%;
+//      transform: translateX(-50%);
+//    }
+//  }
+//}

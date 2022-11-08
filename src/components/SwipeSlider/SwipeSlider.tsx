@@ -19,7 +19,7 @@ const SwipeSlider = () => {
                     <img src={banner1} alt=""/>
                 </SwiperSlide>
                 <SwiperSlide className="slide slide_2">
-                    <img src={banner2} alt=""/>
+                    <img src={banner1} alt=""/>
                 </SwiperSlide>
             </Swiper>
         </div>
