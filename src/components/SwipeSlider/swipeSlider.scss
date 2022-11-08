@@ -1,0 +1,43 @@
+@import "../../scss/variables.scss";
+
+.swipe-slider {
+  width: 100%;
+  height: 200px;
+
+  .swiper {
+    height: 100%;
+  }
+
+  .swiper-wrapper {
+    height: 100%;
+  }
+
+  .swiper-slide {
+    height: 100%;
+    background-color: #FFFFFF;
+    position: relative;
+
+    &.slide {
+      background: url('../../images/banner/banner_bg.svg');
+
+      img {
+        height: 100%;
+        width: 100%;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: $w-1260) {
+  .swipe-slider .swiper-slide.slide.slide_2 {
+    position: relative;
+    overflow: hidden;
+
+    img {
+      position: absolute;
+      width: max-content;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+  }
+}

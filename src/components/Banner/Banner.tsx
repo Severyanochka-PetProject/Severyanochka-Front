@@ -5,7 +5,7 @@ import './banner.scss';
 function Banner () {
     return(
         <div className="banner">
-            <img src="/images/banner/banner1.svg" alt=""/>
+            {/*<img src="/images/banner/banner1.svg" alt=""/>*/}
         </div>
     )
 }

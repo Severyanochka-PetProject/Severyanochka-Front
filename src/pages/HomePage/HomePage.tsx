@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 import './homePage.scss';
 
-import Banner from "../../components/Banner/Banner";
+import SwipeSlider from "../../components/SwipeSlider/SwipeSlider";
 import ProductItem from "../../components/ProductItem/ProductItem";
 import SpecialOfferItem from "../../components/SpecialOfferItem/SpecialOfferItem";
 import LocationMap from "../../components/LocationMap/LocationMap";
@@ -23,7 +23,7 @@ const HomePage = React.memo(() => {
 
     return (
         <div className="page page_home">
-            <Banner />
+            <SwipeSlider />
             <main className="main">
                 <RenderSection sectionTitle="Акции" sectionLink="#" sectionClass="product-section" sectionLinkText="Все акции">
                     {isLoading
