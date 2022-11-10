@@ -6,7 +6,6 @@ import 'swiper/css';
 import './swipeSlider.scss';
 
 import banner1 from '../../images/banner/banner1.svg';
-import banner2 from '../../images/banner/slide2.png';
 
 const SwipeSlider = () => {
     return (

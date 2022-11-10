@@ -9,6 +9,20 @@
   position: relative;
   z-index: 10;
 
+  .list-layout {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: block;
+    //background: red;
+
+    &.list-layout__hidden {
+      display: none;
+    }
+  }
+
   &-wrapper {
     display: flex;
     align-items: center;

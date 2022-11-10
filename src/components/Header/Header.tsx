@@ -1,4 +1,4 @@
-import React, {FC, useCallback, useEffect, useMemo, useState} from "react";
+import React, {FC, useEffect, useState} from "react";
 import { Link } from "react-router-dom";
 
 import './header.scss';
@@ -24,6 +24,25 @@ const Header: FC = () => {
             window.removeEventListener('resize', resizeListener);
         }
     }, [])
+
+    useEffect(() => {
+        const $layout = document.querySelector('.list-layout')!;
+        if (isOpenCatalogList) {
+
+            $layout.addEventListener('click', autoCloseList);
+        }
+
+        return () => {
+            $layout.removeEventListener('click', autoCloseList)
+        }
+    }, [isOpenCatalogList])
+
+    const autoCloseList = (event: Event) => {
+        const target = event.target as HTMLDivElement;
+        if (target.classList.contains("list-layout")) {
+            toggleCatalogList(false);
+        }
+    }
 
     const renderLogo = () => {
         return <>
@@ -54,7 +73,8 @@ const Header: FC = () => {
                     <HeaderControllers />
                     <HeaderProfileBlock />
                 </div>
-            <CatalogList isOpen={isOpenCatalogList} />
+            <CatalogList isOpen={isOpenCatalogList} toggleOpenList={toggleCatalogList} />
+            <span className={`list-layout ${ !isOpenCatalogList ? 'list-layout__hidden' : '' }`} />
         </header>
     )
 };

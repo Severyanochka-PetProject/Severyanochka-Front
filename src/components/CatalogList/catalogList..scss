@@ -38,6 +38,7 @@
       font-family: "Rubik-SemiBold", sans-serif;
       text-decoration: none;
       transition: .3s all;
+      cursor: pointer;
 
       &:not(:first-child) {
         margin-top: 24px;
